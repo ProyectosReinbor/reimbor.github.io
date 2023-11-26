@@ -8,9 +8,9 @@ export default class {
     window.addEventListener('load', () => this.iniciar());
   }
   iniciar() {
-    const relacion = 720 / 1280;
-    this.anchoLienzo = window.innerWidth;
-    this.altoLienzo = this.anchoLienzo * relacion;
+    const relacion = 1280 / 720;
+    this.altoLienzo = window.innerHeight;
+    this.anchoLienzo = this.altoLienzo * relacion;
     console.log(this.anchoLienzo, this.altoLienzo);
     this.lienzo = document.getElementById('lienzo');
     this.lienzo.width = this.anchoLienzo;
