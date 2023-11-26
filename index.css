@@ -1,0 +1,32 @@
+#lienzo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+}
+
+#controles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#controlesMandoFondo {
+  position: absolute;
+  top: 65vh;
+  left: 5vw;
+  width: 30vw;
+  height: 30vh;
+}
+
+#controlesMandoFlechas {
+  position: absolute;
+  top: 72.5vh;
+  left: 12.5vw;
+  width: 15vw;
+  height: 15vh;
+}
