@@ -1,2 +1,2 @@
-import Motor from "./clases/motor.js";
-new Motor();
+import Objetos from "./clases/objetos.js";
+new Objetos();
