@@ -1,18 +1,15 @@
 import Transformar from "./transformar.js";
-export default class {
+export default class extends Transformar {
   constructor(
     motor,
+    x,
+    y,
+    ancho,
+    alto,
     src,
-    xImagen = 0,
-    yImagen = 0,
-    anchoImagen = 0,
-    altoImagen = 0,
   ) {
-    this.motor = motor;
+    super(motor, x, y, ancho, alto);
     this.src = src;
-    this.lienzo = new Transformar(
-      xImagen, yImagen, anchoImagen, altoImagen
-    );
     this.puedeDibujar = false;
     this.imagen = new Image();
     this.imagen.addEventListener("load", () => this.cargoImagen());
@@ -24,12 +21,7 @@ export default class {
   dibujar() {
     if (this.puedeDibujar == false) return;
     this.motor.contexto.imageSmoothingEnabled = false;
-    this.motor.contexto.drawImage(
-      this.imagen,
-      this.lienzo.x,
-      this.lienzo.y,
-      this.lienzo.ancho,
-      this.lienzo.alto,
-    );
+    const { x, y, ancho, alto } = this.pixeles();
+    this.motor.contexto.drawImage(this.imagen, x, y, ancho, alto);
   }
 }

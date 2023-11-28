@@ -1,3 +1,4 @@
+import Porcentajes from './porcentajes.js';
 export default class {
   constructor(objetos) {
     this.objetos = objetos;
@@ -6,33 +7,29 @@ export default class {
     this.tiempoEntreCuadro = 1000 / this.fps;
     this.ultimoTiempoEntreCuadro = 0;
     window.addEventListener('load', () => this.iniciar());
+    window.addEventListener('click', (evento) => {
+      evento.preventDefault();
+      if (!window.document.fullscreenElement) {
+        window.document.documentElement.requestFullscreen();
+      }
+    });
+    window.addEventListener('resize', () => {
+      this.aspecto();
+    });
   }
-  iniciar() {
-    const relacion = 1280 / 720;
+  aspecto() {
+    this.anchoLienzo = window.innerWidth;
     this.altoLienzo = window.innerHeight;
-    this.anchoLienzo = this.altoLienzo * relacion;
-    console.log(this.anchoLienzo, this.altoLienzo);
-    this.lienzo = document.getElementById('lienzo');
     this.lienzo.width = this.anchoLienzo;
     this.lienzo.height = this.altoLienzo;
+    this.porcentajes = new Porcentajes(this);
+  }
+  iniciar() {
+    this.lienzo = document.getElementById('lienzo');
     this.contexto = this.lienzo.getContext('2d');
-    this.lienzo.addEventListener('mousemove', (evento) => {
-      const dividirAncho = this.anchoLienzo / 100;
-      const dividirAlto = this.altoLienzo / 100;
-      const x = evento.layerX / dividirAncho;
-      const y = evento.layerY / dividirAlto;
-      console.log(x, y);
-    });
+    this.aspecto();
     this.objetos.iniciar();
     requestAnimationFrame((tiempo) => this.dibujar(tiempo));
-  }
-  porcentajeAncho(multiplicador) {
-    const multiplicando = this.anchoLienzo / 100;
-    return multiplicando * multiplicador;
-  }
-  porcentajeAlto(multiplicador) {
-    const multiplicando = this.altoLienzo / 100;
-    return multiplicando * multiplicador;
   }
   dibujar(tiempo) {
     const tiempoEntreCuadro = tiempo - this.ultimoTiempo;

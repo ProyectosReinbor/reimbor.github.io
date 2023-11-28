@@ -12,6 +12,6 @@ export default {
     "ataqueArriba": { indice: 8, objetos: 4 },
     "muerteDerecha": { indice: 9, objetos: 3 },
   },
-  objetosHorizontal: 6,
-  objetosVertical: 10,
+  horizontal: 6,
+  vertical: 10,
 }

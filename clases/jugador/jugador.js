@@ -1,25 +1,25 @@
 import datos from "./datos.js";
-import Controlador from "./controlador.js";
-import Animaciones from "../motor/animaciones.js";
+import Animaciones from "../basicos/animaciones.js";
+import Mando from "./mando.js";
 export default class {
   constructor(motor) {
     this.motor = motor;
     this.animaciones = new Animaciones(
       this.motor,
+      0,
+      0,
+      20,
+      20,
       datos.src,
-      0,
-      0,
-      this.motor.porcentajeAncho(20),
-      this.motor.porcentajeAlto(20),
-      datos.objetosHorizontal,
-      datos.objetosVertical,
+      datos.horizontal,
+      datos.vertical,
       datos.animaciones,
     );
-    this.controlador = new Controlador(this.motor);
+    this.mando = new Mando(this.motor);
   }
   dibujar() {
     this.animaciones.reproducir("quietoAbajo");
     this.animaciones.dibujar();
-    this.controlador.dibujar();
+    this.mando.dibujar();
   }
 }

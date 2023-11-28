@@ -11,3 +11,11 @@ body {
   margin: auto;
   background-color: #000;
 }
+
+#consola {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  font-size: 10vh;
+}
