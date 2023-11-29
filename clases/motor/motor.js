@@ -7,8 +7,7 @@ export default class {
     this.tiempoEntreCuadro = 1000 / this.fps;
     this.ultimoTiempoEntreCuadro = 0;
     window.addEventListener('load', () => this.iniciar());
-    window.addEventListener('click', (evento) => {
-      evento.preventDefault();
+    window.addEventListener('touchstart', (evento) => {
       if (!window.document.fullscreenElement) {
         window.document.documentElement.requestFullscreen();
       }
@@ -18,9 +17,10 @@ export default class {
     });
   }
   aspecto() {
-    this.anchoLienzo = window.innerWidth;
+    const relacion = 1280 / 720;
     this.altoLienzo = window.innerHeight;
-    this.lienzo.width = this.anchoLienzo;
+    this.anchoLienzo = this.altoLienzo * relacion;
+    this.lienzo.width = window.innerWidth;
     this.lienzo.height = this.altoLienzo;
     this.porcentajes = new Porcentajes(this);
   }

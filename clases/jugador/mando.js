@@ -8,9 +8,10 @@ export default class {
       "imagenes/mando/fondo.png",
     );
     this.mandoFlechas = new Imagen(
-      this.motor, 12.5, 72.5, 15, 15,
+      this.motor, 0, 0, 15, 15,
       "imagenes/mando/flechas.png",
     );
+    this.quieto();
     this.mandoArriba = new Transformar(this.motor, 5, 65, 30, 8);
     this.mandoAbajo = new Transformar(this.motor, 5, 87, 30, 8);
     this.mandoIzquierda = new Transformar(this.motor, 5, 65, 8, 30);
@@ -21,7 +22,6 @@ export default class {
     this.motor.lienzo.addEventListener('touchend', (evento) => this.quieto(evento));
   }
   moverse(evento) {
-    evento.preventDefault();
     this.arriba = false;
     this.abajo = false;
     this.izquierda = false;
@@ -31,19 +31,20 @@ export default class {
       const y = this.motor.porcentajes.alto(touch.pageY, false);
       if (this.mandoFondo.adentro(x, y) == false) continue;
       if (this.mandoArriba.adentro(x, y)) this.arriba = true;
-      if (this.mandoAbajo.adentro(x, y)) this.abajo = true;
+      else if (this.mandoAbajo.adentro(x, y)) this.abajo = true;
       if (this.mandoIzquierda.adentro(x, y)) this.izquierda = true;
-      if (this.mandoDerecha.adentro(x, y)) this.derecha = true;
+      else if (this.mandoDerecha.adentro(x, y)) this.derecha = true;
+      this.mandoFlechas.x = x - (this.mandoFlechas.ancho / 2);
+      this.mandoFlechas.y = y - (this.mandoFlechas.alto / 2);
     }
-    console.log(
-      this.arriba,
-      this.abajo,
-      this.izquierda,
-      this.derecha,
-    );
   }
   quieto() {
-
+    this.arriba = false;
+    this.abajo = false;
+    this.izquierda = false;
+    this.derecha = false;
+    this.mandoFlechas.x = this.mandoFondo.x + (this.mandoFlechas.ancho / 2);
+    this.mandoFlechas.y = this.mandoFondo.y + (this.mandoFlechas.alto / 2);
   }
   dibujar() {
     this.mandoFondo.dibujar();
