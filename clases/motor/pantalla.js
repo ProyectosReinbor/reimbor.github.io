@@ -1,13 +1,18 @@
 export default class {
     constructor(motor) {
         this.motor = motor;
-        this.motor.lienzo.addEventListener('touchstart', (evento) => this.touchstart());
+        this.boton = document.getElementById("pantallaCompleta");
+        this.boton.addEventListener('click', () => this.click());
     }
-    touchstart(evento) {
-        if (this.motor.lienzo.requestFullscreen) {
-            this.motor.lienzo.requestFullscreen()
-                .then((e) => console.log(e))
-                .catch((e) => console.log(e));
+    click() {
+        if (document.fullscreenElement) {
+            this.boton.src = "imagenes/pantalla/abrir.svg";
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        } else if (document.documentElement.requestFullscreen) {
+            this.boton.src = "imagenes/pantalla/salir.svg";
+            document.documentElement.requestFullscreen();
         }
     }
 }

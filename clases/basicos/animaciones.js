@@ -9,36 +9,32 @@ export default class extends ObjetosImagen {
     src,
     horizontal,
     vertical,
-    animaciones, // { nombreAnimacion:{indice:0, objetos:0}, }
   ) {
     super(motor, x, y, ancho, alto, src, horizontal, vertical);
-    this.animaciones = animaciones;
-    this.nombreAnimacion = false;
+    this.animacion = false;
     this.contadorTiempo = 0;
   }
-  reproducir(nombreAnimacion) {
+  reproducir(animacion) {
     if (this.puedeDibujar == false) return;
-    if (this.nombreAnimacion == nombreAnimacion) return;
+    if (this.animacion == animacion) return;
+    this.animacion = animacion;
     this.objetos.indice = 0;
-    this.nombreAnimacion = nombreAnimacion;
-    const animacion = this.animaciones[this.nombreAnimacion];
-    this.objetos.y = animacion.indice * this.objetos.alto;
-    this.tiempoEntreObjetos = 1000 / animacion.objetos;
+    this.objetos.y = this.animacion.indice * this.objetos.alto;
+    this.tiempoEntreObjetos = 1000 / this.animacion.objetos;
   }
   siguienteCuadro() {
     if (this.puedeDibujar == false) return;
-    if (this.nombreAnimacion == false) return;
+    if (this.animacion == false) return;
     this.contadorTiempo += this.motor.ultimoTiempoEntreCuadro;
     if (this.contadorTiempo < this.tiempoEntreObjetos) return;
     this.contadorTiempo = 0;
     this.objetos.indice++;
-    const animacion = this.animaciones[this.nombreAnimacion];
-    if (this.objetos.indice >= animacion.objetos) this.objetos.indice = 0;
+    if (this.objetos.indice >= this.animacion.objetos) this.objetos.indice = 0;
     this.objetos.x = this.objetos.indice * this.objetos.ancho;
   }
   dibujar() {
     if (this.puedeDibujar == false) return;
-    if (this.nombreAnimacion == false) return;
+    if (this.animacion == false) return;
     this.siguienteCuadro();
     this.dibujarObjeto();
   }

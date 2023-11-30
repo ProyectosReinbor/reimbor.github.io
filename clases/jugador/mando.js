@@ -2,8 +2,9 @@ import Imagen from "../basicos/imagen.js";
 import Cuadro from "../basicos/cuadro.js";
 import Transformar from "../basicos/transformar.js";
 export default class {
-  constructor(motor) {
+  constructor(motor, estados) {
     this.motor = motor;
+    this.estados = estados;
     this.mandoFondo = new Imagen(
       this.motor, 8, 63, 30, 30,
       "imagenes/mando/fondo.png",
@@ -54,6 +55,7 @@ export default class {
     if (moviendose == false) this.quieto();
   }
   quieto() {
+    this.estados.accion = this.estados.acciones.QUIETO;
     this.puedeMoverse = false;
     this.moverseX = 0;
     this.moverseY = 0;
