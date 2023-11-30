@@ -1,17 +1,13 @@
 import Porcentajes from './porcentajes.js';
+import Pantalla from './pantalla.js';
 export default class {
   constructor(objetos) {
     this.objetos = objetos;
     this.ultimoTiempo = 0;
-    this.fps = 10;
+    this.fps = 30;
     this.tiempoEntreCuadro = 1000 / this.fps;
     this.ultimoTiempoEntreCuadro = 0;
     window.addEventListener('load', () => this.iniciar());
-    window.addEventListener('touchstart', (evento) => {
-      if (!window.document.fullscreenElement) {
-        window.document.documentElement.requestFullscreen();
-      }
-    });
     window.addEventListener('resize', () => {
       this.aspecto();
     });
@@ -27,6 +23,7 @@ export default class {
   iniciar() {
     this.lienzo = document.getElementById('lienzo');
     this.contexto = this.lienzo.getContext('2d');
+    this.pantalla = new Pantalla(this);
     this.aspecto();
     this.objetos.iniciar();
     requestAnimationFrame((tiempo) => this.dibujar(tiempo));
@@ -39,7 +36,7 @@ export default class {
     }
     this.ultimoTiempoEntreCuadro = tiempoEntreCuadro;
     this.ultimoTiempo = tiempo;
-    this.contexto.clearRect(0, 0, this.anchoLienzo, this.altoLienzo);
+    this.contexto.clearRect(0, 0, this.lienzo.width, this.lienzo.height);
     this.objetos.dibujar();
     requestAnimationFrame((tiempo) => this.dibujar(tiempo));
   }
