@@ -1,5 +1,5 @@
 import {Motor} from './motor.js'
-export default class {
+export class Porcentajes {
     motor:Motor
     anchoLienzo:number
     altoLienzo:number
