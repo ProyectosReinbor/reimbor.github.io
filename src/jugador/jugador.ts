@@ -1,36 +1,38 @@
-import {Animaciones} from "../basicos/animaciones.js";
-import {Mando} from "./mando.js";
-import {Estados} from './estados.js';
+import { Motor } from '../motor/motor.js'
+import { Transformar } from "../basicos/transformar.js"
+import { Estados } from "./estados.js"
+import { Mando } from "./mando.js"
+import { Moverse } from "./moverse.js"
+import { Animaciones } from '../basicos/animaciones.js'
 export class Jugador {
-  constructor(motor) {
-    this.motor = motor;
-    this.estados = new Estados();
-    this.animaciones = new Animaciones(
+  motor: Motor
+  estados: Estados
+  mando: Mando
+  moverse: Moverse
+  animaciones: Animaciones
+  constructor(motor: Motor) {
+    this.motor = motor
+    this.estados = new Estados(
       this.motor,
-      0,
-      0,
-      20,
-      20,
+      new Transformar(motor, 0, 0, 20, 20),
+      3
+    )
+    this.mando = new Mando(this.motor, this.estados)
+    this.moverse = new Moverse(this.motor, this.estados)
+    this.animaciones = new Animaciones(
+      motor,
       this.estados.animaciones.SRC,
       this.estados.animaciones.HORIZONTAL,
-      this.estados.animaciones.VERTICAL,
-    );
-    this.mando = new Mando(this.motor, this.estados);
-    this.velocidad = 10;
+      this.estados.animaciones.VERTICAL
+    )
   }
-  moverse() {
-    const segundos = this.motor.ultimoTiempoEntreCuadro / 1000;
-    const velocidad = this.velocidad * segundos;
-    const distanciaX = velocidad * this.mando.moverseX;
-    const distanciaY = velocidad * this.mando.moverseY;
-    if (this.mando.moverseX == -1) this.animacion = ""
-    this.animaciones.x += distanciaX;
-    this.animaciones.y += distanciaY;
-  }
-  dibujar() {
-    this.animaciones.reproducir(this.estados.animacion);
-    this.animaciones.dibujar();
-    this.mando.dibujar();
-    this.moverse();
+  actualizar() {
+    this.mando.actualizar()
+    this.moverse.actualizar()
+    const indice = this.estados.animaciones.INDICE
+    const objetos = this.estados.animaciones.OBJETOS[indice]
+    this.animaciones.reproducir(indice, objetos)
+    const posicionLienzo = this.motor.camara.posicionLienzo(this.estados.posicionMundo) as Transformar
+    this.animaciones.actualizar(posicionLienzo)
   }
 }

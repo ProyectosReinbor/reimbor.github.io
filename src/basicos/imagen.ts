@@ -1,18 +1,15 @@
-import {Transformar} from "./transformar.js"
 import { Motor } from "../motor/motor.js"
-export class Imagen extends Transformar {
-  src:string
-  puedeDibujar:boolean
-  imagen:HTMLImageElement
+import { Transformar } from "./transformar.js"
+export class Imagen {
+  motor: Motor
+  src: string
+  puedeDibujar: boolean
+  imagen: HTMLImageElement
   constructor(
-    motor:Motor,
-    x:number,
-    y:number,
-    ancho:number,
-    alto:number,
-    src:string,
+    motor: Motor,
+    src: string,
   ) {
-    super(motor, x, y, ancho, alto)
+    this.motor = motor
     this.src = src
     this.puedeDibujar = false
     this.imagen = new Image()
@@ -22,10 +19,14 @@ export class Imagen extends Transformar {
   cargoImagen() {
     this.puedeDibujar = true
   }
-  dibujar() {
-    if (this.puedeDibujar == false) return
+  actualizar(posicionLienzo: Transformar) {
+    this.dibujar(posicionLienzo)
+  }
+  dibujar(posicionLienzo: Transformar) {
+    if (!this.puedeDibujar) return
     this.motor.contexto.imageSmoothingEnabled = false
-    const { x, y, ancho, alto } = this.pixeles()
+    const { x, y, ancho, alto } = posicionLienzo.pixeles()
     this.motor.contexto.drawImage(this.imagen, x, y, ancho, alto)
+
   }
 }

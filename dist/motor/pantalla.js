@@ -1,6 +1,5 @@
-export default class {
-    constructor(motor) {
-        this.motor = motor;
+export class Pantalla {
+    constructor() {
         this.boton = document.getElementById("pantallaCompleta");
         this.boton.addEventListener('click', () => this.click());
     }
@@ -10,7 +9,8 @@ export default class {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             }
-        } else if (document.documentElement.requestFullscreen) {
+        }
+        else if (document.documentElement.requestFullscreen) {
             this.boton.src = "imagenes/pantalla/salir.svg";
             document.documentElement.requestFullscreen();
         }

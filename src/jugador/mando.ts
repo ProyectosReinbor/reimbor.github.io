@@ -1,70 +1,90 @@
-import {Imagen} from "../basicos/imagen.js"
-import {Transformar} from "../basicos/transformar.js"
-import {Motor} from "../motor/motor.js"
-import {Estados} from "./estados.js"
+import { ImagenEstatica } from "../basicos/imagenEstatica.js"
+import { Transformar } from "../basicos/transformar.js"
+import { Motor } from "../motor/motor.js"
+import { Estados, Acciones, Direciones } from "./estados.js"
+
 export class Mando {
-  constructor(motor:Motor, estados:Estados) {
+  motor: Motor
+  estados: Estados
+  mandoFondo: ImagenEstatica
+  mandoFlechas: ImagenEstatica
+  mandoTouch: Transformar
+  puedeMoverse: boolean
+  constructor(motor: Motor, estados: Estados) {
     this.motor = motor
     this.estados = estados
-    this.mandoFondo = new Imagen(
-      this.motor, 8, 63, 30, 30,
+    this.mandoFondo = new ImagenEstatica(
+      this.motor,
       "imagenes/mando/fondo.png",
+      new Transformar(this.motor, 8, 63, 30, 30),
     )
-    this.mandoFlechas = new Imagen(
-      this.motor, 0, 0, 15, 15,
+    this.mandoFlechas = new ImagenEstatica(
+      this.motor,
       "imagenes/mando/flechas.png",
+      new Transformar(this.motor, 0, 0, 15, 15),
     )
     this.mandoTouch = new Transformar(
       this.motor, -10, 50, 60, 60,
     )
     this.puedeMoverse = false
     this.quieto()
-    this.consola = document.getElementById("consola")
-    this.motor.lienzo.addEventListener('touchstart', (evento) => this.empezarMoverse(evento))
-    this.motor.lienzo.addEventListener('touchmove', (evento) => this.moverse(evento))
-    this.motor.lienzo.addEventListener('touchend', (evento) => this.quieto(evento))
+    this.motor.lienzo.addEventListener('touchstart', (evento: TouchEvent) => this.empezarMoverse(evento))
+    this.motor.lienzo.addEventListener('touchmove', (evento: TouchEvent) => this.moverse(evento))
+    this.motor.lienzo.addEventListener('touchend', () => this.quieto())
   }
-  empezarMoverse(evento) {
-    this.indiceTouch = false
+  empezarMoverse(evento: TouchEvent) {
     for (const touch of evento.changedTouches) {
       const x = this.motor.porcentajes.ancho(touch.pageX, false)
       const y = this.motor.porcentajes.alto(touch.pageY, false)
-      if (this.mandoFondo.adentro(x, y) == false) continue
+      if (this.mandoFondo.posicionLienzo.adentro(x, y) == false) continue
       this.puedeMoverse = true
       return
     }
   }
-  moverse(evento) {
-    if (this.puedeMoverse == false) return
-    let moviendose = false
+  moverse(evento: TouchEvent) {
+    if (!this.puedeMoverse) return
+    let touchAdentroMando = false
     for (const touch of evento.changedTouches) {
       const x = this.motor.porcentajes.ancho(touch.pageX, false)
       const y = this.motor.porcentajes.alto(touch.pageY, false)
       if (this.mandoTouch.adentro(x, y) == false) continue
-      moviendose = true
-      this.mandoFlechas.x = x - (this.mandoFlechas.ancho / 2)
-      this.mandoFlechas.y = y - (this.mandoFlechas.alto / 2)
-      const mitadX = this.mandoFondo.x + (this.mandoFondo.ancho / 2)
-      const mitadY = this.mandoFondo.y + (this.mandoFondo.alto / 2)
-      if (y < mitadY) this.moverseY = -1
-      else if (y > mitadY) this.moverseY = 1
-      else this.moverseY = 0
-      if (x < mitadX) this.moverseX = -1
-      else if (x > mitadX) this.moverseX = 1
-      else this.moverseX = 0
+      touchAdentroMando = true
+      this.mandoFlechas.posicionLienzo.x = x - (this.mandoFlechas.posicionLienzo.ancho / 2)
+      this.mandoFlechas.posicionLienzo.y = y - (this.mandoFlechas.posicionLienzo.alto / 2)
+      const mitadX = this.mandoFondo.posicionLienzo.x + (this.mandoFondo.posicionLienzo.ancho / 2)
+      const mitadY = this.mandoFondo.posicionLienzo.y + (this.mandoFondo.posicionLienzo.alto / 2)
+      let moverY = false
+      let moverX = false
+      if (y < mitadY) {
+        this.estados.direccion = Direciones.ARRIBA
+        moverY = true
+      } else if (y > mitadY) {
+        this.estados.direccion = Direciones.ABAJO
+        moverY = true
+      }
+      if (x < mitadX) {
+        this.estados.direccion = Direciones.IZQUIERDA
+        moverX = true
+      } else if (x > mitadX) {
+        this.estados.direccion = Direciones.DERECHA
+        moverX = true
+      }
+      if (!moverX && !moverY) {
+        this.estados.accion = Acciones.QUIETO
+      } else {
+        this.estados.accion = Acciones.CAMINAR
+      }
     }
-    if (moviendose == false) this.quieto()
+    if (!touchAdentroMando) this.quieto()
   }
   quieto() {
-    this.estados.accion = this.estados.acciones.QUIETO
+    this.estados.accion = Acciones.QUIETO
     this.puedeMoverse = false
-    this.moverseX = 0
-    this.moverseY = 0
-    this.mandoFlechas.x = this.mandoFondo.x + (this.mandoFlechas.ancho / 2)
-    this.mandoFlechas.y = this.mandoFondo.y + (this.mandoFlechas.alto / 2)
+    this.mandoFlechas.posicionLienzo.x = this.mandoFondo.posicionLienzo.x + (this.mandoFlechas.posicionLienzo.ancho / 2)
+    this.mandoFlechas.posicionLienzo.y = this.mandoFondo.posicionLienzo.y + (this.mandoFlechas.posicionLienzo.alto / 2)
   }
-  dibujar() {
-    this.mandoFondo.dibujar()
-    this.mandoFlechas.dibujar()
+  actualizar() {
+    this.mandoFondo.actualizar()
+    this.mandoFlechas.actualizar()
   }
 }
