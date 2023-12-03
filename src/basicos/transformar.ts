@@ -1,12 +1,12 @@
 import { Motor } from "../motor/motor.js"
 export class Transformar {
-  motor:Motor
-  x:number
-  y:number
-  ancho:number
-  alto:number
+  motor: Motor
+  x: number
+  y: number
+  ancho: number
+  alto: number
   constructor(
-    motor:Motor,
+    motor: Motor,
     x = 0,
     y = 0,
     ancho = 0,
@@ -25,7 +25,7 @@ export class Transformar {
     const alto = this.motor.porcentajes.alto(this.alto)
     return { x, y, ancho, alto }
   }
-  adentro(x:number, y:number, ancho = 0, alto = 0) {
+  adentro(x: number, y: number, ancho = 0, alto = 0) {
     const objetoXFinal = x + ancho
     const objetoYFinal = y + alto
     const xFinal = this.x + this.ancho

@@ -18,7 +18,7 @@ export class Motor {
   constructor(objetos: Objetos) {
     this.objetos = objetos
     this.ultimoTiempo = 0
-    this.fps = 30
+    this.fps = 24
     this.tiempoEntreCuadro = 1000 / this.fps
     this.ultimoTiempoEntreCuadro = 0
     this.altoLienzo = 0

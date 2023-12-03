@@ -1,9 +1,9 @@
-import { Transformar } from "./transformar.js";
-export class Imagen extends Transformar {
-    constructor(motor, x, y, ancho, alto, src) {
-        super(motor, x, y, ancho, alto);
+export class Imagen {
+    constructor(motor, src, posicionLienzo) {
+        this.motor = motor;
         this.src = src;
         this.puedeDibujar = false;
+        this.posicionLienzo = posicionLienzo;
         this.imagen = new Image();
         this.imagen.addEventListener("load", () => this.cargoImagen());
         this.imagen.src = this.src;
@@ -11,11 +11,14 @@ export class Imagen extends Transformar {
     cargoImagen() {
         this.puedeDibujar = true;
     }
+    actualizar() {
+        this.dibujar();
+    }
     dibujar() {
-        if (this.puedeDibujar == false)
+        if (!this.puedeDibujar)
             return;
         this.motor.contexto.imageSmoothingEnabled = false;
-        const { x, y, ancho, alto } = this.pixeles();
+        const { x, y, ancho, alto } = this.posicionLienzo.pixeles();
         this.motor.contexto.drawImage(this.imagen, x, y, ancho, alto);
     }
 }

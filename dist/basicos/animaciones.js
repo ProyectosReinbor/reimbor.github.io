@@ -1,16 +1,16 @@
 import { ObjetosImagen } from "./objetosImagen.js";
 export class Animaciones extends ObjetosImagen {
-    constructor(motor, x, y, ancho, alto, src, horizontal, vertical) {
-        super(motor, x, y, ancho, alto, src, horizontal, vertical);
-        this.animacion = { indice: -1, objetos: 0 };
+    constructor(motor, src, posicionLienzo, horizontal, vertical) {
+        super(motor, src, posicionLienzo, horizontal, vertical);
         this.contadorTiempo = 0;
         this.indiceImagen = 0;
         this.tiempoEntreImagen = 0;
+        this.animacion = { indice: -1, objetos: 0 };
     }
     reproducir(animacion) {
-        if (this.puedeDibujar == false)
+        if (!this.puedeDibujar)
             return;
-        if (this.animacion.indice == animacion.indice)
+        if (animacion.indice == this.animacion.indice)
             return;
         this.animacion = animacion;
         this.indiceImagen = 0;
@@ -18,9 +18,7 @@ export class Animaciones extends ObjetosImagen {
         this.tiempoEntreImagen = 1000 / this.animacion.objetos;
     }
     siguienteCuadro() {
-        if (this.puedeDibujar == false)
-            return;
-        if (this.animacion.objetos == 0)
+        if (!this.puedeDibujar)
             return;
         this.contadorTiempo += this.motor.ultimoTiempoEntreCuadro;
         if (this.contadorTiempo < this.tiempoEntreImagen)
@@ -31,12 +29,8 @@ export class Animaciones extends ObjetosImagen {
             this.indiceImagen = 0;
         this.objetos.x = this.indiceImagen * this.objetos.ancho;
     }
-    dibujar() {
-        if (this.puedeDibujar == false)
-            return;
-        if (this.animacion.objetos == 0)
-            return;
+    actualizar() {
         this.siguienteCuadro();
-        this.dibujarObjeto();
+        this.dibujar();
     }
 }

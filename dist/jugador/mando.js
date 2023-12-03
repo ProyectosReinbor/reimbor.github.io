@@ -4,10 +4,8 @@ export class Mando {
     constructor(motor, estados) {
         this.motor = motor;
         this.estados = estados;
-        this.moverseY = 0;
-        this.moverseX = 0;
-        this.mandoFondo = new Imagen(this.motor, 8, 63, 30, 30, "imagenes/mando/fondo.png");
-        this.mandoFlechas = new Imagen(this.motor, 0, 0, 15, 15, "imagenes/mando/flechas.png");
+        this.mandoFondo = new Imagen(this.motor, "imagenes/mando/fondo.png", new Transformar(this.motor, 8, 63, 30, 30));
+        this.mandoFlechas = new Imagen(this.motor, "imagenes/mando/flechas.png", new Transformar(this.motor, 0, 0, 15, 15));
         this.mandoTouch = new Transformar(this.motor, -10, 50, 60, 60);
         this.puedeMoverse = false;
         this.quieto();
@@ -19,52 +17,65 @@ export class Mando {
         for (const touch of evento.changedTouches) {
             const x = this.motor.porcentajes.ancho(touch.pageX, false);
             const y = this.motor.porcentajes.alto(touch.pageY, false);
-            if (this.mandoFondo.adentro(x, y) == false)
+            if (this.mandoFondo.posicionLienzo.adentro(x, y) == false)
                 continue;
             this.puedeMoverse = true;
             return;
         }
     }
     moverse(evento) {
-        if (this.puedeMoverse == false)
+        if (!this.puedeMoverse)
             return;
-        let moviendose = false;
+        let touchAdentroMando = false;
         for (const touch of evento.changedTouches) {
             const x = this.motor.porcentajes.ancho(touch.pageX, false);
             const y = this.motor.porcentajes.alto(touch.pageY, false);
             if (this.mandoTouch.adentro(x, y) == false)
                 continue;
-            moviendose = true;
-            this.mandoFlechas.x = x - (this.mandoFlechas.ancho / 2);
-            this.mandoFlechas.y = y - (this.mandoFlechas.alto / 2);
-            const mitadX = this.mandoFondo.x + (this.mandoFondo.ancho / 2);
-            const mitadY = this.mandoFondo.y + (this.mandoFondo.alto / 2);
-            if (y < mitadY)
-                this.moverseY = -1;
-            else if (y > mitadY)
-                this.moverseY = 1;
-            else
-                this.moverseY = 0;
-            if (x < mitadX)
-                this.moverseX = -1;
-            else if (x > mitadX)
-                this.moverseX = 1;
-            else
-                this.moverseX = 0;
+            touchAdentroMando = true;
+            this.mandoFlechas.posicionLienzo.x = x - (this.mandoFlechas.posicionLienzo.ancho / 2);
+            this.mandoFlechas.posicionLienzo.y = y - (this.mandoFlechas.posicionLienzo.alto / 2);
+            const mitadX = this.mandoFondo.posicionLienzo.x + (this.mandoFondo.posicionLienzo.ancho / 2);
+            const mitadY = this.mandoFondo.posicionLienzo.y + (this.mandoFondo.posicionLienzo.alto / 2);
+            let moverX = 0;
+            let moverY = 0;
+            if (y < mitadY) {
+                this.estados.direccion = "ARRIBA";
+                moverY = -1;
+            }
+            else if (y > mitadY) {
+                this.estados.direccion = "ABAJO";
+                moverY = 1;
+            }
+            if (x < mitadX) {
+                this.estados.direccion = "IZQUIERDA";
+                moverX = -1;
+            }
+            else if (x > mitadX) {
+                this.estados.direccion = "DERECHA";
+                moverX = 1;
+            }
+            if (!moverX && !moverY) {
+                this.estados.accion = "PARAR";
+            }
+            else {
+                this.estados.accion = "CAMINAR";
+            }
+            this.estados.movimiento.moverX = moverX;
+            this.estados.movimiento.moverY = moverY;
         }
-        if (moviendose == false)
+        if (!touchAdentroMando)
             this.quieto();
+        console.log(this.estados);
     }
     quieto() {
-        this.estados.accion = "QUIETO";
+        this.estados.accion = "PARAR";
         this.puedeMoverse = false;
-        this.moverseX = 0;
-        this.moverseY = 0;
-        this.mandoFlechas.x = this.mandoFondo.x + (this.mandoFlechas.ancho / 2);
-        this.mandoFlechas.y = this.mandoFondo.y + (this.mandoFlechas.alto / 2);
+        this.mandoFlechas.posicionLienzo.x = this.mandoFondo.posicionLienzo.x + (this.mandoFlechas.posicionLienzo.ancho / 2);
+        this.mandoFlechas.posicionLienzo.y = this.mandoFondo.posicionLienzo.y + (this.mandoFlechas.posicionLienzo.alto / 2);
     }
-    dibujar() {
-        this.mandoFondo.dibujar();
-        this.mandoFlechas.dibujar();
+    actualizar() {
+        this.mandoFondo.actualizar();
+        this.mandoFlechas.actualizar();
     }
 }

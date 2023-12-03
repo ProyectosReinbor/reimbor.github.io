@@ -8,10 +8,11 @@ export class ObjetosImagen extends Imagen {
   constructor(
     motor: Motor,
     src: string,
+    posicionLienzo: Transformar,
     horizontal: number,
     vertical: number,
   ) {
-    super(motor, src)
+    super(motor, src, posicionLienzo)
     this.horizontal = horizontal
     this.vertical = vertical
     this.objetos = new Transformar(this.motor)
@@ -21,10 +22,10 @@ export class ObjetosImagen extends Imagen {
     this.objetos.alto = this.imagen.height / this.vertical
     this.puedeDibujar = true
   }
-  dibujar(posicionLienzo: Transformar) {
+  dibujar() {
     if (!this.puedeDibujar) return
     this.motor.contexto.imageSmoothingEnabled = false
-    const { x, y, ancho, alto } = posicionLienzo.pixeles()
+    const { x, y, ancho, alto } = this.posicionLienzo.pixeles()
     this.motor.contexto.drawImage(
       this.imagen,
       this.objetos.x,

@@ -1,40 +1,63 @@
-import { Transformar } from "../basicos/transformar.js";
+export const objetos = [
+    6, 6, 6, 6, 6, 6,
+    4, 4, 4,
+    3,
+];
+export const indices = [
+    "PARARABAJO",
+    "PARARDERECHA",
+    "PARARARRIBA",
+    "CAMINARABAJO",
+    "CAMINARDERECHA",
+    "CAMINARARRIBA",
+    "ATACARABAJO",
+    "ATACARDERECHA",
+    "ATACARARRIBA",
+    "MORIRDERECHA",
+];
 export class Estados {
-    constructor(motor) {
+    constructor(motor, posicionMundo, velocidad) {
         this.motor = motor;
+        this.posicionMundo = posicionMundo;
         this.direccion = "ABAJO";
-        this.accion = "QUIETO";
-        this.animaciones = {
-            QUIETO: {
-                ABAJO: { indice: 0, objetos: 6 },
-                DERECHA: { indice: 1, objetos: 6 },
-                IZQUIERDA: { indice: 1, objetos: 6, reflejar: true },
-                ARRIBA: { indice: 2, objetos: 6 },
-            },
-            CAMINAR: {
-                ABAJO: { indice: 3, objetos: 6 },
-                DERECHA: { indice: 4, objetos: 6 },
-                IZQUIERDA: { indice: 4, objetos: 6, reflejar: true },
-                ARRIBA: { indice: 5, objetos: 6 },
-            },
-            ATACAR: {
-                ABAJO: { indice: 6, objetos: 4 },
-                DERECHA: { indice: 7, objetos: 4 },
-                IZQUIERDA: { indice: 7, objetos: 4, reflejar: true },
-                ARRIBA: { indice: 8, objetos: 4 },
-            },
-            MUERTE: {
-                DERECHA: { indice: 9, objetos: 3 },
-                IZQUIERDA: { indice: 9, objetos: 3, reflejar: true },
-            },
-            HORIZONTAL: 6,
-            VERTICAL: 10,
-            SRC: "imagenes/jugador.png",
+        this.accion = "PARAR";
+        this.movimiento = {
+            velocidad: 3,
+            moverX: 0,
+            moverY: 0,
         };
-        this.posicionMundo = new Transformar(this.motor, 0, 0, 1, 1);
-        this.velocidad = 2;
+        this.animaciones = {
+            indice: -1,
+            objetos: -1,
+            horizontal: 6,
+            vertical: 10,
+            src: "imagenes/jugador.png",
+        };
     }
     animacion() {
-        return this.animaciones[this.accion][this.direccion];
+        let indice = indices.indexOf(`${this.accion}${this.direccion}`);
+        if (this.accion == "MORIR") {
+            indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
+        }
+        else if (this.direccion == "IZQUIERDA") {
+            indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
+        }
+        if (this.animaciones.indice == indice)
+            return false;
+        this.animaciones.indice = indice;
+        this.animaciones.objetos = objetos[indice];
+        return true;
+    }
+    moverse() {
+        if (this.accion != "CAMINAR")
+            return;
+        const segundos = this.motor.ultimoTiempoEntreCuadro / 1000;
+        const velocidad = this.movimiento.velocidad * segundos;
+        this.posicionMundo.x += velocidad * this.movimiento.moverX;
+        this.posicionMundo.y += velocidad * this.movimiento.moverY;
+    }
+    actualizar() {
+        this.moverse();
+        this.animacion();
     }
 }

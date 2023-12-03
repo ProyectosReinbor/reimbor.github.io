@@ -8,7 +8,7 @@ export class Objetos {
     iniciar() {
         this.jugador = new Jugador(this.motor);
     }
-    dibujar() {
-        this.jugador.dibujar();
+    actualizar() {
+        this.jugador.actualizar();
     }
 }

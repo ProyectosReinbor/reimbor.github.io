@@ -5,7 +5,7 @@ export class Moverse {
         this.moverseX = 0;
         this.moverseY = 0;
     }
-    dibujar() {
+    actualizar() {
         const segundos = this.motor.ultimoTiempoEntreCuadro / 1000;
         const velocidad = this.estados.velocidad * segundos;
         const distanciaX = velocidad * this.moverseX;

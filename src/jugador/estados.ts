@@ -10,32 +10,43 @@ export const enum Direciones {
 }
 
 export const enum Acciones {
-    QUIETO = 'QUIETO',
+    PARAR = 'PARAR',
     CAMINAR = 'CAMINAR',
     ATACAR = 'ATACAR',
+    MORIR = 'MORIR'
 }
 
-const enum Indices {
-    QUIETOABAJO,
-    QUIETODERECHA,
-    QUIETOARRIBA,
-    CAMINARABAJO,
-    CAMINARDERECHA,
-    CAMINARARRIBA,
-    ATACARABAJO,
-    ATACARDERECHA,
-    ATACARARRIBA,
-    MUERTEDERECHA,
+export const objetos = [
+    6, 6, 6, 6, 6, 6,
+    4, 4, 4,
+    3,
+]
+
+export const indices = [
+    "PARARABAJO",
+    "PARARDERECHA",
+    "PARARARRIBA",
+    "CAMINARABAJO",
+    "CAMINARDERECHA",
+    "CAMINARARRIBA",
+    "ATACARABAJO",
+    "ATACARDERECHA",
+    "ATACARARRIBA",
+    "MORIRDERECHA",
+]
+
+export type EstadosAnimaciones = {
+    indice: number
+    objetos: number
+    horizontal: number
+    vertical: number
+    src: string
 }
 
-const objetos = [6, 6, 6, 6, 6, 6, 4, 4, 4, 3]
-
-type DatosAnimaciones = {
-    INDICE: Indices
-    OBJETOS: number[]
-    HORIZONTAL: number
-    VERTICAL: number
-    SRC: string
+export type Movimiento = {
+    velocidad: number
+    moverX: number
+    moverY: number
 }
 
 export class Estados {
@@ -43,8 +54,8 @@ export class Estados {
     posicionMundo: Transformar
     direccion: Direciones
     accion: Acciones
-    velocidad: number
-    animaciones: DatosAnimaciones
+    movimiento: Movimiento
+    animaciones: EstadosAnimaciones
     constructor(
         motor: Motor,
         posicionMundo: Transformar,
@@ -53,14 +64,42 @@ export class Estados {
         this.motor = motor
         this.posicionMundo = posicionMundo
         this.direccion = Direciones.ABAJO
-        this.accion = Acciones.QUIETO
-        this.velocidad = velocidad
-        this.animaciones = {
-            INDICE: Indices.QUIETOABAJO,
-            OBJETOS: objetos,
-            HORIZONTAL: 6,
-            VERTICAL: 10,
-            SRC: "imagenes/jugador",
+        this.accion = Acciones.PARAR
+        this.movimiento = {
+            velocidad: 3,
+            moverX: 0,
+            moverY: 0,
         }
+        this.animaciones = {
+            indice: -1,
+            objetos: -1,
+            horizontal: 6,
+            vertical: 10,
+            src: "imagenes/jugador.png",
+        }
+    }
+    animacion() {
+        let indice = indices.indexOf(`${this.accion}${this.direccion}`)
+        if (this.accion == Acciones.MORIR) {
+            indice = indices.indexOf(`${this.accion}${Direciones.DERECHA}`)
+        }
+        else if (this.direccion == Direciones.IZQUIERDA) {
+            indice = indices.indexOf(`${this.accion}${Direciones.DERECHA}`)
+        }
+        if (this.animaciones.indice == indice) return false
+        this.animaciones.indice = indice
+        this.animaciones.objetos = objetos[indice]
+        return true
+    }
+    moverse() {
+        if (this.accion != Acciones.CAMINAR) return
+        const segundos = this.motor.ultimoTiempoEntreCuadro / 1000
+        const velocidad = this.movimiento.velocidad * segundos
+        this.posicionMundo.x += velocidad * this.movimiento.moverX
+        this.posicionMundo.y += velocidad * this.movimiento.moverY
+    }
+    actualizar() {
+        this.moverse()
+        this.animacion()
     }
 }

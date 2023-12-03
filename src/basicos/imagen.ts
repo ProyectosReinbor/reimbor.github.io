@@ -4,14 +4,17 @@ export class Imagen {
   motor: Motor
   src: string
   puedeDibujar: boolean
+  posicionLienzo: Transformar
   imagen: HTMLImageElement
   constructor(
     motor: Motor,
     src: string,
+    posicionLienzo: Transformar
   ) {
     this.motor = motor
     this.src = src
     this.puedeDibujar = false
+    this.posicionLienzo = posicionLienzo
     this.imagen = new Image()
     this.imagen.addEventListener("load", () => this.cargoImagen())
     this.imagen.src = this.src
@@ -19,14 +22,13 @@ export class Imagen {
   cargoImagen() {
     this.puedeDibujar = true
   }
-  actualizar(posicionLienzo: Transformar) {
-    this.dibujar(posicionLienzo)
+  actualizar() {
+    this.dibujar()
   }
-  dibujar(posicionLienzo: Transformar) {
+  dibujar() {
     if (!this.puedeDibujar) return
     this.motor.contexto.imageSmoothingEnabled = false
-    const { x, y, ancho, alto } = posicionLienzo.pixeles()
+    const { x, y, ancho, alto } = this.posicionLienzo.pixeles()
     this.motor.contexto.drawImage(this.imagen, x, y, ancho, alto)
-
   }
 }
