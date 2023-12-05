@@ -1,3 +1,4 @@
+import { Transformar } from "../basicos/transformar.js";
 export const objetos = [
     6, 6, 6, 6, 6, 6,
     4, 4, 4,
@@ -16,7 +17,7 @@ export const indices = [
     "MORIRDERECHA",
 ];
 export class Estados {
-    constructor(motor, posicionMundo, velocidad) {
+    constructor(motor, posicionMundo) {
         this.motor = motor;
         this.posicionMundo = posicionMundo;
         this.direccion = "ABAJO";
@@ -32,6 +33,8 @@ export class Estados {
             horizontal: 6,
             vertical: 10,
             src: "imagenes/jugador.png",
+            posicionLienzo: new Transformar(this.motor),
+            visible: false,
         };
     }
     animacion() {
@@ -43,18 +46,27 @@ export class Estados {
             indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
         }
         if (this.animaciones.indice == indice)
-            return false;
+            return;
         this.animaciones.indice = indice;
         this.animaciones.objetos = objetos[indice];
-        return true;
+        console.log(indice);
     }
     moverse() {
-        if (this.accion != "CAMINAR")
-            return;
         const segundos = this.motor.ultimoTiempoEntreCuadro / 1000;
         const velocidad = this.movimiento.velocidad * segundos;
+        if (this.movimiento.moverX == 0 &&
+            this.movimiento.moverY == 0)
+            return;
         this.posicionMundo.x += velocidad * this.movimiento.moverX;
         this.posicionMundo.y += velocidad * this.movimiento.moverY;
+        const posicionLienzo = this.motor.camara.posicionLienzo(this.posicionMundo);
+        if (posicionLienzo != false) {
+            this.animaciones.posicionLienzo = posicionLienzo;
+            this.animaciones.visible = true;
+        }
+        else {
+            this.animaciones.visible = false;
+        }
     }
     actualizar() {
         this.moverse();

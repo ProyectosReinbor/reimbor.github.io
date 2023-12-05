@@ -1,17 +1,20 @@
-import {Transformar} from './transformar.js'
+import { Transformar } from './transformar.js'
 import { Motor } from '../motor/motor.js'
 export class Cuadro extends Transformar {
-  color:string
+  color: string
   constructor(
-    motor:Motor,
-    x:number,
-    y:number,
-    ancho:number,
-    alto:number,
+    motor: Motor,
+    x: number,
+    y: number,
+    ancho: number,
+    alto: number,
     color = "#fff",
   ) {
     super(motor, x, y, ancho, alto)
     this.color = color
+  }
+  actualizar() {
+    this.dibujar()
   }
   dibujar() {
     this.motor.contexto.fillStyle = this.color

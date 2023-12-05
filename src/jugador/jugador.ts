@@ -12,8 +12,7 @@ export class Jugador {
     this.motor = motor
     this.estados = new Estados(
       this.motor,
-      new Transformar(motor, 0, 0, 20, 20),
-      3
+      new Transformar(motor, 0, 0, 20, 20)
     )
     this.mando = new Mando(this.motor, this.estados)
     this.animaciones = new AnimacionesJugador(this.motor, this.estados)

@@ -41,6 +41,8 @@ export type EstadosAnimaciones = {
     horizontal: number
     vertical: number
     src: string
+    posicionLienzo: Transformar
+    visible: boolean
 }
 
 export type Movimiento = {
@@ -59,7 +61,6 @@ export class Estados {
     constructor(
         motor: Motor,
         posicionMundo: Transformar,
-        velocidad: number,
     ) {
         this.motor = motor
         this.posicionMundo = posicionMundo
@@ -76,6 +77,8 @@ export class Estados {
             horizontal: 6,
             vertical: 10,
             src: "imagenes/jugador.png",
+            posicionLienzo: new Transformar(this.motor),
+            visible: false,
         }
     }
     animacion() {
@@ -86,17 +89,25 @@ export class Estados {
         else if (this.direccion == Direciones.IZQUIERDA) {
             indice = indices.indexOf(`${this.accion}${Direciones.DERECHA}`)
         }
-        if (this.animaciones.indice == indice) return false
+        if (this.animaciones.indice == indice) return
         this.animaciones.indice = indice
         this.animaciones.objetos = objetos[indice]
-        return true
+        console.log(indice);
     }
     moverse() {
-        if (this.accion != Acciones.CAMINAR) return
         const segundos = this.motor.ultimoTiempoEntreCuadro / 1000
         const velocidad = this.movimiento.velocidad * segundos
+        if (this.movimiento.moverX == 0 &&
+            this.movimiento.moverY == 0) return
         this.posicionMundo.x += velocidad * this.movimiento.moverX
         this.posicionMundo.y += velocidad * this.movimiento.moverY
+        const posicionLienzo = this.motor.camara.posicionLienzo(this.posicionMundo)
+        if (posicionLienzo != false) {
+            this.animaciones.posicionLienzo = posicionLienzo
+            this.animaciones.visible = true
+        } else {
+            this.animaciones.visible = false
+        }
     }
     actualizar() {
         this.moverse()

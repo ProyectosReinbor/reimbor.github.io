@@ -12,6 +12,7 @@ export class Animaciones extends ObjetosImagen {
             return;
         if (animacion.indice == this.animacion.indice)
             return;
+        console.log(this.animacion);
         this.animacion = animacion;
         this.indiceImagen = 0;
         this.objetos.y = this.animacion.indice * this.objetos.alto;

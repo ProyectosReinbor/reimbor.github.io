@@ -1,2 +1,4 @@
-import {Objetos} from './objetos.js'
-const objetos = new Objetos()
+import { Objetos } from './objetos.js'
+window.addEventListener('load', () => {
+    new Objetos()
+})

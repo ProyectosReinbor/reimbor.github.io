@@ -1,3 +1,4 @@
+import { Cuadro } from "../basicos/cuadro.js";
 import { Imagen } from "../basicos/imagen.js";
 import { Transformar } from "../basicos/transformar.js";
 export class Mando {
@@ -7,6 +8,7 @@ export class Mando {
         this.mandoFondo = new Imagen(this.motor, "imagenes/mando/fondo.png", new Transformar(this.motor, 8, 63, 30, 30));
         this.mandoFlechas = new Imagen(this.motor, "imagenes/mando/flechas.png", new Transformar(this.motor, 0, 0, 15, 15));
         this.mandoTouch = new Transformar(this.motor, -10, 50, 60, 60);
+        this.mandoArriba = new Cuadro(this.motor, -10, 50, 60, 20);
         this.puedeMoverse = false;
         this.quieto();
         this.motor.lienzo.addEventListener('touchstart', (evento) => this.empezarMoverse(evento));
@@ -15,9 +17,9 @@ export class Mando {
     }
     empezarMoverse(evento) {
         for (const touch of evento.changedTouches) {
-            const x = this.motor.porcentajes.ancho(touch.pageX, false);
-            const y = this.motor.porcentajes.alto(touch.pageY, false);
-            if (this.mandoFondo.posicionLienzo.adentro(x, y) == false)
+            const x = this.motor.porcentajes.porcentajeAncho(touch.pageX);
+            const y = this.motor.porcentajes.porcentajeAlto(touch.pageY);
+            if (!this.mandoFondo.posicionLienzo.adentro(x, y))
                 continue;
             this.puedeMoverse = true;
             return;
@@ -28,8 +30,8 @@ export class Mando {
             return;
         let touchAdentroMando = false;
         for (const touch of evento.changedTouches) {
-            const x = this.motor.porcentajes.ancho(touch.pageX, false);
-            const y = this.motor.porcentajes.alto(touch.pageY, false);
+            const x = this.motor.porcentajes.porcentajeAncho(touch.pageX);
+            const y = this.motor.porcentajes.porcentajeAlto(touch.pageY);
             if (this.mandoTouch.adentro(x, y) == false)
                 continue;
             touchAdentroMando = true;
@@ -66,7 +68,6 @@ export class Mando {
         }
         if (!touchAdentroMando)
             this.quieto();
-        console.log(this.estados);
     }
     quieto() {
         this.estados.accion = "PARAR";
@@ -77,5 +78,6 @@ export class Mando {
     actualizar() {
         this.mandoFondo.actualizar();
         this.mandoFlechas.actualizar();
+        this.mandoArriba.actualizar();
     }
 }

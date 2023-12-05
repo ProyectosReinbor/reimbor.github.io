@@ -3,39 +3,42 @@ import { Motor } from "../motor/motor.js";
 
 export class Camara {
     motor: Motor
-    xMundo: number
-    yMundo: number
-    visionAncho: number
-    visionAlto: number
+    vision: Transformar
     constructor(
         motor: Motor,
-        xMundo: number,
-        yMundo: number,
+        vision: Transformar
     ) {
         this.motor = motor
-        this.xMundo = xMundo
-        this.yMundo = yMundo
-        this.visionAncho = 100
-        this.visionAlto = 100
+        this.vision = vision
     }
-    visible(posicionMundoObjeto: Transformar) {
-        const xObjetoFinal = posicionMundoObjeto.x + posicionMundoObjeto.ancho
-        const yObjetoFinal = posicionMundoObjeto.y + posicionMundoObjeto.alto
-        const xVisionFinal = this.xMundo + this.visionAncho
-        const yVisionFinal = this.yMundo + this.visionAlto
-        return this.xMundo >= posicionMundoObjeto.x &&
-            this.yMundo >= posicionMundoObjeto.y &&
-            xObjetoFinal <= xVisionFinal &&
-            yObjetoFinal <= yVisionFinal
+    visible(posicion: Transformar) {
+        const vision = {
+            x: {
+                inicial: this.vision.x - posicion.ancho,
+                final: this.vision.x + this.vision.ancho + posicion.ancho,
+            },
+            y: {
+                inicial: this.vision.y - posicion.alto,
+                final: this.vision.y + this.vision.alto + posicion.alto,
+            },
+        }
+        const objeto = {
+            xFinal: posicion.x + posicion.ancho,
+            yFinal: posicion.y + posicion.alto,
+        }
+        return vision.x.inicial <= posicion.x &&
+            vision.y.inicial <= posicion.y &&
+            objeto.xFinal <= vision.x.final &&
+            objeto.yFinal <= vision.y.final
     }
-    posicionLienzo(posicionMundoObjeto: Transformar) {
-        if (!this.visible(posicionMundoObjeto)) return false
+    posicionLienzo(posicion: Transformar) {
+        if (!this.visible(posicion)) return false
         return new Transformar(
             this.motor,
-            posicionMundoObjeto.x - this.xMundo,
-            posicionMundoObjeto.y - this.yMundo,
-            posicionMundoObjeto.ancho,
-            posicionMundoObjeto.alto
+            posicion.x - this.vision.x,
+            posicion.y - this.vision.x,
+            posicion.ancho,
+            posicion.alto
         )
     }
 }

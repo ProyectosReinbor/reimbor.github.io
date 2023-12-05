@@ -1,25 +1,32 @@
 import { Transformar } from "../basicos/transformar.js";
 export class Camara {
-    constructor(motor, xMundo, yMundo) {
+    constructor(motor, vision) {
         this.motor = motor;
-        this.xMundo = xMundo;
-        this.yMundo = yMundo;
-        this.visionAncho = 100;
-        this.visionAlto = 100;
+        this.vision = vision;
     }
-    visible(posicionMundoObjeto) {
-        const xObjetoFinal = posicionMundoObjeto.x + posicionMundoObjeto.ancho;
-        const yObjetoFinal = posicionMundoObjeto.y + posicionMundoObjeto.alto;
-        const xVisionFinal = this.xMundo + this.visionAncho;
-        const yVisionFinal = this.yMundo + this.visionAlto;
-        return this.xMundo >= posicionMundoObjeto.x &&
-            this.yMundo >= posicionMundoObjeto.y &&
-            xObjetoFinal <= xVisionFinal &&
-            yObjetoFinal <= yVisionFinal;
+    visible(posicion) {
+        const vision = {
+            x: {
+                inicial: this.vision.x - posicion.ancho,
+                final: this.vision.x + this.vision.ancho + posicion.ancho,
+            },
+            y: {
+                inicial: this.vision.y - posicion.alto,
+                final: this.vision.y + this.vision.alto + posicion.alto,
+            },
+        };
+        const objeto = {
+            xFinal: posicion.x + posicion.ancho,
+            yFinal: posicion.y + posicion.alto,
+        };
+        return vision.x.inicial <= posicion.x &&
+            vision.y.inicial <= posicion.y &&
+            objeto.xFinal <= vision.x.final &&
+            objeto.yFinal <= vision.y.final;
     }
-    posicionLienzo(posicionMundoObjeto) {
-        if (!this.visible(posicionMundoObjeto))
+    posicionLienzo(posicion) {
+        if (!this.visible(posicion))
             return false;
-        return new Transformar(this.motor, posicionMundoObjeto.x - this.xMundo, posicionMundoObjeto.y - this.yMundo, posicionMundoObjeto.ancho, posicionMundoObjeto.alto);
+        return new Transformar(this.motor, posicion.x - this.vision.x, posicion.y - this.vision.x, posicion.ancho, posicion.alto);
     }
 }

@@ -7,10 +7,10 @@ export class Transformar {
         this.alto = alto;
     }
     pixeles() {
-        const x = this.motor.porcentajes.ancho(this.x);
-        const y = this.motor.porcentajes.alto(this.y);
-        const ancho = this.motor.porcentajes.ancho(this.ancho);
-        const alto = this.motor.porcentajes.alto(this.alto);
+        const x = this.motor.porcentajes.pixelesAncho(this.x);
+        const y = this.motor.porcentajes.pixelesAlto(this.y);
+        const ancho = this.motor.porcentajes.pixelesAncho(this.ancho);
+        const alto = this.motor.porcentajes.pixelesAlto(this.alto);
         return { x, y, ancho, alto };
     }
     adentro(x, y, ancho = 0, alto = 0) {
@@ -18,10 +18,9 @@ export class Transformar {
         const objetoYFinal = y + alto;
         const xFinal = this.x + this.ancho;
         const yFinal = this.y + this.alto;
-        if (x < this.x || objetoXFinal > xFinal)
-            return false;
-        if (y < this.y || objetoYFinal > yFinal)
-            return false;
-        return true;
+        return x >= this.x &&
+            y >= this.y &&
+            objetoXFinal <= xFinal &&
+            objetoYFinal <= yFinal;
     }
 }

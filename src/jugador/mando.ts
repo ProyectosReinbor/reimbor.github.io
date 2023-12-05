@@ -1,3 +1,4 @@
+import { Cuadro } from "../basicos/cuadro.js"
 import { Imagen } from "../basicos/imagen.js"
 import { Transformar } from "../basicos/transformar.js"
 import { Motor } from "../motor/motor.js"
@@ -10,6 +11,7 @@ export class Mando {
   mandoFlechas: Imagen
   mandoTouch: Transformar
   puedeMoverse: boolean
+  mandoArriba: Cuadro
   constructor(motor: Motor, estados: Estados) {
     this.motor = motor
     this.estados = estados
@@ -26,6 +28,10 @@ export class Mando {
     this.mandoTouch = new Transformar(
       this.motor, -10, 50, 60, 60,
     )
+    this.mandoArriba = new Cuadro(
+      this.motor,
+      -10, 50, 60, 20
+    )
     this.puedeMoverse = false
     this.quieto()
     this.motor.lienzo.addEventListener('touchstart', (evento: TouchEvent) => this.empezarMoverse(evento))
@@ -34,9 +40,9 @@ export class Mando {
   }
   empezarMoverse(evento: TouchEvent) {
     for (const touch of evento.changedTouches) {
-      const x = this.motor.porcentajes.ancho(touch.pageX, false)
-      const y = this.motor.porcentajes.alto(touch.pageY, false)
-      if (this.mandoFondo.posicionLienzo.adentro(x, y) == false) continue
+      const x = this.motor.porcentajes.porcentajeAncho(touch.pageX)
+      const y = this.motor.porcentajes.porcentajeAlto(touch.pageY)
+      if (!this.mandoFondo.posicionLienzo.adentro(x, y)) continue
       this.puedeMoverse = true
       return
     }
@@ -45,8 +51,8 @@ export class Mando {
     if (!this.puedeMoverse) return
     let touchAdentroMando = false
     for (const touch of evento.changedTouches) {
-      const x = this.motor.porcentajes.ancho(touch.pageX, false)
-      const y = this.motor.porcentajes.alto(touch.pageY, false)
+      const x = this.motor.porcentajes.porcentajeAncho(touch.pageX)
+      const y = this.motor.porcentajes.porcentajeAlto(touch.pageY)
       if (this.mandoTouch.adentro(x, y) == false) continue
       touchAdentroMando = true
       this.mandoFlechas.posicionLienzo.x = x - (this.mandoFlechas.posicionLienzo.ancho / 2)
@@ -78,7 +84,6 @@ export class Mando {
       this.estados.movimiento.moverY = moverY
     }
     if (!touchAdentroMando) this.quieto()
-    console.log(this.estados)
   }
   quieto() {
     this.estados.accion = Acciones.PARAR
@@ -89,5 +94,6 @@ export class Mando {
   actualizar() {
     this.mandoFondo.actualizar()
     this.mandoFlechas.actualizar()
+    this.mandoArriba.actualizar()
   }
 }
