@@ -49,7 +49,6 @@ export class Estados {
             return;
         this.animaciones.indice = indice;
         this.animaciones.objetos = objetos[indice];
-        console.log(indice);
     }
     moverse() {
         const segundos = this.motor.ultimoTiempoEntreCuadro / 1000;

@@ -4,6 +4,10 @@ export class Camara {
         this.motor = motor;
         this.vision = vision;
     }
+    aspecto() {
+        const dividorAncho = this.motor.anchoLienzo / 100;
+        this.vision.ancho = this.motor.lienzo.width / dividorAncho;
+    }
     visible(posicion) {
         const vision = {
             x: {

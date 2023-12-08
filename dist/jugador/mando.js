@@ -8,7 +8,10 @@ export class Mando {
         this.mandoFondo = new Imagen(this.motor, "imagenes/mando/fondo.png", new Transformar(this.motor, 8, 63, 30, 30));
         this.mandoFlechas = new Imagen(this.motor, "imagenes/mando/flechas.png", new Transformar(this.motor, 0, 0, 15, 15));
         this.mandoTouch = new Transformar(this.motor, -10, 50, 60, 60);
-        this.mandoArriba = new Cuadro(this.motor, -10, 50, 60, 20);
+        this.mandoArriba = new Cuadro(this.motor, -10, 50, 60, 15);
+        this.mandoAbajo = new Cuadro(this.motor, -10, 90, 60, 15);
+        this.mandoIzquierda = new Cuadro(this.motor, -10, 50, 20, 60, "#0ff");
+        this.mandoDerecha = new Cuadro(this.motor, 35, 50, 20, 60, "#0ff");
         this.puedeMoverse = false;
         this.quieto();
         this.motor.lienzo.addEventListener('touchstart', (evento) => this.empezarMoverse(evento));
@@ -79,5 +82,8 @@ export class Mando {
         this.mandoFondo.actualizar();
         this.mandoFlechas.actualizar();
         this.mandoArriba.actualizar();
+        this.mandoAbajo.actualizar();
+        this.mandoIzquierda.actualizar();
+        this.mandoDerecha.actualizar();
     }
 }

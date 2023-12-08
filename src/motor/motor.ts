@@ -1,23 +1,22 @@
-import { Objetos } from "../objetos.js"
 import { Porcentajes } from './porcentajes.js'
 import { Pantalla } from './pantalla.js'
 import { Camara } from "./camara.js"
 import { Transformar } from "../basicos/transformar.js"
 export class Motor {
-  objetos: Objetos
+  despuesActualizar: () => void
   ultimoTiempo: number
   ultimoTiempoEntreCuadro: number
   fps: number
   tiempoEntreCuadro: number
-  altoLienzo: number
-  anchoLienzo: number
+  altoLienzo!: number
+  anchoLienzo!: number
   lienzo: HTMLCanvasElement
   contexto: CanvasRenderingContext2D
   porcentajes: Porcentajes
   camara: Camara
   pantalla: Pantalla
-  constructor(objetos: Objetos) {
-    this.objetos = objetos
+  constructor(despuesActualizar: () => void) {
+    this.despuesActualizar = despuesActualizar
     this.ultimoTiempo = 0
     this.ultimoTiempoEntreCuadro = 0
     this.fps = 24
@@ -28,7 +27,6 @@ export class Motor {
     this.camara = new Camara(this, new Transformar(this))
     this.pantalla = new Pantalla()
     this.aspecto()
-    this.objetos.iniciar()
     requestAnimationFrame((tiempo) => this.actualizar(tiempo))
     window.addEventListener('resize', () => {
       this.aspecto()
@@ -40,8 +38,6 @@ export class Motor {
     this.anchoLienzo = this.altoLienzo * relacion
     this.lienzo.width = window.innerWidth
     this.lienzo.height = window.innerHeight
-    const dividorAncho = this.anchoLienzo / 100
-    const ancho = this.lienzo.width / dividorAncho
     this.camara.aspecto()
   }
   actualizar(tiempo: number) {
@@ -53,7 +49,7 @@ export class Motor {
     this.ultimoTiempoEntreCuadro = tiempoEntreCuadro
     this.ultimoTiempo = tiempo
     this.contexto.clearRect(0, 0, this.lienzo.width, this.lienzo.height)
-    this.objetos.actualizar()
+    this.despuesActualizar()
     requestAnimationFrame((tiempo) => this.actualizar(tiempo))
   }
 }

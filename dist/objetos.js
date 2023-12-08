@@ -2,10 +2,10 @@ import { Jugador } from './jugador/jugador.js';
 import { Motor } from './motor/motor.js';
 export class Objetos {
     constructor() {
-        this.motor = new Motor(this);
-        this.jugador = new Jugador(this.motor);
-    }
-    iniciar() {
+        const despuesActualizar = () => {
+            this.actualizar();
+        };
+        this.motor = new Motor(despuesActualizar);
         this.jugador = new Jugador(this.motor);
     }
     actualizar() {

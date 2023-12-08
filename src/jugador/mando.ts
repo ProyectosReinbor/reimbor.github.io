@@ -12,6 +12,9 @@ export class Mando {
   mandoTouch: Transformar
   puedeMoverse: boolean
   mandoArriba: Cuadro
+  mandoAbajo: Cuadro
+  mandoIzquierda: Cuadro
+  mandoDerecha: Cuadro
   constructor(motor: Motor, estados: Estados) {
     this.motor = motor
     this.estados = estados
@@ -30,7 +33,21 @@ export class Mando {
     )
     this.mandoArriba = new Cuadro(
       this.motor,
-      -10, 50, 60, 20
+      -10, 50, 60, 15
+    )
+    this.mandoAbajo = new Cuadro(
+      this.motor,
+      -10, 90, 60, 15
+    )
+    this.mandoIzquierda = new Cuadro(
+      this.motor,
+      -10, 50, 20, 60,
+      "#0ff"
+    )
+    this.mandoDerecha = new Cuadro(
+      this.motor,
+      35, 50, 20, 60,
+      "#0ff"
     )
     this.puedeMoverse = false
     this.quieto()
@@ -95,5 +112,8 @@ export class Mando {
     this.mandoFondo.actualizar()
     this.mandoFlechas.actualizar()
     this.mandoArriba.actualizar()
+    this.mandoAbajo.actualizar()
+    this.mandoIzquierda.actualizar()
+    this.mandoDerecha.actualizar()
   }
 }
