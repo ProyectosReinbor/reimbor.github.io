@@ -14,6 +14,7 @@ export class Camara {
     aspecto() {
         const dividorAncho = this.motor.anchoLienzo / 100
         this.vision.ancho = this.motor.lienzo.width / dividorAncho
+        this.vision.alto = 100
     }
     visible(posicion: Transformar) {
         const vision = {
@@ -40,7 +41,7 @@ export class Camara {
         return new Transformar(
             this.motor,
             posicion.x - this.vision.x,
-            posicion.y - this.vision.x,
+            posicion.y - this.vision.y,
             posicion.ancho,
             posicion.alto
         )

@@ -67,7 +67,7 @@ export class Estados {
         this.direccion = Direciones.ABAJO
         this.accion = Acciones.PARAR
         this.movimiento = {
-            velocidad: 3,
+            velocidad: 6,
             moverX: 0,
             moverY: 0,
         }
@@ -83,11 +83,12 @@ export class Estados {
     }
     animacion() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`)
-        if (this.accion == Acciones.MORIR) {
+        if (this.direccion == Direciones.IZQUIERDA) {
             indice = indices.indexOf(`${this.accion}${Direciones.DERECHA}`)
-        }
-        else if (this.direccion == Direciones.IZQUIERDA) {
-            indice = indices.indexOf(`${this.accion}${Direciones.DERECHA}`)
+        } else {
+            if (this.accion == Acciones.MORIR) {
+                indice = indices.indexOf(`${this.accion}${Direciones.DERECHA}`)
+            }
         }
         if (this.animaciones.indice == indice) return
         this.animaciones.indice = indice

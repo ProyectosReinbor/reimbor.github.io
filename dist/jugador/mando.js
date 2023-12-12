@@ -68,6 +68,8 @@ export class Mando {
     }
     quieto() {
         this.estados.accion = "PARAR";
+        this.estados.movimiento.moverX = 0;
+        this.estados.movimiento.moverY = 0;
         this.puedeMoverse = false;
         this.mandoFlechas.posicionLienzo.x = this.mandoFondo.posicionLienzo.x + (this.mandoFlechas.posicionLienzo.ancho / 2);
         this.mandoFlechas.posicionLienzo.y = this.mandoFondo.posicionLienzo.y + (this.mandoFlechas.posicionLienzo.alto / 2);

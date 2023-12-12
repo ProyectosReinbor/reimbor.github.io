@@ -23,7 +23,7 @@ export class Estados {
         this.direccion = "ABAJO";
         this.accion = "PARAR";
         this.movimiento = {
-            velocidad: 3,
+            velocidad: 6,
             moverX: 0,
             moverY: 0,
         };
@@ -35,15 +35,20 @@ export class Estados {
             src: "imagenes/jugador.png",
             posicionLienzo: new Transformar(this.motor),
             visible: false,
+            escalaHorizontal: 1
         };
     }
     animacion() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`);
-        if (this.accion == "MORIR") {
+        if (this.direccion == "IZQUIERDA") {
+            this.animaciones.escalaHorizontal = -1;
             indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
         }
-        else if (this.direccion == "IZQUIERDA") {
-            indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
+        else {
+            this.animaciones.escalaHorizontal = 1;
+            if (this.accion == "MORIR") {
+                indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
+            }
         }
         if (this.animaciones.indice == indice)
             return;
