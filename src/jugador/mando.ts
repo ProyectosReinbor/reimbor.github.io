@@ -11,10 +11,10 @@ export class Mando {
   mandoFlechas: Imagen
   mandoTouch: Transformar
   puedeMoverse: boolean
-  mandoArriba: Cuadro
-  mandoAbajo: Cuadro
-  mandoIzquierda: Cuadro
-  mandoDerecha: Cuadro
+  mandoArriba: Transformar
+  mandoAbajo: Transformar
+  mandoIzquierda: Transformar
+  mandoDerecha: Transformar
   constructor(motor: Motor, estados: Estados) {
     this.motor = motor
     this.estados = estados
@@ -31,23 +31,21 @@ export class Mando {
     this.mandoTouch = new Transformar(
       this.motor, -10, 50, 60, 60,
     )
-    this.mandoArriba = new Cuadro(
+    this.mandoArriba = new Transformar(
       this.motor,
-      -10, 50, 60, 15
+      -10, 50, 60, 20
     )
-    this.mandoAbajo = new Cuadro(
+    this.mandoAbajo = new Transformar(
       this.motor,
-      -10, 90, 60, 15
+      -10, 85, 60, 20
     )
-    this.mandoIzquierda = new Cuadro(
+    this.mandoIzquierda = new Transformar(
       this.motor,
-      -10, 50, 20, 60,
-      "#0ff"
+      -10, 50, 25, 60,
     )
-    this.mandoDerecha = new Cuadro(
+    this.mandoDerecha = new Transformar(
       this.motor,
-      35, 50, 20, 60,
-      "#0ff"
+      30, 50, 25, 60,
     )
     this.puedeMoverse = false
     this.quieto()
@@ -66,41 +64,37 @@ export class Mando {
   }
   moverse(evento: TouchEvent) {
     if (!this.puedeMoverse) return
-    let touchAdentroMando = false
     for (const touch of evento.changedTouches) {
       const x = this.motor.porcentajes.porcentajeAncho(touch.pageX)
       const y = this.motor.porcentajes.porcentajeAlto(touch.pageY)
       if (this.mandoTouch.adentro(x, y) == false) continue
-      touchAdentroMando = true
       this.mandoFlechas.posicionLienzo.x = x - (this.mandoFlechas.posicionLienzo.ancho / 2)
       this.mandoFlechas.posicionLienzo.y = y - (this.mandoFlechas.posicionLienzo.alto / 2)
-      const mitadX = this.mandoFondo.posicionLienzo.x + (this.mandoFondo.posicionLienzo.ancho / 2)
-      const mitadY = this.mandoFondo.posicionLienzo.y + (this.mandoFondo.posicionLienzo.alto / 2)
       let moverX = 0
       let moverY = 0
-      if (y < mitadY) {
+      if (this.mandoArriba.adentro(x, y)) {
         this.estados.direccion = Direciones.ARRIBA
         moverY = -1
-      } else if (y > mitadY) {
+      } else if (this.mandoAbajo.adentro(x, y)) {
         this.estados.direccion = Direciones.ABAJO
         moverY = 1
       }
-      if (x < mitadX) {
+      if (this.mandoIzquierda.adentro(x, y)) {
         this.estados.direccion = Direciones.IZQUIERDA
         moverX = -1
-      } else if (x > mitadX) {
+      } else if (this.mandoDerecha.adentro(x, y)) {
         this.estados.direccion = Direciones.DERECHA
         moverX = 1
       }
-      if (!moverX && !moverY) {
+      if (moverX == 0 && moverY == 0) {
         this.estados.accion = Acciones.PARAR
       } else {
         this.estados.accion = Acciones.CAMINAR
       }
       this.estados.movimiento.moverX = moverX
       this.estados.movimiento.moverY = moverY
+      return
     }
-    if (!touchAdentroMando) this.quieto()
   }
   quieto() {
     this.estados.accion = Acciones.PARAR
@@ -111,9 +105,5 @@ export class Mando {
   actualizar() {
     this.mandoFondo.actualizar()
     this.mandoFlechas.actualizar()
-    this.mandoArriba.actualizar()
-    this.mandoAbajo.actualizar()
-    this.mandoIzquierda.actualizar()
-    this.mandoDerecha.actualizar()
   }
 }
