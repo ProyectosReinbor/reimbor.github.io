@@ -1,6 +1,6 @@
-import { Jugador } from './jugador/jugador.js'
-import { Motor } from './motor/motor.js'
-export class Objetos {
+import { Magician } from './magician/magician.js'
+import { Engine } from './engine/engine.js'
+export class Objects {
   motor: Motor
   jugador: Jugador
   constructor() {

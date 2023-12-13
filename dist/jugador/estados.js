@@ -35,17 +35,14 @@ export class Estados {
             src: "imagenes/jugador.png",
             posicionLienzo: new Transformar(this.motor),
             visible: false,
-            escalaHorizontal: 1
         };
     }
     animacion() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`);
         if (this.direccion == "IZQUIERDA") {
-            this.animaciones.escalaHorizontal = -1;
             indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
         }
         else {
-            this.animaciones.escalaHorizontal = 1;
             if (this.accion == "MORIR") {
                 indice = indices.indexOf(`${this.accion}${"DERECHA"}`);
             }

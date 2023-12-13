@@ -1,4 +1,4 @@
-import { Objetos } from './objetos.js'
+import { Objects } from './objects.js'
 window.addEventListener('load', () => {
-    new Objetos()
+    new Objects()
 })

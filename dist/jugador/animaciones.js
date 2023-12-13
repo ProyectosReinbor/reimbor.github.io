@@ -9,7 +9,7 @@ export class AnimacionesJugador extends Animaciones {
         if (!this.estados.animaciones.visible)
             return;
         this.posicionLienzo = this.estados.animaciones.posicionLienzo;
-        this.reproducir(this.estados.animaciones.indice, this.estados.animaciones.objetos, this.estados.animaciones.escalaHorizontal);
+        this.reproducir(this.estados.animaciones.indice, this.estados.animaciones.objetos);
         this.siguienteCuadro();
         this.dibujar();
     }

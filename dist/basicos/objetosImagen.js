@@ -16,11 +16,7 @@ export class ObjetosImagen extends Imagen {
         if (!this.puedeDibujar)
             return;
         this.motor.contexto.imageSmoothingEnabled = false;
-        let { x, y, ancho, alto } = this.posicionLienzo.pixeles();
-        if (this.escalaHorizontal == -1) {
-            this.motor.contexto.scale(-1, 1);
-        }
-        console.log(this.escalaHorizontal);
-        this.motor.contexto.drawImage(this.imagen, this.objetos.x, this.objetos.y, this.objetos.ancho, this.objetos.alto, x, y, -ancho, alto);
+        const { x, y, ancho, alto } = this.posicionLienzo.pixeles();
+        this.motor.contexto.drawImage(this.imagen, this.objetos.x, this.objetos.y, this.objetos.ancho, this.objetos.alto, x, y, ancho, alto);
     }
 }

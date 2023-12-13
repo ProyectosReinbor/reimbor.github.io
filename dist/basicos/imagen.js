@@ -7,7 +7,6 @@ export class Imagen {
         this.imagen = new Image();
         this.imagen.addEventListener("load", () => this.cargoImagen());
         this.imagen.src = this.src;
-        this.escalaHorizontal = 1;
     }
     cargoImagen() {
         this.puedeDibujar = true;
@@ -20,7 +19,6 @@ export class Imagen {
             return;
         this.motor.contexto.imageSmoothingEnabled = false;
         const { x, y, ancho, alto } = this.posicionLienzo.pixeles();
-        this.motor.contexto.scale(this.escalaHorizontal, 1);
         this.motor.contexto.drawImage(this.imagen, x, y, ancho, alto);
     }
 }

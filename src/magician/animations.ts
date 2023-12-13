@@ -1,21 +1,21 @@
-import { Animaciones } from "../basicos/animaciones.js"
-import { Motor } from "../motor/motor.js"
-import { Estados } from "./estados.js"
-export class AnimacionesJugador extends Animaciones {
-    estados: Estados
+import { Animations } from "../basic/animations.js"
+import { Engine } from "../engine/engine.js"
+import { State } from "./state.js"
+export class MagicianAnimations extends Animations {
+    state: State
     constructor(
-        motor: Motor,
-        estados: Estados,
+        engine: Engine,
+        state: State,
     ) {
-        const { src, horizontal, vertical, posicionLienzo } = estados.animaciones
+        const { src, horizontal, vertical, posicionLienzo } = state.animations
         super(
-            motor,
+            engine,
             src,
             posicionLienzo,
             horizontal,
             vertical,
         )
-        this.estados = estados
+        this.state = state
     }
     actualizar() {
         if (!this.estados.animaciones.visible) return

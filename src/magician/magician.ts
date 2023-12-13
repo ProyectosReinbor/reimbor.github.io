@@ -1,9 +1,9 @@
-import { Motor } from '../motor/motor.js'
-import { Transformar } from "../basicos/transformar.js"
-import { Estados } from "./estados.js"
-import { Mando } from "./mando.js"
-import { AnimacionesJugador } from './animaciones.js'
-export class Jugador {
+import { Engine } from '../engine/engine.js'
+import { Transform } from "../basic/transform.js"
+import { State } from "./state.js"
+import { Joystick } from "./joystick.js"
+import { Animations } from './animations.js'
+export class Magician {
   motor: Motor
   estados: Estados
   mando: Mando
