@@ -1,23 +1,25 @@
-import { Motor } from './motor.js'
-export class Porcentajes {
-  motor: Motor
-  constructor(motor: Motor) {
-    this.motor = motor
+import { Engine } from './engine.js'
+export class Percentages {
+  engine: Engine
+  constructor(engine: Engine) {
+    this.engine = engine
   }
-  porcentajeAncho(valor: number) {
-    const unPorcentaje = this.motor.anchoLienzo / 100
-    return valor / unPorcentaje
+  aWidePercentage(){
+    return this.engine.canvasWidth / 100
   }
-  pixelesAncho(valor: number) {
-    const unPorcentaje = this.motor.anchoLienzo / 100
-    return valor * unPorcentaje
+  widthPercentage(valor: number) {
+    return valor / this.aWidePercentage()
   }
-  porcentajeAlto(valor: number) {
-    const unPorcentaje = this.motor.altoLienzo / 100
-    return valor / unPorcentaje
+  pixelsWidth(valor: number) {
+    return valor * this.aWidePercentage()
   }
-  pixelesAlto(valor: number) {
-    const unPorcentaje = this.motor.altoLienzo / 100
-    return valor * unPorcentaje
+  aHighPercentage(){
+return this.engine.highCanvas / 100
+  }
+  highPercentage(valor: number) {
+    return valor / this.aHighPercentage()
+  }
+  pixelsHigh(valor: number) {
+    return valor * this.aHighPercentage()
   }
 }

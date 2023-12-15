@@ -1,35 +1,35 @@
-import { Motor } from "../motor/motor.js"
-export class Transformar {
-  motor: Motor
+import { Engine } from "../engine/engine.js"
+export class Transform {
+  engine: Engine
   x: number
   y: number
-  ancho: number
-  alto: number
+  width: number
+  height: number
   constructor(
-    motor: Motor,
+    engine: Engine,
     x = 0,
     y = 0,
-    ancho = 0,
-    alto = 0,
+    width = 0,
+    height = 0,
   ) {
-    this.motor = motor
+    this.engine = engine
     this.x = x
     this.y = y
-    this.ancho = ancho
-    this.alto = alto
+    this.width = width
+    this.height = height
   }
-  pixeles() {
-    const x = this.motor.porcentajes.pixelesAncho(this.x)
-    const y = this.motor.porcentajes.pixelesAlto(this.y)
-    const ancho = this.motor.porcentajes.pixelesAncho(this.ancho)
-    const alto = this.motor.porcentajes.pixelesAlto(this.alto)
-    return { x, y, ancho, alto }
+  pixels() {
+    const x = this.engine.porcentajes.pixelesAncho(this.x)
+    const y = this.engine.porcentajes.pixelesAlto(this.y)
+    const width = this.engine.porcentajes.pixelesAncho(this.width)
+    const height = this.engine.porcentajes.pixelesAlto(this.height)
+    return { x, y, width, height }
   }
-  adentro(x: number, y: number, ancho = 0, alto = 0) {
-    const objetoXFinal = x + ancho
-    const objetoYFinal = y + alto
-    const xFinal = this.x + this.ancho
-    const yFinal = this.y + this.alto
+  adentro(x: number, y: number, width = 0, height = 0) {
+    const objetoXFinal = x + width
+    const objetoYFinal = y + height
+    const xFinal = this.x + this.width
+    const yFinal = this.y + this.height
     return x >= this.x &&
       y >= this.y &&
       objetoXFinal <= xFinal &&

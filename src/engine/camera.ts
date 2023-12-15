@@ -1,22 +1,22 @@
-import { Transformar } from "../basicos/transformar.js";
-import { Motor } from "../motor/motor.js";
+import { Transform } from "../basic/transform.js";
+import { Engine } from "../engine/engine.js";
 
-export class Camara {
-    motor: Motor
-    vision: Transformar
+export class Camera {
+    engine: Engine
+    vision: Transform
     constructor(
-        motor: Motor,
-        vision: Transformar
+        engine: Engine,
+        vision: Transform
     ) {
-        this.motor = motor
+        this.engine = engine
         this.vision = vision
     }
     aspecto() {
-        const dividorAncho = this.motor.anchoLienzo / 100
-        this.vision.ancho = this.motor.lienzo.width / dividorAncho
+        const dividorAncho = this.engine.anchoLienzo / 100
+        this.vision.ancho = this.engine.lienzo.width / dividorAncho
         this.vision.alto = 100
     }
-    visible(posicion: Transformar) {
+    visible(posicion: Transform) {
         const vision = {
             x: {
                 inicial: this.vision.x - posicion.ancho,
@@ -36,10 +36,10 @@ export class Camara {
             objeto.xFinal <= vision.x.final &&
             objeto.yFinal <= vision.y.final
     }
-    posicionLienzo(posicion: Transformar) {
+    posicionLienzo(posicion: Transform) {
         if (!this.visible(posicion)) return false
-        return new Transformar(
-            this.motor,
+        return new Transform(
+            this.engine,
             posicion.x - this.vision.x,
             posicion.y - this.vision.y,
             posicion.ancho,

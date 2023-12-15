@@ -1,17 +1,17 @@
-export class Pantalla {
-    boton:HTMLImageElement
+export class Screen {
+    button:HTMLImageElement
     constructor() {
-        this.boton = document.getElementById("pantallaCompleta") as HTMLImageElement
-        this.boton.addEventListener('click', () => this.click())
+        this.button = document.getElementById("fullScreen") as HTMLImageElement
+        this.button.addEventListener('click', () => this.click())
     }
     click() {
         if (document.fullscreenElement) {
-            this.boton.src = "imagenes/pantalla/abrir.svg"
+            this.button.src = "images/screen/open.svg"
             if (document.exitFullscreen) {
                 document.exitFullscreen()
             }
         } else if (document.documentElement.requestFullscreen) {
-            this.boton.src = "imagenes/pantalla/salir.svg"
+            this.button.src = "images/screen/goOut.svg"
             document.documentElement.requestFullscreen()
         }
     }

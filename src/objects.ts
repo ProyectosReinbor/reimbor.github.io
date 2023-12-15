@@ -1,16 +1,16 @@
 import { Magician } from './magician/magician.js'
 import { Engine } from './engine/engine.js'
 export class Objects {
-  motor: Motor
-  jugador: Jugador
+  engine: Engine
+  magician: Magician
   constructor() {
-    const despuesActualizar = () => {
-      this.actualizar()
+    const afterUpdating = () => {
+      this.update()
     }
-    this.motor = new Motor(despuesActualizar)
-    this.jugador = new Jugador(this.motor)
+    this.engine = new Engine(afterUpdating)
+    this.magician = new Magician(this.engine)
   }
-  actualizar() {
-    this.jugador.actualizar()
+  update() {
+    this.magician.update()
   }
 }

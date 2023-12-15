@@ -1,9 +1,9 @@
-import { Porcentajes } from './porcentajes.js'
-import { Pantalla } from './pantalla.js'
-import { Camara } from "./camara.js"
-import { Transformar } from "../basicos/transformar.js"
-export class Motor {
-  despuesActualizar: () => void
+import { Percentages } from './percentages.js'
+import { Screen } from './screen.js'
+import { Camera } from "./camera.js"
+import { Transform } from "../basic/transform.js"
+export class Engine {
+  afterUpdating: () => void
   ultimoTiempo: number
   ultimoTiempoEntreCuadro: number
   fps: number
