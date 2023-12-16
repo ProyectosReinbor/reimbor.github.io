@@ -1,4 +1,4 @@
-import { Jugador } from './jugador/jugador.js';
+import { Mago } from './mago/mago.js';
 import { Motor } from './motor/motor.js';
 export class Objetos {
     constructor() {
@@ -6,9 +6,9 @@ export class Objetos {
             this.actualizar();
         };
         this.motor = new Motor(despuesActualizar);
-        this.jugador = new Jugador(this.motor);
+        this.mago = new Mago(this.motor);
     }
     actualizar() {
-        this.jugador.actualizar();
+        this.mago.actualizar();
     }
 }

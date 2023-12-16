@@ -1,7 +1,7 @@
 import { Porcentajes } from './porcentajes.js';
 import { Pantalla } from './pantalla.js';
 import { Camara } from "./camara.js";
-import { Transformar } from "../basicos/transformar.js";
+import { Transformar } from "../basico/transformar.js";
 export class Motor {
     constructor(despuesActualizar) {
         this.despuesActualizar = despuesActualizar;

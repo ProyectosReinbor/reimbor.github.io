@@ -2,20 +2,22 @@ export class Porcentajes {
     constructor(motor) {
         this.motor = motor;
     }
-    porcentajeAncho(valor) {
-        const unPorcentaje = this.motor.anchoLienzo / 100;
-        return valor / unPorcentaje;
+    unPorcentajeAnchoLienzo() {
+        return this.motor.anchoLienzo / 100;
     }
-    pixelesAncho(valor) {
-        const unPorcentaje = this.motor.anchoLienzo / 100;
-        return valor * unPorcentaje;
+    porcentajeAnchoLienzo(valor) {
+        return valor / this.unPorcentajeAnchoLienzo();
     }
-    porcentajeAlto(valor) {
-        const unPorcentaje = this.motor.altoLienzo / 100;
-        return valor / unPorcentaje;
+    pixelesPorcentajeAnchoLienzo(valor) {
+        return valor * this.unPorcentajeAnchoLienzo();
     }
-    pixelesAlto(valor) {
-        const unPorcentaje = this.motor.altoLienzo / 100;
-        return valor * unPorcentaje;
+    unPorcentajeAltoLienzo() {
+        return this.motor.altoLienzo / 100;
+    }
+    porcentajeAltoLienzo(valor) {
+        return valor / this.unPorcentajeAltoLienzo();
+    }
+    pixelesPorcentajeAltoLienzo(valor) {
+        return valor * this.unPorcentajeAltoLienzo();
     }
 }

@@ -1,6 +1,6 @@
 import { Transformar } from './transformar.js'
 import { Motor } from '../motor/motor.js'
-export class Cuadro extends Transformar {
+export class Cuadrado extends Transformar {
   color: string
   constructor(
     motor: Motor,

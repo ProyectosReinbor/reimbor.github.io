@@ -1,5 +1,5 @@
 import { Transformar } from './transformar.js';
-export class Cuadro extends Transformar {
+export class Cuadrado extends Transformar {
     constructor(motor, x, y, ancho, alto, color = "#fff") {
         super(motor, x, y, ancho, alto);
         this.color = color;
