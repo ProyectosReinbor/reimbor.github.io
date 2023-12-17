@@ -1,9 +1,4 @@
 import { Transformar } from "../basico/transformar.js";
-export const objetos = [
-    6, 6, 6, 6, 6, 6,
-    4, 4, 4,
-    3,
-];
 export const indices = [
     "parado" + "abajo",
     "caminar" + "abajo",
@@ -43,9 +38,9 @@ export class Estado {
         };
         this.parametrosAnimacion = {
             indice: -1,
-            objetos: -1,
+            objetos: 6,
             horizontal: 6,
-            vertical: 10,
+            vertical: 24,
             src: "imagenes/mago.png",
             posicionLienzo: new Transformar(this.motor),
             visible: false,
@@ -56,7 +51,6 @@ export class Estado {
         if (this.parametrosAnimacion.indice == indice)
             return;
         this.parametrosAnimacion.indice = indice;
-        this.parametrosAnimacion.objetos = objetos[indice];
     }
     moverse() {
         const segundos = this.motor.ultimoTiempoEntreCuadro / 1000;
