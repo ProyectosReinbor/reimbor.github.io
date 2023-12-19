@@ -23,7 +23,7 @@ export class Control {
   controlFlechas: Imagen
   controlTouch: Transformar
   puedeMoverse: boolean
-  direcciones: DireccionesControl
+  direcciones!: DireccionesControl
   constructor(motor: Motor, estado: Estado) {
     this.motor = motor
     this.estado = estado
@@ -40,20 +40,63 @@ export class Control {
     this.controlTouch = new Transformar(
       this.motor, -10, 50, 60, 60,
     )
+    this.puedeMoverse = false
+    this.quieto()
+    this.motor.lienzo.addEventListener('touchstart', (evento: TouchEvent) => this.empezarMoverse(evento))
+    this.motor.lienzo.addEventListener('touchmove', (evento: TouchEvent) => this.moverse(evento))
+    this.motor.lienzo.addEventListener('touchend', () => this.quieto())
+  }
+  asignarDirecciones() {
+    const obtenerIndices = (nombre: string) => {
+      const nombres = [
+        ["arribaIzquierda", "arriba", "arribaDerecha"],
+        ["izquierda", "centro", "derecha"],
+        ["abajoIzquierda", "abajo", "abajoDerecha"],
+      ]
+      for (const yString in nombres) {
+        const y = parseInt(yString)
+        const x = nombres[y].indexOf(nombre)
+        if (x > -1) return { y, x }
+      }
+      return false
+    }
+    const posicionLienzoInicial = () => {
+      const { x, y, ancho, alto } = this.controlFondo.posicionLienzo
+      return {
+        x,
+        y,
+        ancho: ancho / 3,
+        alto: alto / 3,
+      }
+    }
+    const posicionLienzo = (nombre: string) => {
+      const indices = obtenerIndices(nombre)
+      if (indices == false) return false
+      const posicionLienzo = posicionLienzoInicial()
+      const distanciaX = posicionLienzo.ancho * indices.x
+      const distanciaY = posicionLienzo.alto * indices.y
+      return {
+        x: posicionLienzo.x + distanciaX,
+        y: posicionLienzo.y + distanciaY,
+        ancho: posicionLienzo.ancho,
+        alto: posicionLienzo.alto,
+      }
+    }
+    const arribaIzquierda = posicionLienzo("arribaIzquierda")
     this.direcciones = {
       arribaIzquierda: new Cuadrado(
         this.motor,
-        -10, 50, 26, 16,
+        -10, 50, anchoDirecciones + 10, anchoDirecciones,
         "rgba(255, 0, 132, 0.1)"
       ),
       arriba: new Cuadrado(
         this.motor,
-        16, 50, 16, 16,
+        anchoDirecciones, 50, anchoDirecciones, anchoDirecciones,
         "rgba(255, 0, 0, 0.1)"
       ),
       arribaDerecha: new Cuadrado(
         this.motor,
-        32, 50, 16, 16,
+        anchoDirecciones * 2, 50, anchoDirecciones, anchoDirecciones,
         "rgba(255, 0, 242, 0.1)"
       ),
       izquierda: new Cuadrado(
@@ -87,11 +130,6 @@ export class Control {
         "#f0f"
       ),
     }
-    this.puedeMoverse = false
-    this.quieto()
-    this.motor.lienzo.addEventListener('touchstart', (evento: TouchEvent) => this.empezarMoverse(evento))
-    this.motor.lienzo.addEventListener('touchmove', (evento: TouchEvent) => this.moverse(evento))
-    this.motor.lienzo.addEventListener('touchend', () => this.quieto())
   }
   empezarMoverse(evento: TouchEvent) {
     for (const touch of evento.changedTouches) {
