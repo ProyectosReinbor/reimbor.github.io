@@ -20,7 +20,7 @@ export const enum Acciones {
     die = 'die'
 }
 
-export const indices = [
+const indices = [
     Acciones.parado + Direcciones.abajo,
     Acciones.caminar + Direcciones.abajo,
     Acciones.hechizo + Direcciones.abajo,
@@ -47,7 +47,7 @@ export const indices = [
     Acciones.hechizo + Direcciones.derechaArriba,
 ]
 
-export type ParametrosAnimacion = {
+type ParametrosAnimacion = {
     indice: number
     objetos: number
     horizontal: number
@@ -57,7 +57,7 @@ export type ParametrosAnimacion = {
     visible: boolean
 }
 
-export type Movimiento = {
+type Movimiento = {
     velocidad: number
     moverX: number
     moverY: number

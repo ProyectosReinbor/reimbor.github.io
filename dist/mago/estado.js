@@ -1,5 +1,5 @@
 import { Transformar } from "../basico/transformar.js";
-export const indices = [
+const indices = [
     "parado" + "abajo",
     "caminar" + "abajo",
     "hechizo" + "abajo",
