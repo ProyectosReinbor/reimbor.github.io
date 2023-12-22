@@ -1,6 +1,7 @@
 import { ObjetosImagen } from "./objetosImagen.js"
 import { Motor } from '../motor/motor.js'
 import { Transformar } from "./transformar.js"
+import { NombresImagenes } from "../motor/imagenes.js"
 
 type Animacion = {
   indice: number
@@ -14,19 +15,28 @@ export class Animaciones extends ObjetosImagen {
   animacion: Animacion
   constructor(
     motor: Motor,
-    src: string,
+    nombre: NombresImagenes,
     posicionLienzo: Transformar,
+    ancho: number,
+    alto: number,
     horizontal: number,
     vertical: number,
   ) {
-    super(motor, src, posicionLienzo, horizontal, vertical)
+    super(
+      motor,
+      nombre,
+      posicionLienzo,
+      ancho,
+      alto,
+      horizontal,
+      vertical
+    )
     this.contadorTiempo = 0
     this.indiceImagen = 0
     this.tiempoEntreImagen = 0
     this.animacion = { indice: -1, objetos: 0 }
   }
   reproducir(indice: number, objetos: number) {
-    if (!this.puedeDibujar) return
     if (indice == this.animacion.indice) return
     this.animacion.indice = indice
     this.animacion.objetos = objetos
@@ -35,7 +45,6 @@ export class Animaciones extends ObjetosImagen {
     this.tiempoEntreImagen = 1000 / this.animacion.objetos
   }
   siguienteCuadro() {
-    if (!this.puedeDibujar) return
     this.contadorTiempo += this.motor.ultimoTiempoEntreCuadro
     if (this.contadorTiempo < this.tiempoEntreImagen) return
     this.contadorTiempo = 0

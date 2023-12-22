@@ -7,11 +7,20 @@ export class AnimacionesMago extends Animaciones {
         motor: Motor,
         estado: Estado,
     ) {
-        const { src, horizontal, vertical, posicionLienzo } = estado.parametrosAnimacion
+        const {
+            nombre,
+            posicionLienzo,
+            ancho,
+            alto,
+            horizontal,
+            vertical,
+        } = estado.parametrosAnimacion
         super(
             motor,
-            src,
+            nombre,
             posicionLienzo,
+            ancho,
+            alto,
             horizontal,
             vertical,
         )

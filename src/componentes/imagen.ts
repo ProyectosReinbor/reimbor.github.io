@@ -1,32 +1,27 @@
 import { Motor } from "../motor/motor.js"
 import { Transformar } from "./transformar.js"
+import { NombresImagenes } from "../motor/imagenes.js"
 export class Imagen {
   motor: Motor
-  src: string
-  puedeDibujar: boolean
   posicionLienzo: Transformar
-  imagen: HTMLImageElement
+  imagen?: HTMLImageElement
   constructor(
     motor: Motor,
-    src: string,
+    nombre: NombresImagenes,
     posicionLienzo: Transformar
   ) {
     this.motor = motor
-    this.src = src
-    this.puedeDibujar = false
     this.posicionLienzo = posicionLienzo
-    this.imagen = new Image()
-    this.imagen.addEventListener("load", () => this.cargoImagen())
-    this.imagen.src = this.src
+    this.motor.imagenes.obtener(nombre, (imagen) => this.asignarImagen(imagen))
   }
-  cargoImagen() {
-    this.puedeDibujar = true
+  asignarImagen(imagen: HTMLImageElement) {
+    this.imagen = imagen
   }
   actualizar() {
     this.dibujar()
   }
   dibujar() {
-    if (!this.puedeDibujar) return
+    if (this.imagen == undefined) return
     this.motor.contexto.imageSmoothingEnabled = false
     const { x, y, ancho, alto } = this.posicionLienzo.pixeles()
     this.motor.contexto.drawImage(this.imagen, x, y, ancho, alto)

@@ -1,7 +1,8 @@
-import { Porcentajes } from './porcentajes.js';
+import { Lienzo } from './lienzo.js';
 import { Pantalla } from './pantalla.js';
 import { Camara } from "./camara.js";
 import { Transformar } from "../basico/transformar.js";
+import { Imagenes } from './imagenes.js';
 export class Motor {
     constructor(despuesActualizar) {
         this.despuesActualizar = despuesActualizar;
@@ -9,24 +10,12 @@ export class Motor {
         this.ultimoTiempoEntreCuadro = 0;
         this.fps = 24;
         this.tiempoEntreCuadro = 1000 / this.fps;
-        this.lienzo = document.getElementById('lienzo');
-        this.contexto = this.lienzo.getContext('2d');
-        this.porcentajes = new Porcentajes(this);
+        this.lienzo = new Lienzo(this);
+        this.contexto = this.lienzo.etiqueta.getContext('2d');
         this.camara = new Camara(this, new Transformar(this));
         this.pantalla = new Pantalla();
-        this.aspecto();
+        this.imagenes = new Imagenes();
         requestAnimationFrame((tiempo) => this.actualizar(tiempo));
-        window.addEventListener('resize', () => {
-            this.aspecto();
-        });
-    }
-    aspecto() {
-        const relacion = 1280 / 720;
-        this.altoLienzo = window.innerHeight;
-        this.anchoLienzo = this.altoLienzo * relacion;
-        this.lienzo.width = window.innerWidth;
-        this.lienzo.height = window.innerHeight;
-        this.camara.aspecto();
     }
     actualizar(tiempo) {
         const tiempoEntreCuadro = tiempo - this.ultimoTiempo;
@@ -36,7 +25,7 @@ export class Motor {
         }
         this.ultimoTiempoEntreCuadro = tiempoEntreCuadro;
         this.ultimoTiempo = tiempo;
-        this.contexto.clearRect(0, 0, this.lienzo.width, this.lienzo.height);
+        this.contexto.clearRect(0, 0, this.lienzo.etiqueta.width, this.lienzo.etiqueta.height);
         this.despuesActualizar();
         requestAnimationFrame((tiempo) => this.actualizar(tiempo));
     }

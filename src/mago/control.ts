@@ -1,9 +1,9 @@
 import { Cuadrado } from "../basico/cuadrado.js"
 import { Imagen } from "../basico/imagen.js"
 import { Transformar } from "../basico/transformar.js"
+import { NombresImagenes } from "../motor/imagenes.js"
 import { Motor } from "../motor/motor.js"
 import { Estado, Direcciones, Acciones } from "./estado.js"
-
 type DireccionesControl = {
   izquierdaArriba: Transformar,
   izquierda: Transformar,
@@ -29,12 +29,12 @@ export class Control {
     this.estado = estado
     this.controlFondo = new Imagen(
       this.motor,
-      "imagenes/control/fondo.png",
+      NombresImagenes.controlFondo,
       new Transformar(this.motor, 0, 50, 50, 50),
     )
     this.controlFlechas = new Imagen(
       this.motor,
-      "imagenes/control/flechas.png",
+      NombresImagenes.controlFlechas,
       new Transformar(
         this.motor,
         0,

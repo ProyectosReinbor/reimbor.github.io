@@ -37,12 +37,14 @@ export class Estado {
             moverY: 0,
         };
         this.parametrosAnimacion = {
-            indice: -1,
-            objetos: 6,
+            nombre: "mago",
+            posicionLienzo: new Transformar(this.motor),
+            ancho: 0,
+            alto: 0,
             horizontal: 6,
             vertical: 24,
-            src: "imagenes/mago.png",
-            posicionLienzo: new Transformar(this.motor),
+            indice: -1,
+            objetos: 6,
             visible: false,
         };
     }

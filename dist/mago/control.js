@@ -4,8 +4,8 @@ export class Control {
     constructor(motor, estado) {
         this.motor = motor;
         this.estado = estado;
-        this.controlFondo = new Imagen(this.motor, "imagenes/control/fondo.png", new Transformar(this.motor, 0, 50, 50, 50));
-        this.controlFlechas = new Imagen(this.motor, "imagenes/control/flechas.png", new Transformar(this.motor, 0, 0, this.controlFondo.posicionLienzo.ancho / 3, this.controlFondo.posicionLienzo.alto / 3));
+        this.controlFondo = new Imagen(this.motor, "controlFondo", new Transformar(this.motor, 0, 50, 50, 50));
+        this.controlFlechas = new Imagen(this.motor, "controlFlechas", new Transformar(this.motor, 0, 0, this.controlFondo.posicionLienzo.ancho / 3, this.controlFondo.posicionLienzo.alto / 3));
         this.controlTouch = new Transformar(this.motor, -10, 50, 60, 60);
         const direccion = new Transformar(this.motor, this.controlFondo.posicionLienzo.x, this.controlFondo.posicionLienzo.y, this.controlFondo.posicionLienzo.ancho / 3, this.controlFondo.posicionLienzo.alto / 3);
         this.direcciones = {

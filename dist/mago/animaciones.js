@@ -1,8 +1,8 @@
 import { Animaciones } from "../basico/animaciones.js";
 export class AnimacionesMago extends Animaciones {
     constructor(motor, estado) {
-        const { src, horizontal, vertical, posicionLienzo } = estado.parametrosAnimacion;
-        super(motor, src, posicionLienzo, horizontal, vertical);
+        const { nombre, posicionLienzo, ancho, alto, horizontal, vertical, } = estado.parametrosAnimacion;
+        super(motor, nombre, posicionLienzo, ancho, alto, horizontal, vertical);
         this.estado = estado;
     }
     actualizar() {
