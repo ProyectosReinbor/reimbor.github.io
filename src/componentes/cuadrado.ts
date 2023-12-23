@@ -1,24 +1,24 @@
 import { Transformar } from './transformar.js'
 import { Motor } from '../motor/motor.js'
-export class Cuadrado extends Transformar {
+import { Componente } from './componente.js'
+import { Objeto } from '../motor/objeto.js'
+export class Cuadrado extends Componente {
   color: string
   constructor(
     motor: Motor,
-    x: number,
-    y: number,
-    ancho: number,
-    alto: number,
+    padre: Objeto,
     color = "#fff",
   ) {
-    super(motor, x, y, ancho, alto)
-    this.color = color
+    super(motor, padre)
+    this.padre.transformar =
+      this.color = color
   }
   actualizar() {
     this.dibujar()
   }
   dibujar() {
     this.motor.contexto.fillStyle = this.color
-    const { x, y, ancho, alto } = this.pixeles()
+    const { x, y, ancho, alto } = this.padre.transformar.()
     this.motor.contexto.fillRect(x, y, ancho, alto)
   }
 }
