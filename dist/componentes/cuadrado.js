@@ -1,7 +1,7 @@
-import { Transformar } from './transformar.js';
-export class Cuadrado extends Transformar {
-    constructor(motor, x, y, ancho, alto, color = "#fff") {
-        super(motor, x, y, ancho, alto);
+export class Cuadrado {
+    constructor(motor, posicion, color = "#fff") {
+        this.motor = motor;
+        this.posicion = posicion;
         this.color = color;
     }
     actualizar() {
@@ -9,7 +9,7 @@ export class Cuadrado extends Transformar {
     }
     dibujar() {
         this.motor.contexto.fillStyle = this.color;
-        const { x, y, ancho, alto } = this.pixeles();
+        const { x, y, ancho, alto } = this.posicion.pixeles;
         this.motor.contexto.fillRect(x, y, ancho, alto);
     }
 }

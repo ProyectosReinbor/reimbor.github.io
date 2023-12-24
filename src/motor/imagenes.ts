@@ -56,13 +56,16 @@ export class Imagenes {
   }
   obtener(
     nombre: NombresImagenes,
-    respuesta: (imagen: HTMLImageElement) => void
   ) {
-    const imagen = this.coleccion[nombre]
-    const fuente = Fuentes[nombre]
-    if (imagen.src == fuente)
-      return respuesta(imagen)
-    imagen.src = fuente
-    imagen.addEventListener('load', () => respuesta(imagen))
+    return new Promise((
+      respuesta: (imagen: HTMLImageElement) => void,
+    ) => {
+      const imagen = this.coleccion[nombre]
+      const fuente = Fuentes[nombre]
+      if (imagen.src == fuente)
+        return respuesta(imagen)
+      imagen.src = fuente
+      imagen.addEventListener('load', () => respuesta(imagen))
+    })
   }
 }

@@ -1,10 +1,10 @@
 import { ObjetosImagen } from "./objetosImagen.js";
 export class Animaciones extends ObjetosImagen {
-    constructor(motor, nombre, posicionLienzo, ancho, alto, horizontal, vertical) {
-        super(motor, nombre, posicionLienzo, ancho, alto, horizontal, vertical);
-        this.contadorTiempo = 0;
-        this.indiceImagen = 0;
-        this.tiempoEntreImagen = 0;
+    constructor(motor, imagen, objetos, horizontal, vertical) {
+        super(motor, imagen, objetos, horizontal, vertical);
+        this.contador = 0;
+        this.indice = 0;
+        this.retraso = 0;
         this.animacion = { indice: -1, objetos: 0 };
     }
     reproducir(indice, objetos) {
@@ -12,22 +12,22 @@ export class Animaciones extends ObjetosImagen {
             return;
         this.animacion.indice = indice;
         this.animacion.objetos = objetos;
-        this.indiceImagen = 0;
+        this.indice = 0;
         this.objetos.y = this.animacion.indice * this.objetos.alto;
-        this.tiempoEntreImagen = 1000 / this.animacion.objetos;
+        this.retraso = 1000 / this.animacion.objetos;
     }
-    siguienteCuadro() {
-        this.contadorTiempo += this.motor.ultimoTiempoEntreCuadro;
-        if (this.contadorTiempo < this.tiempoEntreImagen)
+    cuadro() {
+        this.contador += this.motor.ultimoTiempoEntreCuadro;
+        if (this.contador < this.retraso)
             return;
-        this.contadorTiempo = 0;
-        this.indiceImagen++;
-        if (this.indiceImagen >= this.animacion.objetos)
-            this.indiceImagen = 0;
-        this.objetos.x = this.indiceImagen * this.objetos.ancho;
+        this.contador = 0;
+        this.indice++;
+        if (this.indice >= this.animacion.objetos)
+            this.indice = 0;
+        this.objetos.x = this.indice * this.objetos.ancho;
     }
     actualizar() {
-        this.siguienteCuadro();
+        this.cuadro();
         this.dibujar();
     }
 }

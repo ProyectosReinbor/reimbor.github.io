@@ -28,12 +28,12 @@ export class AnimacionesMago extends Animaciones {
     }
     actualizar() {
         if (!this.estado.parametrosAnimacion.visible) return
-        this.posicionLienzo = this.estado.parametrosAnimacion.posicionLienzo
+        this.posicion = this.estado.parametrosAnimacion.posicionLienzo
         this.reproducir(
             this.estado.parametrosAnimacion.indice,
             this.estado.parametrosAnimacion.objetos,
         )
-        this.siguienteCuadro()
+        this.cuadro()
         this.dibujar()
     }
 }

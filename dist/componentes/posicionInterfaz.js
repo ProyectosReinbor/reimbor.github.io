@@ -1,11 +1,10 @@
-import { Componente } from "./componente.js";
 import { Transformar } from "./transformar.js";
-export class PosicionInterfaz extends Componente {
-    constructor(motor, padre, posicion) {
-        super(motor, padre);
-        this.ultimaPosicion = new Transformar;
-        this.pixeles = new Transformar;
+export class PosicionInterfaz {
+    constructor(motor, posicion) {
+        this.motor = motor;
         this.posicion = posicion;
+        this.pixeles = new Transformar;
+        this.ultimaPosicion = new Transformar;
     }
     asignarPixeles() {
         if (this.posicion.x == this.ultimaPosicion.x &&

@@ -1,20 +1,28 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 export class Imagen {
-    constructor(motor, nombre, posicionLienzo) {
+    constructor(motor, nombre, posicion) {
         this.motor = motor;
-        this.posicionLienzo = posicionLienzo;
-        this.motor.imagenes.obtener(nombre, (imagen) => this.asignarImagen(imagen));
+        this.posicion = posicion;
+        this.asignarImagen(nombre);
     }
-    asignarImagen(imagen) {
-        this.imagen = imagen;
+    asignarImagen(nombre) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.elemento = yield this.motor.imagenes.obtener(nombre);
+        });
     }
     actualizar() {
         this.dibujar();
     }
     dibujar() {
-        if (this.imagen == undefined)
-            return;
         this.motor.contexto.imageSmoothingEnabled = false;
-        const { x, y, ancho, alto } = this.posicionLienzo.pixeles();
-        this.motor.contexto.drawImage(this.imagen, x, y, ancho, alto);
+        this.motor.contexto.drawImage(this.elemento, this.posicion.pixeles.x, this.posicion.pixeles.y, this.posicion.pixeles.ancho, this.posicion.pixeles.alto);
     }
 }

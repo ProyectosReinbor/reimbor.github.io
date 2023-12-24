@@ -2,6 +2,7 @@ import { Motor } from './motor.js'
 export class Lienzo {
   motor: Motor
   etiqueta: HTMLCanvasElement
+  contexto: CanvasRenderingContext2D
   alto!: number
   ancho!: number
   unPorcientoAncho!: number
@@ -9,6 +10,7 @@ export class Lienzo {
   constructor(motor: Motor) {
     this.motor = motor
     this.etiqueta = document.getElementById('lienzo') as HTMLCanvasElement
+    this.contexto = this.etiqueta.getContext('2d') as CanvasRenderingContext2D
     this.aspecto()
     window.addEventListener('resize', () => {
       this.aspecto()
@@ -34,5 +36,13 @@ export class Lienzo {
   }
   pixelesAlto(valor: number) {
     return valor * this.unPorcientoAlto
+  }
+  actualizar() {
+    this.contexto.clearRect(
+      0,
+      0,
+      this.etiqueta.width,
+      this.etiqueta.height
+    )
   }
 }

@@ -27,12 +27,14 @@ export class Imagenes {
             mago: new Image,
         };
     }
-    obtener(nombre, respuesta) {
-        const imagen = this.coleccion[nombre];
-        const fuente = Fuentes[nombre];
-        if (imagen.src == fuente)
-            return respuesta(imagen);
-        imagen.src = fuente;
-        imagen.addEventListener('load', () => respuesta(imagen));
+    obtener(nombre) {
+        return new Promise((respuesta) => {
+            const imagen = this.coleccion[nombre];
+            const fuente = Fuentes[nombre];
+            if (imagen.src == fuente)
+                return respuesta(imagen);
+            imagen.src = fuente;
+            imagen.addEventListener('load', () => respuesta(imagen));
+        });
     }
 }

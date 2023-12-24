@@ -1,20 +1,18 @@
 import { Motor } from "../motor/motor.js"
-import { Objeto } from "../motor/objeto.js"
-import { Componente } from "./componente.js"
 import { Transformar } from "./transformar.js"
-export class PosicionInterfaz extends Componente {
+export class PosicionInterfaz {
+  motor: Motor
   posicion: Transformar
   pixeles: Transformar
   ultimaPosicion: Transformar
   constructor(
     motor: Motor,
-    padre: Objeto,
     posicion: Transformar
   ) {
-    super(motor, padre)
-    this.ultimaPosicion = new Transformar
-    this.pixeles = new Transformar
+    this.motor = motor
     this.posicion = posicion
+    this.pixeles = new Transformar
+    this.ultimaPosicion = new Transformar
   }
   asignarPixeles() {
     if (
