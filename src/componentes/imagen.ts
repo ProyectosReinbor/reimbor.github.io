@@ -29,8 +29,8 @@ export class Imagen {
     posicionLienzo: Transformar
   ) {
     if (this.elemento == undefined) return
-    this.motor.contexto.imageSmoothingEnabled = false
-    this.motor.contexto.drawImage(
+    this.motor.lienzo.contexto.imageSmoothingEnabled = false
+    this.motor.lienzo.contexto.drawImage(
       this.elemento,
       elementoImagen.x,
       elementoImagen.y,

@@ -1,12 +1,11 @@
-import { PosicionInterfaz } from "./posicionInterfaz.js";
-import { Transformar } from "./transformar.js";
-export class PosicionMundo extends PosicionInterfaz {
-    constructor(motor, posicionMundo) {
-        super(motor, new Transformar);
-        this.posicionMundo = posicionMundo;
+export class PosicionMundo {
+    constructor(motor, posicion, posicionInterfaz) {
+        this.motor = motor;
+        this.posicion = posicion;
+        this.posicionInterfaz = posicionInterfaz;
     }
     actualizar() {
-        this.posicion = this.motor.camara.posicionLienzo(this.posicionMundo);
-        this.asignarPixeles();
+        this.posicionInterfaz.posicion = this.motor.camara.posicionLienzo(this.posicion);
+        this.posicionInterfaz.actualizar();
     }
 }

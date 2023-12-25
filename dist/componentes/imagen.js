@@ -8,21 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 export class Imagen {
-    constructor(motor, nombre, posicion) {
+    constructor(motor) {
         this.motor = motor;
-        this.posicion = posicion;
-        this.asignarImagen(nombre);
     }
     asignarImagen(nombre) {
         return __awaiter(this, void 0, void 0, function* () {
             this.elemento = yield this.motor.imagenes.obtener(nombre);
         });
     }
-    actualizar() {
-        this.dibujar();
+    actualizar(elementoImagen, posicionLienzo) {
+        this.dibujar(elementoImagen, posicionLienzo);
     }
-    dibujar() {
+    dibujar(elementoImagen, posicionLienzo) {
+        if (this.elemento == undefined)
+            return;
         this.motor.contexto.imageSmoothingEnabled = false;
-        this.motor.contexto.drawImage(this.elemento, this.posicion.pixeles.x, this.posicion.pixeles.y, this.posicion.pixeles.ancho, this.posicion.pixeles.alto);
+        this.motor.contexto.drawImage(this.elemento, elementoImagen.x, elementoImagen.y, elementoImagen.ancho, elementoImagen.alto, posicionLienzo.x, posicionLienzo.y, posicionLienzo.ancho, posicionLienzo.alto);
     }
 }

@@ -1,33 +1,32 @@
-import { ObjetosImagen } from "./objetosImagen.js";
-export class Animaciones extends ObjetosImagen {
-    constructor(motor, imagen, objetos, horizontal, vertical) {
-        super(motor, imagen, objetos, horizontal, vertical);
+export class Animaciones {
+    constructor(motor, elementosImagen) {
+        this.motor = motor;
+        this.elementosImagen = elementosImagen;
         this.contador = 0;
         this.indice = 0;
         this.retraso = 0;
-        this.animacion = { indice: -1, objetos: 0 };
+        this.animacion = { indice: -1, elementos: 0 };
     }
-    reproducir(indice, objetos) {
+    reproducir(indice, elementos) {
         if (indice == this.animacion.indice)
             return;
         this.animacion.indice = indice;
-        this.animacion.objetos = objetos;
+        this.animacion.elementos = elementos;
         this.indice = 0;
-        this.objetos.y = this.animacion.indice * this.objetos.alto;
-        this.retraso = 1000 / this.animacion.objetos;
+        this.elementosImagen.elementos.y = this.animacion.indice * this.elementosImagen.elementos.alto;
+        this.retraso = 1000 / this.animacion.elementos;
     }
-    cuadro() {
+    elemento() {
         this.contador += this.motor.ultimoTiempoEntreCuadro;
         if (this.contador < this.retraso)
             return;
         this.contador = 0;
         this.indice++;
-        if (this.indice >= this.animacion.objetos)
+        if (this.indice >= this.animacion.elementos)
             this.indice = 0;
-        this.objetos.x = this.indice * this.objetos.ancho;
+        this.elementosImagen.elementos.x = this.indice * this.elementosImagen.elementos.ancho;
     }
-    actualizar() {
-        this.cuadro();
-        this.dibujar();
+    actualizar(posicionLienzo) {
+        this.elementosImagen.actualizar(posicionLienzo);
     }
 }

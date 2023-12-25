@@ -1,32 +1,19 @@
 import { Lienzo } from './lienzo.js';
 import { Pantalla } from './pantalla.js';
 import { Camara } from "./camara.js";
-import { Transformar } from "../basico/transformar.js";
+import { Transformar } from "../componentes/transformar.js";
 import { Imagenes } from './imagenes.js';
+import { Objetos } from './objetos.js';
 export class Motor {
-    constructor(despuesActualizar) {
-        this.despuesActualizar = despuesActualizar;
-        this.ultimoTiempo = 0;
-        this.ultimoTiempoEntreCuadro = 0;
-        this.fps = 24;
-        this.tiempoEntreCuadro = 1000 / this.fps;
-        this.lienzo = new Lienzo(this);
-        this.contexto = this.lienzo.etiqueta.getContext('2d');
-        this.camara = new Camara(this, new Transformar(this));
-        this.pantalla = new Pantalla();
+    constructor() {
         this.imagenes = new Imagenes();
-        requestAnimationFrame((tiempo) => this.actualizar(tiempo));
+        this.lienzo = new Lienzo(this);
+        this.camara = new Camara(this, new Transformar);
+        this.objetos = new Objetos(this);
+        this.pantalla = new Pantalla();
     }
-    actualizar(tiempo) {
-        const tiempoEntreCuadro = tiempo - this.ultimoTiempo;
-        if (tiempoEntreCuadro < this.tiempoEntreCuadro) {
-            requestAnimationFrame((tiempo) => this.actualizar(tiempo));
-            return;
-        }
-        this.ultimoTiempoEntreCuadro = tiempoEntreCuadro;
-        this.ultimoTiempo = tiempo;
-        this.contexto.clearRect(0, 0, this.lienzo.etiqueta.width, this.lienzo.etiqueta.height);
-        this.despuesActualizar();
-        requestAnimationFrame((tiempo) => this.actualizar(tiempo));
+    actualizar() {
+        this.lienzo.actualizar();
+        this.objetos.actualizar();
     }
 }

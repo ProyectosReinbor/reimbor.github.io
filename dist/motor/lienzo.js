@@ -2,6 +2,7 @@ export class Lienzo {
     constructor(motor) {
         this.motor = motor;
         this.etiqueta = document.getElementById('lienzo');
+        this.contexto = this.etiqueta.getContext('2d');
         this.aspecto();
         window.addEventListener('resize', () => {
             this.aspecto();
@@ -27,5 +28,8 @@ export class Lienzo {
     }
     pixelesAlto(valor) {
         return valor * this.unPorcientoAlto;
+    }
+    actualizar() {
+        this.contexto.clearRect(0, 0, this.etiqueta.width, this.etiqueta.height);
     }
 }

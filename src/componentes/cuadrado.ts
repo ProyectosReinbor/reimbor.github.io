@@ -17,8 +17,8 @@ export class Cuadrado {
     this.dibujar()
   }
   dibujar() {
-    this.motor.contexto.fillStyle = this.color
+    this.motor.lienzo.contexto.fillStyle = this.color
     const { x, y, ancho, alto } = this.posicion.pixeles
-    this.motor.contexto.fillRect(x, y, ancho, alto)
+    this.motor.lienzo.contexto.fillRect(x, y, ancho, alto)
   }
 }

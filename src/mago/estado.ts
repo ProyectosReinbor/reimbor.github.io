@@ -1,6 +1,6 @@
 
 import { Motor } from "../motor/motor.js"
-import { Transformar } from "../basico/transformar.js"
+import { Transformar } from "../componentes/transformar.js"
 import { NombresImagenes } from "../motor/imagenes.js"
 
 export const enum Direcciones {
@@ -48,16 +48,12 @@ const indices = [
     Acciones.hechizo + Direcciones.derechaArriba,
 ]
 
-type ParametrosAnimacion = {
+type Animacion = {
     nombre: NombresImagenes
-    posicionLienzo: Transformar
-    ancho: number
-    alto: number
     horizontal: number,
     vertical: number
     indice: number
-    objetos: number
-    visible: boolean
+    elementos: number
 }
 
 type Movimiento = {
@@ -72,7 +68,7 @@ export class Estado {
     direccion: Direcciones
     accion: Acciones
     movimiento: Movimiento
-    parametrosAnimacion: ParametrosAnimacion
+    animacion: Animacion
     constructor(
         motor: Motor,
         posicionMundo: Transformar,
@@ -86,40 +82,31 @@ export class Estado {
             moverX: 0,
             moverY: 0,
         }
-        this.parametrosAnimacion = {
+        this.animacion = {
             nombre: NombresImagenes.mago,
-            posicionLienzo: new Transformar(this.motor),
-            ancho: 0,
-            alto: 0,
             horizontal: 6,
             vertical: 24,
             indice: -1,
-            objetos: 6,
-            visible: false,
+            elementos: 6,
         }
     }
-    animacion() {
+    animar() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`)
-        if (this.parametrosAnimacion.indice == indice) return
-        this.parametrosAnimacion.indice = indice
+        if (this.animacion.indice == indice) return false
+        this.animacion.indice = indice
     }
     moverse() {
-        const segundos = this.motor.ultimoTiempoEntreCuadro / 1000
+        const segundos = this.motor.controlCuadros.ultimoTiempoCuadro / 1000
         const velocidad = this.movimiento.velocidad * segundos
-        if (this.movimiento.moverX == 0 &&
-            this.movimiento.moverY == 0) return
+        if (
+            this.movimiento.moverX == 0 &&
+            this.movimiento.moverY == 0
+        ) return false
         this.posicionMundo.x += velocidad * this.movimiento.moverX
         this.posicionMundo.y += velocidad * this.movimiento.moverY
-        const posicionLienzo = this.motor.camara.posicionLienzo(this.posicionMundo)
-        if (posicionLienzo != false) {
-            this.parametrosAnimacion.posicionLienzo = posicionLienzo
-            this.parametrosAnimacion.visible = true
-        } else {
-            this.parametrosAnimacion.visible = false
-        }
     }
     actualizar() {
         this.moverse()
-        this.animacion()
+        this.animar()
     }
 }

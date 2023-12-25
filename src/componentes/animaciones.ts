@@ -34,7 +34,7 @@ export class Animaciones {
     this.retraso = 1000 / this.animacion.elementos
   }
   elemento() {
-    this.contador += this.motor.ultimoTiempoEntreCuadro
+    this.contador += this.motor.controlCuadros.ultimoTiempoCuadro
     if (this.contador < this.retraso) return
     this.contador = 0
     this.indice++

@@ -1,4 +1,4 @@
-import { Transformar } from "../basico/transformar.js";
+import { Transformar } from "../componentes/transformar.js";
 export class Camara {
     constructor(motor, vision) {
         this.motor = motor;

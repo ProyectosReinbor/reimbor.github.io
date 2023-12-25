@@ -1,5 +1,5 @@
-import { Imagen } from "../basico/imagen.js";
-import { Transformar } from "../basico/transformar.js";
+import { Imagen } from "../componentes/imagen.js";
+import { Transformar } from "../componentes/transformar.js";
 export class Control {
     constructor(motor, estado) {
         this.motor = motor;
@@ -21,14 +21,14 @@ export class Control {
         };
         this.puedeMoverse = false;
         this.quieto();
-        this.motor.lienzo.addEventListener('touchstart', (evento) => this.empezarMoverse(evento));
-        this.motor.lienzo.addEventListener('touchmove', (evento) => this.moverse(evento));
-        this.motor.lienzo.addEventListener('touchend', () => this.quieto());
+        this.motor.lienzo.etiqueta.addEventListener('touchstart', (evento) => this.empezarMoverse(evento));
+        this.motor.lienzo.etiqueta.addEventListener('touchmove', (evento) => this.moverse(evento));
+        this.motor.lienzo.etiqueta.addEventListener('touchend', () => this.quieto());
     }
     empezarMoverse(evento) {
         for (const touch of evento.changedTouches) {
-            const x = this.motor.porcentajes.porcentajeAnchoLienzo(touch.pageX);
-            const y = this.motor.porcentajes.porcentajeAltoLienzo(touch.pageY);
+            const x = this.motor.lienzo.porcentajeAncho(touch.pageX);
+            const y = this.motor.lienzo.porcentajeAlto(touch.pageY);
             if (!this.controlFondo.posicionLienzo.adentro(x, y))
                 continue;
             this.puedeMoverse = true;
@@ -39,9 +39,8 @@ export class Control {
         if (!this.puedeMoverse)
             return;
         for (const touch of evento.changedTouches) {
-            const porcentajes = this.motor.porcentajes;
-            const x = porcentajes.porcentajeAnchoLienzo(touch.pageX);
-            const y = porcentajes.porcentajeAltoLienzo(touch.pageY);
+            const x = this.motor.lienzo.porcentajeAncho(touch.pageX);
+            const y = this.motor.lienzo.porcentajeAncho(touch.pageY);
             if (this.controlTouch.adentro(x, y) == false)
                 continue;
             const controlFlechas = this.controlFlechas.posicionLienzo;
