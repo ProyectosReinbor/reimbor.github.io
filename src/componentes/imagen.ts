@@ -7,8 +7,10 @@ export class Imagen {
   elemento?: HTMLImageElement
   constructor(
     motor: Motor,
+    nombre: NombresImagenes,
   ) {
     this.motor = motor
+    this.asignarImagen(nombre)
   }
   async asignarImagen(nombre: NombresImagenes) {
     this.elemento = await this.motor.imagenes.obtener(

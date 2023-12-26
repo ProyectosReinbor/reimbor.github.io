@@ -1,4 +1,4 @@
-import { Transformar } from "../basico/transformar.js";
+import { Transformar } from "../componentes/transformar.js";
 import { Motor } from "../motor/motor.js";
 import { Estado } from "./estado.js";
 
@@ -9,7 +9,7 @@ export class AtraerCamara {
   constructor(motor: Motor, estado: Estado) {
     this.motor = motor
     this.estado = estado
-    this.posicionMundo = new Transformar(this.motor)
+    this.posicionMundo = new Transformar()
   }
   actualizar() {
     const posicionMundo = this.estado.posicionMundo
@@ -18,7 +18,6 @@ export class AtraerCamara {
       this.posicionMundo.y == posicionMundo.y
     ) return
     this.posicionMundo = new Transformar(
-      this.motor,
       posicionMundo.x,
       posicionMundo.y,
       posicionMundo.ancho,
@@ -34,7 +33,6 @@ export class AtraerCamara {
       alto: this.posicionMundo.alto / 2
     }
     camara.vision = new Transformar(
-      this.motor,
       this.posicionMundo.x - mitadVision.ancho + mitadPosicionMundo.ancho,
       this.posicionMundo.y - mitadVision.alto + mitadPosicionMundo.alto,
       camara.vision.ancho,

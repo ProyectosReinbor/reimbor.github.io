@@ -52,8 +52,11 @@ type Animacion = {
     nombre: NombresImagenes
     horizontal: number,
     vertical: number
-    indice: number
-    elementos: number
+    elementos: Transformar
+    animacion: {
+        indice: number
+        elementos: number
+    }
 }
 
 type Movimiento = {
@@ -86,14 +89,17 @@ export class Estado {
             nombre: NombresImagenes.mago,
             horizontal: 6,
             vertical: 24,
-            indice: -1,
-            elementos: 6,
+            elementos: new Transformar,
+            animacion: {
+                indice: -1,
+                elementos: 6,
+            }
         }
     }
     animar() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`)
-        if (this.animacion.indice == indice) return false
-        this.animacion.indice = indice
+        if (this.animacion.animacion.indice == indice) return false
+        this.animacion.animacion.indice = indice
     }
     moverse() {
         const segundos = this.motor.controlCuadros.ultimoTiempoCuadro / 1000

@@ -25,7 +25,7 @@ export class Animaciones {
     this.retraso = 0
     this.animacion = { indice: -1, elementos: 0 }
   }
-  reproducir(indice: number, elementos: number) {
+  reproducir({ indice, elementos }: Animacion) {
     if (indice == this.animacion.indice) return
     this.animacion.indice = indice
     this.animacion.elementos = elementos
