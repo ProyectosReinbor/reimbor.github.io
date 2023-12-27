@@ -17,16 +17,7 @@ export class Imagen {
       nombre,
     )
   }
-  actualizar(
-    elementoImagen: Transformar,
-    posicionLienzo: Transformar
-  ) {
-    this.dibujar(
-      elementoImagen,
-      posicionLienzo,
-    )
-  }
-  dibujar(
+  dibujarElemento(
     elementoImagen: Transformar,
     posicionLienzo: Transformar
   ) {
@@ -38,6 +29,19 @@ export class Imagen {
       elementoImagen.y,
       elementoImagen.ancho,
       elementoImagen.alto,
+      posicionLienzo.x,
+      posicionLienzo.y,
+      posicionLienzo.ancho,
+      posicionLienzo.alto,
+    )
+  }
+  dibujar(
+    posicionLienzo: Transformar
+  ) {
+    if (this.elemento == undefined) return
+    this.motor.lienzo.contexto.imageSmoothingEnabled = false
+    this.motor.lienzo.contexto.drawImage(
+      this.elemento,
       posicionLienzo.x,
       posicionLienzo.y,
       posicionLienzo.ancho,

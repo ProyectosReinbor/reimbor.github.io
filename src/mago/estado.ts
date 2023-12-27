@@ -3,7 +3,7 @@ import { Motor } from "../motor/motor.js"
 import { Transformar } from "../componentes/transformar.js"
 import { NombresImagenes } from "../motor/imagenes.js"
 
-export const enum Direcciones {
+export const enum EstadoDirecciones {
     izquierda = 'izquierda',
     izquierdaAbajo = 'izquierdaAbajo',
     izquierdaArriba = 'izquierdaArriba',
@@ -14,7 +14,7 @@ export const enum Direcciones {
     derechaArriba = 'derechaArriba',
 }
 
-export const enum Acciones {
+export const enum EstadoAcciones {
     parado = 'parado',
     caminar = 'caminar',
     hechizo = 'hechizo',
