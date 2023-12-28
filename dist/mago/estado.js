@@ -1,78 +1,69 @@
-import { Transformar } from "../basico/transformar.js";
+import { Transformar } from "../componentes/transformar.js";
 const indices = [
-    "parado" + "abajo",
-    "caminar" + "abajo",
-    "hechizo" + "abajo",
-    "parado" + "izquierdaAbajo",
-    "caminar" + "izquierdaAbajo",
-    "hechizo" + "izquierdaAbajo",
-    "parado" + "izquierda",
-    "caminar" + "izquierda",
-    "hechizo" + "izquierda",
-    "parado" + "izquierdaArriba",
-    "caminar" + "izquierdaArriba",
-    "hechizo" + "izquierdaArriba",
-    "parado" + "arriba",
-    "caminar" + "arriba",
-    "hechizo" + "arriba",
-    "parado" + "derechaAbajo",
-    "caminar" + "derechaAbajo",
-    "hechizo" + "derechaAbajo",
-    "parado" + "derecha",
-    "caminar" + "derecha",
-    "hechizo" + "derecha",
-    "parado" + "derechaArriba",
-    "caminar" + "derechaArriba",
-    "hechizo" + "derechaArriba",
+    Acciones.parado + Direcciones.abajo,
+    Acciones.caminar + Direcciones.abajo,
+    Acciones.hechizo + Direcciones.abajo,
+    Acciones.parado + Direcciones.izquierdaAbajo,
+    Acciones.caminar + Direcciones.izquierdaAbajo,
+    Acciones.hechizo + Direcciones.izquierdaAbajo,
+    Acciones.parado + Direcciones.izquierda,
+    Acciones.caminar + Direcciones.izquierda,
+    Acciones.hechizo + Direcciones.izquierda,
+    Acciones.parado + Direcciones.izquierdaArriba,
+    Acciones.caminar + Direcciones.izquierdaArriba,
+    Acciones.hechizo + Direcciones.izquierdaArriba,
+    Acciones.parado + Direcciones.arriba,
+    Acciones.caminar + Direcciones.arriba,
+    Acciones.hechizo + Direcciones.arriba,
+    Acciones.parado + Direcciones.derechaAbajo,
+    Acciones.caminar + Direcciones.derechaAbajo,
+    Acciones.hechizo + Direcciones.derechaAbajo,
+    Acciones.parado + Direcciones.derecha,
+    Acciones.caminar + Direcciones.derecha,
+    Acciones.hechizo + Direcciones.derecha,
+    Acciones.parado + Direcciones.derechaArriba,
+    Acciones.caminar + Direcciones.derechaArriba,
+    Acciones.hechizo + Direcciones.derechaArriba,
 ];
 export class Estado {
     constructor(motor, posicionMundo) {
         this.motor = motor;
         this.posicionMundo = posicionMundo;
-        this.direccion = "abajo";
-        this.accion = "parado";
+        this.direccion = Direcciones.abajo;
+        this.accion = Acciones.parado;
         this.movimiento = {
             velocidad: 6,
             moverX: 0,
             moverY: 0,
         };
-        this.parametrosAnimacion = {
+        this.animacion = {
             nombre: "mago",
-            posicionLienzo: new Transformar(this.motor),
-            ancho: 0,
-            alto: 0,
             horizontal: 6,
             vertical: 24,
-            indice: -1,
-            objetos: 6,
-            visible: false,
+            elementos: new Transformar,
+            animacion: {
+                indice: -1,
+                elementos: 6,
+            }
         };
     }
-    animacion() {
+    animar() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`);
-        if (this.parametrosAnimacion.indice == indice)
-            return;
-        this.parametrosAnimacion.indice = indice;
+        if (this.animacion.animacion.indice == indice)
+            return false;
+        this.animacion.animacion.indice = indice;
     }
     moverse() {
-        const segundos = this.motor.ultimoTiempoEntreCuadro / 1000;
+        const segundos = this.motor.controlCuadros.ultimoTiempoCuadro / 1000;
         const velocidad = this.movimiento.velocidad * segundos;
         if (this.movimiento.moverX == 0 &&
             this.movimiento.moverY == 0)
-            return;
+            return false;
         this.posicionMundo.x += velocidad * this.movimiento.moverX;
         this.posicionMundo.y += velocidad * this.movimiento.moverY;
-        const posicionLienzo = this.motor.camara.posicionLienzo(this.posicionMundo);
-        if (posicionLienzo != false) {
-            this.parametrosAnimacion.posicionLienzo = posicionLienzo;
-            this.parametrosAnimacion.visible = true;
-        }
-        else {
-            this.parametrosAnimacion.visible = false;
-        }
     }
     actualizar() {
         this.moverse();
-        this.animacion();
+        this.animar();
     }
 }

@@ -8,21 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 export class Imagen {
-    constructor(motor) {
+    constructor(motor, nombre) {
         this.motor = motor;
+        this.asignarImagen(nombre);
     }
     asignarImagen(nombre) {
         return __awaiter(this, void 0, void 0, function* () {
             this.elemento = yield this.motor.imagenes.obtener(nombre);
         });
     }
-    actualizar(elementoImagen, posicionLienzo) {
-        this.dibujar(elementoImagen, posicionLienzo);
-    }
-    dibujar(elementoImagen, posicionLienzo) {
+    dibujarElemento(elementoImagen, posicionLienzo) {
         if (this.elemento == undefined)
             return;
-        this.motor.contexto.imageSmoothingEnabled = false;
-        this.motor.contexto.drawImage(this.elemento, elementoImagen.x, elementoImagen.y, elementoImagen.ancho, elementoImagen.alto, posicionLienzo.x, posicionLienzo.y, posicionLienzo.ancho, posicionLienzo.alto);
+        this.motor.lienzo.contexto.imageSmoothingEnabled = false;
+        this.motor.lienzo.contexto.drawImage(this.elemento, elementoImagen.x, elementoImagen.y, elementoImagen.ancho, elementoImagen.alto, posicionLienzo.x, posicionLienzo.y, posicionLienzo.ancho, posicionLienzo.alto);
+    }
+    dibujar(posicionLienzo) {
+        if (this.elemento == undefined)
+            return;
+        this.motor.lienzo.contexto.imageSmoothingEnabled = false;
+        this.motor.lienzo.contexto.drawImage(this.elemento, posicionLienzo.x, posicionLienzo.y, posicionLienzo.ancho, posicionLienzo.alto);
     }
 }

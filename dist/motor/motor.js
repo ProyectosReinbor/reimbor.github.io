@@ -4,6 +4,7 @@ import { Camara } from "./camara.js";
 import { Transformar } from "../componentes/transformar.js";
 import { Imagenes } from './imagenes.js';
 import { Objetos } from './objetos.js';
+import { ControlCuadros } from './controlCuadros.js';
 export class Motor {
     constructor() {
         this.imagenes = new Imagenes();
@@ -11,6 +12,7 @@ export class Motor {
         this.camara = new Camara(this, new Transformar);
         this.objetos = new Objetos(this);
         this.pantalla = new Pantalla();
+        this.controlCuadros = new ControlCuadros(() => this.actualizar());
     }
     actualizar() {
         this.lienzo.actualizar();

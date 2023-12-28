@@ -5,8 +5,8 @@ export class Camara {
         this.vision = vision;
     }
     aspecto() {
-        const dividorAncho = this.motor.anchoLienzo / 100;
-        this.vision.ancho = this.motor.lienzo.width / dividorAncho;
+        const dividorAncho = this.motor.lienzo.ancho / 100;
+        this.vision.ancho = this.motor.lienzo.etiqueta.width / dividorAncho;
         this.vision.alto = 100;
     }
     visible(posicion) {
@@ -30,8 +30,6 @@ export class Camara {
             objeto.yFinal <= vision.y.final;
     }
     posicionLienzo(posicion) {
-        if (!this.visible(posicion))
-            return false;
-        return new Transformar(this.motor, posicion.x - this.vision.x, posicion.y - this.vision.y, posicion.ancho, posicion.alto);
+        return new Transformar(posicion.x - this.vision.x, posicion.y - this.vision.y, posicion.ancho, posicion.alto);
     }
 }

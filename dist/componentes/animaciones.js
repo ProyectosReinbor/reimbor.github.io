@@ -7,7 +7,7 @@ export class Animaciones {
         this.retraso = 0;
         this.animacion = { indice: -1, elementos: 0 };
     }
-    reproducir(indice, elementos) {
+    reproducir({ indice, elementos }) {
         if (indice == this.animacion.indice)
             return;
         this.animacion.indice = indice;
@@ -17,7 +17,7 @@ export class Animaciones {
         this.retraso = 1000 / this.animacion.elementos;
     }
     elemento() {
-        this.contador += this.motor.ultimoTiempoEntreCuadro;
+        this.contador += this.motor.controlCuadros.ultimoTiempoCuadro;
         if (this.contador < this.retraso)
             return;
         this.contador = 0;

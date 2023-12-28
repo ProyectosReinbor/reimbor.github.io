@@ -41,18 +41,11 @@ export class Control {
     for (const touch of evento.changedTouches) {
       const x = this.motor.lienzo.porcentajeAncho(touch.pageX)
       const y = this.motor.lienzo.porcentajeAncho(touch.pageY)
-      if (this.controlTouch.adentro(x, y) == false) continue
+      if (this.controlTouch.adentro(x, y, 0, 0) == false) continue
       const controlFlechas = this.flechas.posicionLienzo
       controlFlechas.x = x - (controlFlechas.ancho / 2)
       controlFlechas.y = y - (controlFlechas.alto / 2)
-      const movimiento = this.estado.movimiento
-      if (this.direcciones.centro.adentro(x, y)) {
-        this.estado.accion = Acciones.parado
-        movimiento.moverX = 0
-        movimiento.moverY = 0
-      } else {
-        this.estado.accion = Acciones.caminar
-      }
+
       if (this.direcciones.izquierda.adentro(x, y)) {
         this.estado.direccion = Direcciones.izquierda
         movimiento.moverX = -1
