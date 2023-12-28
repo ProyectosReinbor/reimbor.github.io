@@ -1,5 +1,5 @@
 import { Transformar } from "../../componentes/transformar.js"
-import { Estado, EstadoAcciones } from "../estado.js"
+import { Estado, EstadoAcciones, EstadoDirecciones } from "../estado.js"
 import { Fondo } from "./fondo.js"
 
 export class Direcciones {
@@ -71,12 +71,47 @@ export class Direcciones {
       this.estado.accion = EstadoAcciones.caminar
     }
   }
-  direccion(
+  movimiento(
     x: number,
     y: number,
   ) {
     if (this.izquierdaArriba.adentro(x, y, 0, 0)) {
-      this.estado.direccion = 
+      this.estado.direccion = EstadoDirecciones.izquierdaArriba
+      this.estado.movimiento.moverX = -1
+      this.estado.movimiento.moverY = -1
+    } else if (this.arriba.adentro(x, y, 0, 0)) {
+      this.estado.direccion = EstadoDirecciones.arriba
+      this.estado.movimiento.moverX = 0
+      this.estado.movimiento.moverY = -1
+    } else if (this.derechaArriba.adentro(x, y, 0, 0)) {
+      this.estado.direccion = EstadoDirecciones.derechaArriba
+      this.estado.movimiento.moverX = 1
+      this.estado.movimiento.moverY = -1
+    } else if (this.izquierda.adentro(x, y, 0, 0)) {
+      this.estado.direccion = EstadoDirecciones.izquierda
+      this.estado.movimiento.moverX = -1
+      this.estado.movimiento.moverY = 0
+    } else if (this.derecha.adentro(x, y, 0, 0)) {
+      this.estado.direccion = EstadoDirecciones.derecha
+      this.estado.movimiento.moverX = 1
+      this.estado.movimiento.moverY = 0
+    } else if (this.izquierdaAbajo.adentro(x, y, 0, 0)) {
+      this.estado.direccion = EstadoDirecciones.izquierdaAbajo
+      this.estado.movimiento.moverX = -1
+      this.estado.movimiento.moverY = 1
+    } else if (this.abajo.adentro(x, y, 0, 0)) {
+      this.estado.direccion = EstadoDirecciones.abajo
+      this.estado.movimiento.moverX = 0
+      this.estado.movimiento.moverY = 1
+    } else if (this.derechaAbajo.adentro(x, y, 0, 0)) {
+      this.estado.direccion = EstadoDirecciones.derechaAbajo
+      this.estado.movimiento.moverX = 1
+      this.estado.movimiento.moverY = 1
     }
+  }
+  quieto() {
+    this.estado.accion = EstadoAcciones.parado
+    this.estado.movimiento.moverX = 0
+    this.estado.movimiento.moverY = 0
   }
 }

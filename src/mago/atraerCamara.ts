@@ -5,38 +5,30 @@ import { Estado } from "./estado.js";
 export class AtraerCamara {
   motor: Motor
   estado: Estado
-  posicionMundo: Transformar
+  ultimaPosicionMundo: Transformar
   constructor(motor: Motor, estado: Estado) {
     this.motor = motor
     this.estado = estado
-    this.posicionMundo = new Transformar()
+    this.ultimaPosicionMundo = new Transformar(0, 0, 0, 0)
   }
   actualizar() {
-    const posicionMundo = this.estado.posicionMundo
     if (
-      this.posicionMundo.x == posicionMundo.x &&
-      this.posicionMundo.y == posicionMundo.y
+      this.ultimaPosicionMundo.x == this.estado.posicionMundo.x &&
+      this.ultimaPosicionMundo.y == this.estado.posicionMundo.y
     ) return
-    this.posicionMundo = new Transformar(
-      posicionMundo.x,
-      posicionMundo.y,
-      posicionMundo.ancho,
-      posicionMundo.alto
+    this.ultimaPosicionMundo = new Transformar(
+      this.estado.posicionMundo.x,
+      this.estado.posicionMundo.y,
+      this.estado.posicionMundo.ancho,
+      this.estado.posicionMundo.alto
     )
-    const camara = this.motor.camara
-    const mitadVision = {
-      ancho: camara.vision.ancho / 2,
-      alto: camara.vision.alto / 2,
-    }
-    const mitadPosicionMundo = {
-      ancho: this.posicionMundo.ancho / 2,
-      alto: this.posicionMundo.alto / 2
-    }
-    camara.vision = new Transformar(
-      this.posicionMundo.x - mitadVision.ancho + mitadPosicionMundo.ancho,
-      this.posicionMundo.y - mitadVision.alto + mitadPosicionMundo.alto,
-      camara.vision.ancho,
-      camara.vision.alto,
+    const mitadVision = this.motor.camara.vision.mitad()
+    const mitadPosicionMundo = this.estado.posicionMundo.mitad()
+    this.motor.camara.vision = new Transformar(
+      this.estado.posicionMundo.x - mitadVision.ancho + mitadPosicionMundo.ancho,
+      this.estado.posicionMundo.y - mitadVision.alto + mitadPosicionMundo.alto,
+      this.motor.camara.vision.ancho,
+      this.motor.camara.vision.alto,
     )
   }
 }

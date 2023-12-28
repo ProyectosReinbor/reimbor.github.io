@@ -27,4 +27,10 @@ export class Fondo {
     if (posicionLienzo == false) return false
     this.imagen.dibujar(posicionLienzo)
   }
+  adentro(
+    x: number,
+    y: number,
+  ) {
+    return this.posicionInterfaz.adentro(x, y, 0, 0)
+  }
 }

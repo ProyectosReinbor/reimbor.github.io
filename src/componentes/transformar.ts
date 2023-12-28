@@ -33,4 +33,12 @@ export class Transformar {
       objetoLimites.x <= limites.x &&
       objetoLimites.y <= limites.y
   }
+  mitad() {
+    return new Transformar(
+      this.x,
+      this.y,
+      this.ancho / 2,
+      this.alto / 2,
+    )
+  }
 }

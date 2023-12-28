@@ -68,8 +68,8 @@ type Movimiento = {
 export class Estado {
     motor: Motor
     posicionMundo: Transformar
-    direccion: Direcciones
-    accion: Acciones
+    direccion: EstadoDirecciones
+    accion: EstadoAcciones
     movimiento: Movimiento
     animacion: Animacion
     constructor(
@@ -78,8 +78,8 @@ export class Estado {
     ) {
         this.motor = motor
         this.posicionMundo = posicionMundo
-        this.direccion = Direcciones.abajo
-        this.accion = Acciones.parado
+        this.direccion = EstadoDirecciones.abajo
+        this.accion = EstadoAcciones.parado
         this.movimiento = {
             velocidad: 6,
             moverX: 0,
@@ -89,7 +89,7 @@ export class Estado {
             nombre: NombresImagenes.mago,
             horizontal: 6,
             vertical: 24,
-            elementos: new Transformar,
+            elementos: new Transformar(0, 0, 0, 0),
             animacion: {
                 indice: -1,
                 elementos: 6,
