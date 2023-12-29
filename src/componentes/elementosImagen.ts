@@ -3,10 +3,10 @@ import { Imagen } from "./imagen.js"
 import { Transformar } from "./transformar.js"
 
 export class ElementosImagen {
-  imagen: Imagen
-  elementos: Transformar
-  horizontal: number
-  vertical: number
+  private imagen: Imagen
+  private elementos: Transformar
+  private horizontal: number
+  private vertical: number
   constructor(
     imagen: Imagen,
     elementos: Transformar,
@@ -18,11 +18,10 @@ export class ElementosImagen {
     this.horizontal = horizontal
     this.vertical = vertical
   }
-  asignarImage(nombre: NombresImagenes) {
-    this.imagen.asignarImagen(nombre)
-    if (this.imagen.elemento == undefined) return
-    this.asignarHorizontal(this.imagen.elemento.width)
-    this.asignarVertical(this.imagen.elemento.height)
+  asignarImagen() {
+    const medidas = this.imagen.medidas()
+    this.asignarHorizontal(medidas.ancho)
+    this.asignarVertical(medidas.alto)
   }
   asignarHorizontal(anchoElemento: number) {
     if (this.horizontal == 0)
@@ -36,12 +35,18 @@ export class ElementosImagen {
     else
       this.elementos.alto = altoElemento / this.vertical
   }
-  actualizar(
+  dibujar(
     posicionLienzo: Transformar
   ) {
-    this.imagen.dibujar(
+    this.imagen.dibujarElemento(
       this.elementos,
       posicionLienzo,
     )
+  }
+  elementosVertical(indice: number) {
+    this.elementos.y = indice * this.elementos.alto
+  }
+  elementosHorizontal(indice: number) {
+    this.elementos.x = indice * this.elementos.ancho
   }
 }

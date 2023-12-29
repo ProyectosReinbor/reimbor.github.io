@@ -48,7 +48,7 @@ export class Control {
     if (this.puedeMoverse == false) return
     for (const touch of evento.changedTouches) {
       const x = this.motor.lienzo.porcentajeAncho(touch.pageX)
-      const y = this.motor.lienzo.porcentajeAncho(touch.pageY)
+      const y = this.motor.lienzo.porcentajeAlto(touch.pageY)
       if (this.touch.adentro(x, y, 0, 0) == false) continue
       this.flechas.touch(x, y)
       this.direcciones.accion(x, y)

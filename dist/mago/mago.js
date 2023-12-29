@@ -1,6 +1,6 @@
 import { Transformar } from "../componentes/transformar.js";
 import { Estado } from "./estado.js";
-import { Control } from "./control.js";
+import { Control } from "./control/control.js";
 import { AnimacionesMago } from './animaciones.js';
 import { AtraerCamara } from './atraerCamara.js';
 export class Mago {

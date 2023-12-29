@@ -3,9 +3,9 @@ import { PosicionInterfaz } from "./posicionInterfaz.js"
 import { Transformar } from "./transformar.js"
 
 export class PosicionMundo {
-  motor: Motor
-  posicion: Transformar
-  posicionInterfaz: PosicionInterfaz
+  private motor: Motor
+  private posicion: Transformar
+  private posicionInterfaz: PosicionInterfaz
   constructor(
     motor: Motor,
     posicion: Transformar,
@@ -15,9 +15,9 @@ export class PosicionMundo {
     this.posicion = posicion
     this.posicionInterfaz = posicionInterfaz
   }
-  actualizar() {
+  obtenerPixeles() {
     if (this.motor.camara.visible(this.posicion) == false) return false
     this.posicionInterfaz.posicion = this.motor.camara.posicionLienzo(this.posicion)
-    this.posicionInterfaz.actualizar()
+    return this.posicionInterfaz.obtenerPixeles()
   }
 }

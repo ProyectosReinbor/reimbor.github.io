@@ -8,9 +8,10 @@ export class Fondo {
         this.posicionInterfaz = new PosicionInterfaz(this.motor, new Transformar(0, 50, 50, 50));
     }
     dibujar() {
-        const posicionLienzo = this.posicionInterfaz.pixeles();
-        if (posicionLienzo == false)
-            return false;
-        this.imagen.dibujar(posicionLienzo);
+        const pixeles = this.posicionInterfaz.obtenerPixeles();
+        this.imagen.dibujar(pixeles);
+    }
+    adentro(x, y) {
+        return this.posicionInterfaz.adentro(x, y, 0, 0);
     }
 }

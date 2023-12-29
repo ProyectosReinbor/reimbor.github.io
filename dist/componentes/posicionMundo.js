@@ -4,10 +4,10 @@ export class PosicionMundo {
         this.posicion = posicion;
         this.posicionInterfaz = posicionInterfaz;
     }
-    actualizar() {
+    obtenerPixeles() {
         if (this.motor.camara.visible(this.posicion) == false)
             return false;
         this.posicionInterfaz.posicion = this.motor.camara.posicionLienzo(this.posicion);
-        this.posicionInterfaz.actualizar();
+        return this.posicionInterfaz.obtenerPixeles();
     }
 }

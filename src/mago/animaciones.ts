@@ -28,6 +28,6 @@ export class AnimacionesMago {
         const posicionLienzo = this.motor.camara.posicionLienzo(this.estado.posicionMundo)
         this.animaciones.reproducir(this.estado.animacion.animacion)
         this.animaciones.elemento()
-        this.animaciones.actualizar(posicionLienzo)
+        this.animaciones.dibujar(posicionLienzo)
     }
 }

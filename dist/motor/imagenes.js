@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const Fuentes = {
     controlFlechas: "imagenes/control/flechas.png",
     controlFondo: "imagenes/control/fondo.png",
@@ -26,13 +35,32 @@ export class Imagenes {
             pantallaSalir: new Image,
             mago: new Image,
         };
+        this.cargar();
     }
-    obtener(nombre) {
+    cargar() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const nombres = [
+                "controlFlechas",
+                "controlFondo",
+                "mapaAnimations0",
+                "mapaAnimations1",
+                "mapaAnimations2",
+                "mapaForest0",
+                "mapaForest1",
+                "mapaForest2",
+                "pantallaAbrir",
+                "pantallaSalir",
+                "mago",
+            ];
+            for (const nombre of nombres) {
+                yield this.asignar(nombre);
+            }
+        });
+    }
+    asignar(nombre) {
         return new Promise((respuesta) => {
             const imagen = this.coleccion[nombre];
             const fuente = Fuentes[nombre];
-            if (imagen.src == fuente)
-                return respuesta(imagen);
             imagen.src = fuente;
             imagen.addEventListener('load', () => respuesta(imagen));
         });

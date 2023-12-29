@@ -16,7 +16,7 @@ export class Motor {
   constructor() {
     this.imagenes = new Imagenes()
     this.lienzo = new Lienzo(this)
-    this.camara = new Camara(this, new Transformar)
+    this.camara = new Camara(this, new Transformar(0, 0, 0, 0))
     this.objetos = new Objetos(this)
     this.pantalla = new Pantalla()
     this.controlCuadros = new ControlCuadros(() => this.actualizar())

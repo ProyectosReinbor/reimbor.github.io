@@ -8,17 +8,15 @@ export class Mapa {
   animations0: ElementosImagen
   constructor(motor: Motor) {
     this.motor = motor
-    const imagen = new Imagen(this.motor)
-    imagen.asignarImagen(NombresImagenes.mapaAnimations0)
     this.animations0 = new ElementosImagen(
-      imagen,
+      new Imagen(this.motor, NombresImagenes.mapaAnimations0),
       new Transformar(0, 0, 48, 48),
       0,
       0,
     )
   }
   actualizar() {
-    this.animations0.actualizar(
+    this.animations0.dibujar(
       new Transformar(0, 0, 10, 10),
     )
   }

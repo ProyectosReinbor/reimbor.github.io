@@ -13,7 +13,7 @@ export class Animaciones {
         this.animacion.indice = indice;
         this.animacion.elementos = elementos;
         this.indice = 0;
-        this.elementosImagen.elementos.y = this.animacion.indice * this.elementosImagen.elementos.alto;
+        this.elementosImagen.elementosVertical(this.animacion.indice);
         this.retraso = 1000 / this.animacion.elementos;
     }
     elemento() {
@@ -24,9 +24,9 @@ export class Animaciones {
         this.indice++;
         if (this.indice >= this.animacion.elementos)
             this.indice = 0;
-        this.elementosImagen.elementos.x = this.indice * this.elementosImagen.elementos.ancho;
+        this.elementosImagen.elementosHorizontal(this.indice);
     }
-    actualizar(posicionLienzo) {
-        this.elementosImagen.actualizar(posicionLienzo);
+    dibujar(posicionLienzo) {
+        this.elementosImagen.dibujar(posicionLienzo);
     }
 }

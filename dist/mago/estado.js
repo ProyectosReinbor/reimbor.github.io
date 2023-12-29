@@ -1,36 +1,36 @@
 import { Transformar } from "../componentes/transformar.js";
 const indices = [
-    Acciones.parado + Direcciones.abajo,
-    Acciones.caminar + Direcciones.abajo,
-    Acciones.hechizo + Direcciones.abajo,
-    Acciones.parado + Direcciones.izquierdaAbajo,
-    Acciones.caminar + Direcciones.izquierdaAbajo,
-    Acciones.hechizo + Direcciones.izquierdaAbajo,
-    Acciones.parado + Direcciones.izquierda,
-    Acciones.caminar + Direcciones.izquierda,
-    Acciones.hechizo + Direcciones.izquierda,
-    Acciones.parado + Direcciones.izquierdaArriba,
-    Acciones.caminar + Direcciones.izquierdaArriba,
-    Acciones.hechizo + Direcciones.izquierdaArriba,
-    Acciones.parado + Direcciones.arriba,
-    Acciones.caminar + Direcciones.arriba,
-    Acciones.hechizo + Direcciones.arriba,
-    Acciones.parado + Direcciones.derechaAbajo,
-    Acciones.caminar + Direcciones.derechaAbajo,
-    Acciones.hechizo + Direcciones.derechaAbajo,
-    Acciones.parado + Direcciones.derecha,
-    Acciones.caminar + Direcciones.derecha,
-    Acciones.hechizo + Direcciones.derecha,
-    Acciones.parado + Direcciones.derechaArriba,
-    Acciones.caminar + Direcciones.derechaArriba,
-    Acciones.hechizo + Direcciones.derechaArriba,
+    "parado" + "abajo",
+    "caminar" + "abajo",
+    "hechizo" + "abajo",
+    "parado" + "izquierdaAbajo",
+    "caminar" + "izquierdaAbajo",
+    "hechizo" + "izquierdaAbajo",
+    "parado" + "izquierda",
+    "caminar" + "izquierda",
+    "hechizo" + "izquierda",
+    "parado" + "izquierdaArriba",
+    "caminar" + "izquierdaArriba",
+    "hechizo" + "izquierdaArriba",
+    "parado" + "arriba",
+    "caminar" + "arriba",
+    "hechizo" + "arriba",
+    "parado" + "derechaAbajo",
+    "caminar" + "derechaAbajo",
+    "hechizo" + "derechaAbajo",
+    "parado" + "derecha",
+    "caminar" + "derecha",
+    "hechizo" + "derecha",
+    "parado" + "derechaArriba",
+    "caminar" + "derechaArriba",
+    "hechizo" + "derechaArriba",
 ];
 export class Estado {
     constructor(motor, posicionMundo) {
         this.motor = motor;
         this.posicionMundo = posicionMundo;
-        this.direccion = Direcciones.abajo;
-        this.accion = Acciones.parado;
+        this.direccion = "abajo";
+        this.accion = "parado";
         this.movimiento = {
             velocidad: 6,
             moverX: 0,
@@ -40,7 +40,7 @@ export class Estado {
             nombre: "mago",
             horizontal: 6,
             vertical: 24,
-            elementos: new Transformar,
+            elementos: new Transformar(0, 0, 0, 0),
             animacion: {
                 indice: -1,
                 elementos: 6,

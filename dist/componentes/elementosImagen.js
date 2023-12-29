@@ -5,12 +5,10 @@ export class ElementosImagen {
         this.horizontal = horizontal;
         this.vertical = vertical;
     }
-    asignarImage(nombre) {
-        this.imagen.asignarImagen(nombre);
-        if (this.imagen.elemento == undefined)
-            return;
-        this.asignarHorizontal(this.imagen.elemento.width);
-        this.asignarVertical(this.imagen.elemento.height);
+    asignarImagen() {
+        const medidas = this.imagen.medidas();
+        this.asignarHorizontal(medidas.ancho);
+        this.asignarVertical(medidas.alto);
     }
     asignarHorizontal(anchoElemento) {
         if (this.horizontal == 0)
@@ -24,7 +22,13 @@ export class ElementosImagen {
         else
             this.elementos.alto = altoElemento / this.vertical;
     }
-    actualizar(posicionLienzo) {
-        this.imagen.dibujar(this.elementos, posicionLienzo);
+    dibujar(posicionLienzo) {
+        this.imagen.dibujarElemento(this.elementos, posicionLienzo);
+    }
+    elementosVertical(indice) {
+        this.elementos.y = indice * this.elementos.alto;
+    }
+    elementosHorizontal(indice) {
+        this.elementos.x = indice * this.elementos.ancho;
     }
 }

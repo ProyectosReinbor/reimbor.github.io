@@ -4,12 +4,9 @@ export class Cuadrado {
         this.posicion = posicion;
         this.color = color;
     }
-    actualizar() {
-        this.dibujar();
-    }
     dibujar() {
         this.motor.lienzo.contexto.fillStyle = this.color;
-        const { x, y, ancho, alto } = this.posicion.pixeles;
-        this.motor.lienzo.contexto.fillRect(x, y, ancho, alto);
+        const pixeles = this.posicion.obtenerPixeles();
+        this.motor.lienzo.contexto.fillRect(pixeles.x, pixeles.y, pixeles.ancho, pixeles.alto);
     }
 }

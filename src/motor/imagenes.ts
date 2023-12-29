@@ -53,8 +53,27 @@ export class Imagenes {
       pantallaSalir: new Image,
       mago: new Image,
     }
+    this.cargar()
   }
-  obtener(
+  private async cargar() {
+    const nombres: NombresImagenes[] = [
+      NombresImagenes.controlFlechas,
+      NombresImagenes.controlFondo,
+      NombresImagenes.mapaAnimations0,
+      NombresImagenes.mapaAnimations1,
+      NombresImagenes.mapaAnimations2,
+      NombresImagenes.mapaForest0,
+      NombresImagenes.mapaForest1,
+      NombresImagenes.mapaForest2,
+      NombresImagenes.pantallaAbrir,
+      NombresImagenes.pantallaSalir,
+      NombresImagenes.mago,
+    ]
+    for (const nombre of nombres) {
+      await this.asignar(nombre)
+    }
+  }
+  private asignar(
     nombre: NombresImagenes,
   ) {
     return new Promise((
@@ -62,8 +81,6 @@ export class Imagenes {
     ) => {
       const imagen = this.coleccion[nombre]
       const fuente = Fuentes[nombre]
-      if (imagen.src == fuente)
-        return respuesta(imagen)
       imagen.src = fuente
       imagen.addEventListener('load', () => respuesta(imagen))
     })

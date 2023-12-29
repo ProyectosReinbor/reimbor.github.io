@@ -8,12 +8,12 @@ type Animacion = {
 }
 
 export class Animaciones {
-  motor: Motor
-  elementosImagen: ElementosImagen
-  contador: number
-  indice: number
-  retraso: number
-  animacion: Animacion
+  private motor: Motor
+  private elementosImagen: ElementosImagen
+  private contador: number
+  private indice: number
+  private retraso: number
+  private animacion: Animacion
   constructor(
     motor: Motor,
     elementosImagen: ElementosImagen,
@@ -30,7 +30,7 @@ export class Animaciones {
     this.animacion.indice = indice
     this.animacion.elementos = elementos
     this.indice = 0
-    this.elementosImagen.elementos.y = this.animacion.indice * this.elementosImagen.elementos.alto
+    this.elementosImagen.elementosVertical(this.animacion.indice)
     this.retraso = 1000 / this.animacion.elementos
   }
   elemento() {
@@ -39,10 +39,10 @@ export class Animaciones {
     this.contador = 0
     this.indice++
     if (this.indice >= this.animacion.elementos) this.indice = 0
-    this.elementosImagen.elementos.x = this.indice * this.elementosImagen.elementos.ancho
+    this.elementosImagen.elementosHorizontal(this.indice)
   }
-  actualizar(posicionLienzo: Transformar) {
-    this.elementosImagen.actualizar(
+  dibujar(posicionLienzo: Transformar) {
+    this.elementosImagen.dibujar(
       posicionLienzo
     )
   }

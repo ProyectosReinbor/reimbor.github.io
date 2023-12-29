@@ -1,5 +1,5 @@
 import { Imagen } from "../../componentes/imagen.js"
-import { PosicionInterfaz } from "../../componentes/posicionInterfaz"
+import { PosicionInterfaz } from "../../componentes/posicionInterfaz.js"
 import { Transformar } from "../../componentes/transformar.js"
 import { NombresImagenes } from "../../motor/imagenes.js"
 import { Motor } from "../../motor/motor.js"
@@ -31,9 +31,8 @@ export class Flechas {
     )
   }
   dibujar() {
-    const posicionLienzo = this.posicionInterfaz.pixeles()
-    if (posicionLienzo == false) return false
-    this.imagen.dibujar(posicionLienzo)
+    const pixeles = this.posicionInterfaz.obtenerPixeles()
+    this.imagen.dibujar(pixeles)
   }
   touch(
     x: number,

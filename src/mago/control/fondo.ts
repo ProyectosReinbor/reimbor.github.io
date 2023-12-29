@@ -23,9 +23,8 @@ export class Fondo {
     )
   }
   dibujar() {
-    const posicionLienzo = this.posicionInterfaz.pixeles()
-    if (posicionLienzo == false) return false
-    this.imagen.dibujar(posicionLienzo)
+    const pixeles = this.posicionInterfaz.obtenerPixeles()
+    this.imagen.dibujar(pixeles)
   }
   adentro(
     x: number,
