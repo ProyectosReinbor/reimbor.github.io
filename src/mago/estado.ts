@@ -2,6 +2,8 @@
 import { Motor } from "../motor/motor.js"
 import { Transformar } from "../componentes/transformar.js"
 import { NombresImagenes } from "../motor/imagenes.js"
+import { PosicionMundo } from "../componentes/posicionMundo.js"
+import { MovimientoMundo } from "../componentes/movimientoMundo.js"
 
 export const enum EstadoDirecciones {
     izquierda = 'izquierda',
@@ -59,32 +61,27 @@ type Animacion = {
     }
 }
 
-type Movimiento = {
-    velocidad: number
-    moverX: number
-    moverY: number
-}
 
 export class Estado {
     motor: Motor
-    posicionMundo: Transformar
+    posicionMundo: PosicionMundo
     direccion: EstadoDirecciones
     accion: EstadoAcciones
-    movimiento: Movimiento
     animacion: Animacion
+    movimientoMundo: MovimientoMundo
     constructor(
         motor: Motor,
-        posicionMundo: Transformar,
+        posicionMundo: PosicionMundo,
     ) {
         this.motor = motor
         this.posicionMundo = posicionMundo
+        this.movimientoMundo = new MovimientoMundo(
+            this.motor,
+            this.posicionMundo,
+            6,
+        )
         this.direccion = EstadoDirecciones.abajo
         this.accion = EstadoAcciones.parado
-        this.movimiento = {
-            velocidad: 6,
-            moverX: 0,
-            moverY: 0,
-        }
         this.animacion = {
             nombre: NombresImagenes.mago,
             horizontal: 6,
@@ -101,18 +98,8 @@ export class Estado {
         if (this.animacion.animacion.indice == indice) return false
         this.animacion.animacion.indice = indice
     }
-    moverse() {
-        const segundos = this.motor.controlCuadros.ultimoTiempoCuadro / 1000
-        const velocidad = this.movimiento.velocidad * segundos
-        if (
-            this.movimiento.moverX == 0 &&
-            this.movimiento.moverY == 0
-        ) return false
-        this.posicionMundo.x += velocidad * this.movimiento.moverX
-        this.posicionMundo.y += velocidad * this.movimiento.moverY
-    }
     actualizar() {
-        this.moverse()
+        this.movimientoMundo.mover()
         this.animar()
     }
 }

@@ -20,7 +20,6 @@ export class Control {
         for (const touch of evento.changedTouches) {
             const x = this.motor.lienzo.porcentajeAncho(touch.pageX);
             const y = this.motor.lienzo.porcentajeAlto(touch.pageY);
-            console.log(x, y);
             if (this.fondo.adentro(x, y) == false)
                 continue;
             this.puedeMoverse = true;
@@ -32,10 +31,9 @@ export class Control {
             return;
         for (const touch of evento.changedTouches) {
             const x = this.motor.lienzo.porcentajeAncho(touch.pageX);
-            const y = this.motor.lienzo.porcentajeAncho(touch.pageY);
+            const y = this.motor.lienzo.porcentajeAlto(touch.pageY);
             if (this.touch.adentro(x, y, 0, 0) == false)
                 continue;
-            console.log(x, y);
             this.flechas.touch(x, y);
             this.direcciones.accion(x, y);
             this.direcciones.movimiento(x, y);

@@ -23,11 +23,11 @@ export class AnimacionesMago {
             )
         )
     }
-    actualizar() {
-        if (this.motor.camara.visible(this.estado.posicionMundo) == false) return false
-        const posicionLienzo = this.motor.camara.posicionLienzo(this.estado.posicionMundo)
+    dibujar() {
+        const pixeles = this.estado.posicionMundo.obtenerPixeles()
+        if (pixeles == false) return false
         this.animaciones.reproducir(this.estado.animacion.animacion)
         this.animaciones.elemento()
-        this.animaciones.dibujar(posicionLienzo)
+        this.animaciones.dibujar(pixeles)
     }
 }

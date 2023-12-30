@@ -10,6 +10,7 @@ export class AnimacionesMago {
     actualizar() {
         if (this.motor.camara.visible(this.estado.posicionMundo) == false)
             return false;
+        console.log("animaciones mago");
         const posicionLienzo = this.motor.camara.posicionLienzo(this.estado.posicionMundo);
         this.animaciones.reproducir(this.estado.animacion.animacion);
         this.animaciones.elemento();

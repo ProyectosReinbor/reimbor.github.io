@@ -9,15 +9,21 @@ export class PosicionMundo {
   constructor(
     motor: Motor,
     posicion: Transformar,
-    posicionInterfaz: PosicionInterfaz,
   ) {
     this.motor = motor
     this.posicion = posicion
-    this.posicionInterfaz = posicionInterfaz
+    this.posicionInterfaz = new PosicionInterfaz(this.motor, this.posicion)
   }
   obtenerPixeles() {
     if (this.motor.camara.visible(this.posicion) == false) return false
     this.posicionInterfaz.posicion = this.motor.camara.posicionLienzo(this.posicion)
     return this.posicionInterfaz.obtenerPixeles()
+  }
+  cambiarPosicion(
+    x: number,
+    y: number,
+  ) {
+    this.posicion.x = x
+    this.posicion.y = y
   }
 }
