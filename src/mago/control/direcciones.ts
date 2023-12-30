@@ -65,8 +65,8 @@ export class Direcciones {
   ) {
     if (this.centro.adentro(x, y, 0, 0)) {
       this.estado.accion = EstadoAcciones.parado
-      this.estado.movimiento.moverX = 0
-      this.estado.movimiento.moverY = 0
+      this.estado.movimientoMundo.moverX = 0
+      this.estado.movimientoMundo.moverY = 0
     } else {
       this.estado.accion = EstadoAcciones.caminar
     }
@@ -77,41 +77,41 @@ export class Direcciones {
   ) {
     if (this.izquierdaArriba.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.izquierdaArriba
-      this.estado.movimiento.moverX = -1
-      this.estado.movimiento.moverY = -1
+      this.estado.movimientoMundo.moverX = -1
+      this.estado.movimientoMundo.moverY = -1
     } else if (this.arriba.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.arriba
-      this.estado.movimiento.moverX = 0
-      this.estado.movimiento.moverY = -1
+      this.estado.movimientoMundo.moverX = 0
+      this.estado.movimientoMundo.moverY = -1
     } else if (this.derechaArriba.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.derechaArriba
-      this.estado.movimiento.moverX = 1
-      this.estado.movimiento.moverY = -1
+      this.estado.movimientoMundo.moverX = 1
+      this.estado.movimientoMundo.moverY = -1
     } else if (this.izquierda.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.izquierda
-      this.estado.movimiento.moverX = -1
-      this.estado.movimiento.moverY = 0
+      this.estado.movimientoMundo.moverX = -1
+      this.estado.movimientoMundo.moverY = 0
     } else if (this.derecha.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.derecha
-      this.estado.movimiento.moverX = 1
-      this.estado.movimiento.moverY = 0
+      this.estado.movimientoMundo.moverX = 1
+      this.estado.movimientoMundo.moverY = 0
     } else if (this.izquierdaAbajo.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.izquierdaAbajo
-      this.estado.movimiento.moverX = -1
-      this.estado.movimiento.moverY = 1
+      this.estado.movimientoMundo.moverX = -1
+      this.estado.movimientoMundo.moverY = 1
     } else if (this.abajo.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.abajo
-      this.estado.movimiento.moverX = 0
-      this.estado.movimiento.moverY = 1
+      this.estado.movimientoMundo.moverX = 0
+      this.estado.movimientoMundo.moverY = 1
     } else if (this.derechaAbajo.adentro(x, y, 0, 0)) {
       this.estado.direccion = EstadoDirecciones.derechaAbajo
-      this.estado.movimiento.moverX = 1
-      this.estado.movimiento.moverY = 1
+      this.estado.movimientoMundo.moverX = 1
+      this.estado.movimientoMundo.moverY = 1
     }
   }
   quieto() {
     this.estado.accion = EstadoAcciones.parado
-    this.estado.movimiento.moverX = 0
-    this.estado.movimiento.moverY = 0
+    this.estado.movimientoMundo.moverX = 0
+    this.estado.movimientoMundo.moverY = 0
   }
 }

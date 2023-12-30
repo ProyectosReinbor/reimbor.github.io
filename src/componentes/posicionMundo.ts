@@ -4,7 +4,7 @@ import { Transformar } from "./transformar.js"
 
 export class PosicionMundo {
   private motor: Motor
-  private posicion: Transformar
+  posicion: Transformar
   private posicionInterfaz: PosicionInterfaz
   constructor(
     motor: Motor,
@@ -17,6 +17,7 @@ export class PosicionMundo {
   obtenerPixeles() {
     if (this.motor.camara.visible(this.posicion) == false) return false
     this.posicionInterfaz.posicion = this.motor.camara.posicionLienzo(this.posicion)
+    console.log(this.posicion)
     return this.posicionInterfaz.obtenerPixeles()
   }
   cambiarPosicion(

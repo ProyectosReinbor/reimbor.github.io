@@ -7,13 +7,12 @@ export class AnimacionesMago {
         this.estado = estado;
         this.animaciones = new Animaciones(this.motor, new ElementosImagen(new Imagen(this.motor, this.estado.animacion.nombre), this.estado.animacion.elementos, this.estado.animacion.horizontal, this.estado.animacion.vertical));
     }
-    actualizar() {
-        if (this.motor.camara.visible(this.estado.posicionMundo) == false)
+    dibujar() {
+        const pixeles = this.estado.posicionMundo.obtenerPixeles();
+        if (pixeles == false)
             return false;
-        console.log("animaciones mago");
-        const posicionLienzo = this.motor.camara.posicionLienzo(this.estado.posicionMundo);
         this.animaciones.reproducir(this.estado.animacion.animacion);
         this.animaciones.elemento();
-        this.animaciones.dibujar(posicionLienzo);
+        this.animaciones.dibujar(pixeles);
     }
 }

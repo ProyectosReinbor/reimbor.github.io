@@ -14,20 +14,15 @@ export class Mago {
   atraerCamara: AtraerCamara
   constructor(motor: Motor) {
     this.motor = motor
-    this.estado = new Estado(
-      this.motor,
-      new PosicionMundo(
-        this.motor,
-        new Transformar(0, 0, 20, 20),
-      )
-    )
+    this.estado = new Estado(this.motor)
     this.control = new Control(this.motor, this.estado)
     this.animaciones = new AnimacionesMago(this.motor, this.estado)
     this.atraerCamara = new AtraerCamara(this.motor, this.estado)
   }
   actualizar() {
     this.control.actualizar()
-    this.estado.actualizar()
+    this.estado.mover()
+    this.estado.animar()
     this.animaciones.dibujar()
     this.atraerCamara.actualizar()
   }

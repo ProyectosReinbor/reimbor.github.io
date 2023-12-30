@@ -10,12 +10,3 @@ body {
   right: 0;
   background-color: #000;
 }
-
-#pantallaCompleta {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10vh;
-  height: 10vh;
-  background-color: #000;
-}

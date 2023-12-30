@@ -34,8 +34,8 @@ export class Direcciones {
     accion(x, y) {
         if (this.centro.adentro(x, y, 0, 0)) {
             this.estado.accion = "parado";
-            this.estado.movimiento.moverX = 0;
-            this.estado.movimiento.moverY = 0;
+            this.estado.movimientoMundo.moverX = 0;
+            this.estado.movimientoMundo.moverY = 0;
         }
         else {
             this.estado.accion = "caminar";
@@ -44,48 +44,48 @@ export class Direcciones {
     movimiento(x, y) {
         if (this.izquierdaArriba.adentro(x, y, 0, 0)) {
             this.estado.direccion = "izquierdaArriba";
-            this.estado.movimiento.moverX = -1;
-            this.estado.movimiento.moverY = -1;
+            this.estado.movimientoMundo.moverX = -1;
+            this.estado.movimientoMundo.moverY = -1;
         }
         else if (this.arriba.adentro(x, y, 0, 0)) {
             this.estado.direccion = "arriba";
-            this.estado.movimiento.moverX = 0;
-            this.estado.movimiento.moverY = -1;
+            this.estado.movimientoMundo.moverX = 0;
+            this.estado.movimientoMundo.moverY = -1;
         }
         else if (this.derechaArriba.adentro(x, y, 0, 0)) {
             this.estado.direccion = "derechaArriba";
-            this.estado.movimiento.moverX = 1;
-            this.estado.movimiento.moverY = -1;
+            this.estado.movimientoMundo.moverX = 1;
+            this.estado.movimientoMundo.moverY = -1;
         }
         else if (this.izquierda.adentro(x, y, 0, 0)) {
             this.estado.direccion = "izquierda";
-            this.estado.movimiento.moverX = -1;
-            this.estado.movimiento.moverY = 0;
+            this.estado.movimientoMundo.moverX = -1;
+            this.estado.movimientoMundo.moverY = 0;
         }
         else if (this.derecha.adentro(x, y, 0, 0)) {
             this.estado.direccion = "derecha";
-            this.estado.movimiento.moverX = 1;
-            this.estado.movimiento.moverY = 0;
+            this.estado.movimientoMundo.moverX = 1;
+            this.estado.movimientoMundo.moverY = 0;
         }
         else if (this.izquierdaAbajo.adentro(x, y, 0, 0)) {
             this.estado.direccion = "izquierdaAbajo";
-            this.estado.movimiento.moverX = -1;
-            this.estado.movimiento.moverY = 1;
+            this.estado.movimientoMundo.moverX = -1;
+            this.estado.movimientoMundo.moverY = 1;
         }
         else if (this.abajo.adentro(x, y, 0, 0)) {
             this.estado.direccion = "abajo";
-            this.estado.movimiento.moverX = 0;
-            this.estado.movimiento.moverY = 1;
+            this.estado.movimientoMundo.moverX = 0;
+            this.estado.movimientoMundo.moverY = 1;
         }
         else if (this.derechaAbajo.adentro(x, y, 0, 0)) {
             this.estado.direccion = "derechaAbajo";
-            this.estado.movimiento.moverX = 1;
-            this.estado.movimiento.moverY = 1;
+            this.estado.movimientoMundo.moverX = 1;
+            this.estado.movimientoMundo.moverY = 1;
         }
     }
     quieto() {
         this.estado.accion = "parado";
-        this.estado.movimiento.moverX = 0;
-        this.estado.movimiento.moverY = 0;
+        this.estado.movimientoMundo.moverX = 0;
+        this.estado.movimientoMundo.moverY = 0;
     }
 }

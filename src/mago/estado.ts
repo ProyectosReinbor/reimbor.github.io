@@ -71,10 +71,12 @@ export class Estado {
     movimientoMundo: MovimientoMundo
     constructor(
         motor: Motor,
-        posicionMundo: PosicionMundo,
     ) {
         this.motor = motor
-        this.posicionMundo = posicionMundo
+        this.posicionMundo = new PosicionMundo(
+            this.motor,
+            this.obtenerPosicionMundo(),
+        )
         this.movimientoMundo = new MovimientoMundo(
             this.motor,
             this.posicionMundo,
@@ -93,13 +95,18 @@ export class Estado {
             }
         }
     }
+    private obtenerPosicionMundo(): Transformar {
+        let json = localStorage.getItem('posicionMundo')
+        if (json == null) return new Transformar(0, 0, 20, 20)
+        // console.log(JSON.parse(json))
+        return JSON.parse(json)
+    }
     animar() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`)
         if (this.animacion.animacion.indice == indice) return false
         this.animacion.animacion.indice = indice
     }
-    actualizar() {
+    mover() {
         this.movimientoMundo.mover()
-        this.animar()
     }
 }

@@ -1,4 +1,6 @@
 import { Transformar } from "../componentes/transformar.js";
+import { PosicionMundo } from "../componentes/posicionMundo.js";
+import { MovimientoMundo } from "../componentes/movimientoMundo.js";
 const indices = [
     "parado" + "abajo",
     "caminar" + "abajo",
@@ -26,16 +28,12 @@ const indices = [
     "hechizo" + "derechaArriba",
 ];
 export class Estado {
-    constructor(motor, posicionMundo) {
+    constructor(motor) {
         this.motor = motor;
-        this.posicionMundo = posicionMundo;
+        this.posicionMundo = new PosicionMundo(this.motor, this.obtenerPosicionMundo());
+        this.movimientoMundo = new MovimientoMundo(this.motor, this.posicionMundo, 6);
         this.direccion = "abajo";
         this.accion = "parado";
-        this.movimiento = {
-            velocidad: 6,
-            moverX: 0,
-            moverY: 0,
-        };
         this.animacion = {
             nombre: "mago",
             horizontal: 6,
@@ -47,23 +45,19 @@ export class Estado {
             }
         };
     }
+    obtenerPosicionMundo() {
+        let json = localStorage.getItem('posicionMundo');
+        if (json == null)
+            return new Transformar(0, 0, 20, 20);
+        return JSON.parse(json);
+    }
     animar() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`);
         if (this.animacion.animacion.indice == indice)
             return false;
         this.animacion.animacion.indice = indice;
     }
-    moverse() {
-        const segundos = this.motor.controlCuadros.ultimoTiempoCuadro / 1000;
-        const velocidad = this.movimiento.velocidad * segundos;
-        if (this.movimiento.moverX == 0 &&
-            this.movimiento.moverY == 0)
-            return false;
-        this.posicionMundo.x += velocidad * this.movimiento.moverX;
-        this.posicionMundo.y += velocidad * this.movimiento.moverY;
-    }
-    actualizar() {
-        this.moverse();
-        this.animar();
+    mover() {
+        this.movimientoMundo.mover();
     }
 }

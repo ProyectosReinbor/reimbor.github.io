@@ -20,7 +20,6 @@ export class MovimientoMundo {
   }
   mover() {
     const segundos = this.motor.controlCuadros.ultimoTiempoCuadro / 1000
-    console.log(segundos)
     const velocidadSegundos = this.velocidad * segundos
     const nuevaX = velocidadSegundos * this.moverX
     const nuevaY = velocidadSegundos * this.moverY
