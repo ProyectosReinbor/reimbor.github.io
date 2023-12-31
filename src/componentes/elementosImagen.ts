@@ -1,19 +1,23 @@
 import { NombresImagenes } from "../motor/imagenes.js"
+import { Motor } from "../motor/motor.js"
 import { Imagen } from "./imagen.js"
 import { Transformar } from "./transformar.js"
 
 export class ElementosImagen {
+  private motor: Motor
   private imagen: Imagen
   private elementos: Transformar
   private horizontal: number
   private vertical: number
   constructor(
-    imagen: Imagen,
+    motor: Motor,
+    nombre: NombresImagenes,
     elementos: Transformar,
     horizontal: number,
     vertical: number,
   ) {
-    this.imagen = imagen
+    this.motor = motor
+    this.imagen = new Imagen(this.motor, nombre)
     this.elementos = elementos
     this.horizontal = horizontal
     this.vertical = vertical

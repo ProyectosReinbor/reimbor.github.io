@@ -9,7 +9,6 @@ export class PosicionMundo {
         if (this.motor.camara.visible(this.posicion) == false)
             return false;
         this.posicionInterfaz.posicion = this.motor.camara.posicionLienzo(this.posicion);
-        console.log(this.posicion);
         return this.posicionInterfaz.obtenerPixeles();
     }
     cambiarPosicion(x, y) {

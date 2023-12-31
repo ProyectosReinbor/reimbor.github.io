@@ -5,6 +5,7 @@ export class ControlCuadros {
         this.ultimoTiempoCuadro = 0;
         this.cuadrosPorSegundo = 24;
         this.tiempoCuadro = 1000 / this.cuadrosPorSegundo;
+        this.pausar = false;
         requestAnimationFrame((tiempo) => this.cuadro(tiempo));
     }
     cuadro(tiempo) {
@@ -15,7 +16,9 @@ export class ControlCuadros {
         }
         this.ultimoTiempoCuadro = contador;
         this.ultimoTiempo = tiempo;
-        this.actualizar();
+        if (this.pausar == false) {
+            this.actualizar();
+        }
         requestAnimationFrame((tiempo) => this.cuadro(tiempo));
     }
 }

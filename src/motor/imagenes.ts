@@ -7,8 +7,7 @@ type Coleccion = {
   mapaForest0: HTMLImageElement
   mapaForest1: HTMLImageElement
   mapaForest2: HTMLImageElement
-  pantallaAbrir: HTMLImageElement
-  pantallaSalir: HTMLImageElement
+  botones: HTMLImageElement
   mago: HTMLImageElement
 }
 export const enum NombresImagenes {
@@ -20,8 +19,7 @@ export const enum NombresImagenes {
   mapaForest0 = "mapaForest0",
   mapaForest1 = "mapaForest1",
   mapaForest2 = "mapaForest2",
-  pantallaAbrir = "pantallaAbrir",
-  pantallaSalir = "pantallaSalir",
+  botones = "botones",
   mago = "mago",
 }
 const Fuentes = {
@@ -33,8 +31,7 @@ const Fuentes = {
   mapaForest0: "imagenes/mapa/forest0.png",
   mapaForest1: "imagenes/mapa/forest1.png",
   mapaForest2: "imagenes/mapa/forest2.png",
-  pantallaAbrir: "imagenes/pantalla/abrir.svg",
-  pantallaSalir: "imagenes/pantalla/salir.svg",
+  botones: "imagenes/botones.png",
   mago: "imagenes/mago.png",
 }
 export class Imagenes {
@@ -49,8 +46,7 @@ export class Imagenes {
       mapaForest0: new Image,
       mapaForest1: new Image,
       mapaForest2: new Image,
-      pantallaAbrir: new Image,
-      pantallaSalir: new Image,
+      botones: new Image,
       mago: new Image,
     }
     this.cargar()
@@ -65,8 +61,6 @@ export class Imagenes {
       NombresImagenes.mapaForest0,
       NombresImagenes.mapaForest1,
       NombresImagenes.mapaForest2,
-      NombresImagenes.pantallaAbrir,
-      NombresImagenes.pantallaSalir,
       NombresImagenes.mago,
     ]
     for (const nombre of nombres) {

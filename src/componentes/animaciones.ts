@@ -1,3 +1,4 @@
+import { NombresImagenes } from '../motor/imagenes.js'
 import { Motor } from '../motor/motor.js'
 import { ElementosImagen } from "./elementosImagen.js"
 import { Transformar } from './transformar.js'
@@ -16,10 +17,19 @@ export class Animaciones {
   private animacion: Animacion
   constructor(
     motor: Motor,
-    elementosImagen: ElementosImagen,
+    nombre: NombresImagenes,
+    elementos: Transformar,
+    horizontal: number,
+    vertical: number,
   ) {
     this.motor = motor
-    this.elementosImagen = elementosImagen
+    this.elementosImagen = new ElementosImagen(
+      this.motor,
+      nombre,
+      elementos,
+      horizontal,
+      vertical,
+    )
     this.contador = 0
     this.indice = 0
     this.retraso = 0

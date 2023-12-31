@@ -1,22 +1,25 @@
-import { Transformar } from "../componentes/transformar.js";
+import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "../componentes/ubicacion.js";
+import { UbicacionInterfaz } from "../componentes/ubicacionInterfaz.js";
 import { Motor } from "../motor/motor.js";
 
 export class Camara {
     motor: Motor
-    vision: Transformar
+    vision: Ubicacion
     constructor(
         motor: Motor,
-        vision: Transformar
+        vision: Ubicacion
     ) {
         this.motor = motor
         this.vision = vision
     }
     aspecto() {
         const dividorAncho = this.motor.lienzo.ancho / 100
-        this.vision.ancho = this.motor.lienzo.etiqueta.width / dividorAncho
-        this.vision.alto = 100
+        this.vision.medida.ancho = this.motor.lienzo.etiqueta.width / dividorAncho
+        this.vision.medida.alto = 100
     }
-    visible(posicion: Transformar) {
+    visible(
+        posicion: Ubicacion
+    ) {
         const vision = {
             x: {
                 inicial: this.vision.x - posicion.ancho,
@@ -36,12 +39,19 @@ export class Camara {
             objeto.xFinal <= vision.x.final &&
             objeto.yFinal <= vision.y.final
     }
-    posicionLienzo(posicion: Transformar) {
-        return new Transformar(
-            posicion.x - this.vision.x,
-            posicion.y - this.vision.y,
-            posicion.ancho,
-            posicion.alto,
+    ubicacionLienzo(
+        ubicacion: Ubicacion
+    ) {
+        return new UbicacionInterfaz(
+            this.motor,
+            new UbicacionCoordenada(
+                ubicacion.coordenada.x - this.vision.coordenada.x,
+                ubicacion.coordenada.y - this.vision.coordenada.y,
+            ),
+            new UbicacionMedida(
+                ubicacion.medida.ancho,
+                ubicacion.medida.alto,
+            )
         )
     }
 }

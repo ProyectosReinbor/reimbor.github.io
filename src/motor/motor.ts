@@ -1,5 +1,5 @@
 import { Lienzo } from './lienzo.js'
-import { Pantalla } from './pantalla.js'
+import { Pantalla } from './pantalla/pantalla.js'
 import { Camara } from "./camara.js"
 import { Transformar } from "../componentes/transformar.js"
 import { Imagenes } from './imagenes.js'
@@ -18,7 +18,7 @@ export class Motor {
     this.lienzo = new Lienzo(this)
     this.camara = new Camara(this, new Transformar(0, 0, 0, 0))
     this.objetos = new Objetos(this)
-    this.pantalla = new Pantalla()
+    this.pantalla = new Pantalla(this)
     this.controlCuadros = new ControlCuadros(() => this.actualizar())
   }
   actualizar() {

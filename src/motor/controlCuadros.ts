@@ -1,15 +1,17 @@
 export class ControlCuadros {
     actualizar: () => void
-    ultimoTiempo: number
+    private ultimoTiempo: number
     ultimoTiempoCuadro: number
-    cuadrosPorSegundo: number
-    tiempoCuadro: number
+    private cuadrosPorSegundo: number
+    private tiempoCuadro: number
+    pausar: boolean
     constructor(actualizar: () => void) {
         this.actualizar = actualizar
         this.ultimoTiempo = 0
         this.ultimoTiempoCuadro = 0
         this.cuadrosPorSegundo = 24
         this.tiempoCuadro = 1000 / this.cuadrosPorSegundo
+        this.pausar = false
         requestAnimationFrame((tiempo) => this.cuadro(tiempo))
     }
     cuadro(tiempo: number) {
@@ -20,7 +22,9 @@ export class ControlCuadros {
         }
         this.ultimoTiempoCuadro = contador
         this.ultimoTiempo = tiempo
-        this.actualizar()
+        if (this.pausar == false) {
+            this.actualizar()
+        }
         requestAnimationFrame((tiempo) => this.cuadro(tiempo))
     }
 }

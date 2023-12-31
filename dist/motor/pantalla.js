@@ -1,9 +1,13 @@
 export class Pantalla {
-    constructor() {
-        this.boton = document.getElementById("pantallaCompleta");
-        this.boton.addEventListener('click', () => this.click());
+    constructor(motor) {
+        this.motor = motor;
+        this.boton = document.getElementById("lienzo");
+        this.boton.addEventListener('click', (evento) => this.click(evento));
     }
-    click() {
+    click(evento) {
+        const x = this.motor.lienzo.porcentajeAncho(evento.pageX);
+        const y = this.motor.lienzo.porcentajeAlto(evento.pageY);
+        console.log(x, y);
         if (document.fullscreenElement) {
             this.boton.src = "imagenes/pantalla/abrir.svg";
             if (document.exitFullscreen) {

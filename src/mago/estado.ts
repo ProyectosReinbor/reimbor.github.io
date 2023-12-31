@@ -98,7 +98,6 @@ export class Estado {
     private obtenerPosicionMundo(): Transformar {
         let json = localStorage.getItem('posicionMundo')
         if (json == null) return new Transformar(0, 0, 20, 20)
-        // console.log(JSON.parse(json))
         return JSON.parse(json)
     }
     animar() {

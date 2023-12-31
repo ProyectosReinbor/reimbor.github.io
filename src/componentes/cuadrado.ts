@@ -1,21 +1,25 @@
 import { Motor } from '../motor/motor.js'
 import { PosicionInterfaz } from './posicionInterfaz.js'
+import { Transformar } from './transformar.js'
 export class Cuadrado {
   private motor: Motor
-  private posicion: PosicionInterfaz
+  private posicionInterfaz: PosicionInterfaz
   private color: string
   constructor(
     motor: Motor,
-    posicion: PosicionInterfaz,
-    color = "#fff",
+    posicion: Transformar,
+    color: string,
   ) {
     this.motor = motor
-    this.posicion = posicion
+    this.posicionInterfaz = new PosicionInterfaz(
+      this.motor,
+      posicion,
+    )
     this.color = color
   }
   dibujar() {
     this.motor.lienzo.contexto.fillStyle = this.color
-    const pixeles = this.posicion.obtenerPixeles()
+    const pixeles = this.posicionInterfaz.obtenerPixeles()
     this.motor.lienzo.contexto.fillRect(
       pixeles.x,
       pixeles.y,
