@@ -1,5 +1,5 @@
-import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "../componentes/ubicacion.js";
-import { UbicacionInterfaz } from "../componentes/ubicacionInterfaz.js";
+import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "../objetos/ubicacion.js";
+import { UbicacionInterfaz } from "../objetos/ubicacionInterfaz.js";
 import { Motor } from "../motor/motor.js";
 
 export class Camara {
@@ -18,26 +18,24 @@ export class Camara {
         this.vision.medida.alto = 100
     }
     visible(
-        posicion: Ubicacion
+        ubicacion: Ubicacion
     ) {
+        const visionPosicionFinal = this.vision.posicionFinal()
         const vision = {
             x: {
-                inicial: this.vision.x - posicion.ancho,
-                final: this.vision.x + this.vision.ancho + posicion.ancho,
+                inicial: this.vision.posicion.x - ubicacion.medida.ancho,
+                final: visionPosicionFinal.x + ubicacion.medida.ancho,
             },
             y: {
-                inicial: this.vision.y - posicion.alto,
-                final: this.vision.y + this.vision.alto + posicion.alto,
+                inicial: this.vision.posicion.y - ubicacion.medida.alto,
+                final: visionPosicionFinal.y + ubicacion.medida.alto,
             },
         }
-        const objeto = {
-            xFinal: posicion.x + posicion.ancho,
-            yFinal: posicion.y + posicion.alto,
-        }
-        return vision.x.inicial <= posicion.x &&
-            vision.y.inicial <= posicion.y &&
-            objeto.xFinal <= vision.x.final &&
-            objeto.yFinal <= vision.y.final
+        const ubicacionPosicionFinal = ubicacion.posicionFinal()
+        return vision.x.inicial <= ubicacion.posicion.x &&
+            vision.y.inicial <= ubicacion.posicion.y &&
+            ubicacionPosicionFinal.x <= vision.x.final &&
+            ubicacionPosicionFinal.y <= vision.y.final
     }
     ubicacionLienzo(
         ubicacion: Ubicacion
@@ -45,8 +43,8 @@ export class Camara {
         return new UbicacionInterfaz(
             this.motor,
             new UbicacionCoordenada(
-                ubicacion.coordenada.x - this.vision.coordenada.x,
-                ubicacion.coordenada.y - this.vision.coordenada.y,
+                ubicacion.posicion.x - this.vision.posicion.x,
+                ubicacion.posicion.y - this.vision.posicion.y,
             ),
             new UbicacionMedida(
                 ubicacion.medida.ancho,

@@ -1,4 +1,4 @@
-import { ElementosImagen } from "../../componentes/elementosImagen.js";
+import { ElementosImagen } from "../../objetos/elementosImagen.js";
 import { NombresImagenes } from "../imagenes.js";
 import { Motor } from "../motor.js";
 

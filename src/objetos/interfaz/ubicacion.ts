@@ -27,29 +27,29 @@ export class UbicacionMedida {
   }
 }
 export class Ubicacion {
-  coordenada: UbicacionCoordenada
+  posicion: UbicacionCoordenada
   medida: UbicacionMedida
   constructor(
-    coordenada: UbicacionCoordenada,
+    posicion: UbicacionCoordenada,
     medida: UbicacionMedida,
   ) {
-    this.coordenada = coordenada
+    this.posicion = posicion
     this.medida = medida
   }
-  coordenadaFinal(): UbicacionCoordenada {
+  posicionFinal(): UbicacionCoordenada {
     return {
-      x: this.coordenada.x + this.medida.ancho,
-      y: this.coordenada.y + this.medida.alto,
+      x: this.posicion.x + this.medida.ancho,
+      y: this.posicion.y + this.medida.alto,
     }
   }
   adentro(
     ubicacion: Ubicacion
   ): boolean {
-    const ubicacionCoordenadaFinal = ubicacion.coordenadaFinal()
-    const coordenadaFinal = this.coordenadaFinal()
-    return ubicacion.coordenada.x >= this.coordenada.x &&
-      ubicacion.coordenada.y >= this.coordenada.y &&
-      ubicacionCoordenadaFinal.x <= coordenadaFinal.x &&
-      ubicacionCoordenadaFinal.y <= coordenadaFinal.y
+    const ubicacionPosicionFinal = ubicacion.posicionFinal()
+    const posicionFinal = this.posicionFinal()
+    return ubicacion.posicion.x >= this.posicion.x &&
+      ubicacion.posicion.y >= this.posicion.y &&
+      ubicacionPosicionFinal.x <= posicionFinal.x &&
+      ubicacionPosicionFinal.y <= posicionFinal.y
   }
 }
