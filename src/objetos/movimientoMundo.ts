@@ -24,6 +24,6 @@ export class MovimientoMundo {
     const velocidadSegundos = this.velocidad * segundos
     const nuevaX = velocidadSegundos * this.moverX
     const nuevaY = velocidadSegundos * this.moverY
-    this.ubicacionMundo.posicion = new UbicacionCoordenada(nuevaX, nuevaY)
+    this.ubicacionMundo.ubicacion.posicion = new UbicacionCoordenada(nuevaX, nuevaY)
   }
 }

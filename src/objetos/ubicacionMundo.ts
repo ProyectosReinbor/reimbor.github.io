@@ -1,18 +1,19 @@
 import { Motor } from "../motor/motor.js"
-import { UbicacionInterfaz } from "./ubicacionInterfaz.js"
-import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "./ubicacion.js"
+import { Ubicacion, } from "./ubicacion.js"
 
-export class UbicacionMundo extends UbicacionInterfaz {
+export class UbicacionMundo {
+  motor: Motor
+  ubicacion: Ubicacion
   constructor(
     motor: Motor,
-    posicion: UbicacionCoordenada,
-    medida: UbicacionMedida,
+    ubicacion: Ubicacion,
   ) {
-    super(motor, posicion, medida)
+    this.motor = motor
+    this.ubicacion = ubicacion
   }
-  obtenerUbicacionInterfaz(): UbicacionInterfaz |
-    undefined {
-    if (this.motor.camara.visible(this) == false) return
-    return this.motor.camara.ubicacionLienzo(this)
+  obtenerPixeles(): Ubicacion | undefined {
+    if (this.motor.camara.visible(this.ubicacion) == false) return
+    const interfazUbicacion = this.motor.camara.ubicacionLienzo(this.ubicacion)
+    return interfazUbicacion.obtenerPixeles()
   }
 }

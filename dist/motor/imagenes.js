@@ -16,8 +16,7 @@ const Fuentes = {
     mapaForest0: "imagenes/mapa/forest0.png",
     mapaForest1: "imagenes/mapa/forest1.png",
     mapaForest2: "imagenes/mapa/forest2.png",
-    pantallaAbrir: "imagenes/pantalla/abrir.svg",
-    pantallaSalir: "imagenes/pantalla/salir.svg",
+    botones: "imagenes/botones.png",
     mago: "imagenes/mago.png",
 };
 export class Imagenes {
@@ -31,8 +30,7 @@ export class Imagenes {
             mapaForest0: new Image,
             mapaForest1: new Image,
             mapaForest2: new Image,
-            pantallaAbrir: new Image,
-            pantallaSalir: new Image,
+            botones: new Image,
             mago: new Image,
         };
         this.cargar();
@@ -48,8 +46,6 @@ export class Imagenes {
                 "mapaForest0",
                 "mapaForest1",
                 "mapaForest2",
-                "pantallaAbrir",
-                "pantallaSalir",
                 "mago",
             ];
             for (const nombre of nombres) {

@@ -1,6 +1,6 @@
-import { ElementosImagen } from "../componentes/elementosImagen.js";
-import { Imagen } from "../componentes/imagen.js";
-import { Transformar } from "../componentes/transformar.js";
+import { ElementosImagen } from "../objetos/elementosImagen.js";
+import { Imagen } from "../objetos/imagen.js";
+import { Transformar } from "../objetos/transformar.js";
 import { NombresImagenes } from "../motor/imagenes.js";
 import { Motor } from "../motor/motor.js";
 export class Mapa {

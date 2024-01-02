@@ -1,6 +1,6 @@
-import { ElementosImagen } from "../componentes/elementosImagen.js";
-import { Imagen } from "../componentes/imagen.js";
-import { Transformar } from "../componentes/transformar.js";
+import { ElementosImagen } from "../objetos/elementosImagen.js";
+import { Imagen } from "../objetos/imagen.js";
+import { Transformar } from "../objetos/transformar.js";
 export class Mapa {
     constructor(motor) {
         this.motor = motor;

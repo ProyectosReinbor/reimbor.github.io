@@ -1,5 +1,5 @@
 import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "../objetos/ubicacion.js";
-import { UbicacionInterfaz } from "../objetos/ubicacionInterfaz.js";
+import { InterfazUbicacion } from "../objetos/interfazUbicacion.js";
 import { Motor } from "../motor/motor.js";
 
 export class Camara {
@@ -40,15 +40,17 @@ export class Camara {
     ubicacionLienzo(
         ubicacion: Ubicacion
     ) {
-        return new UbicacionInterfaz(
+        return new InterfazUbicacion(
             this.motor,
-            new UbicacionCoordenada(
-                ubicacion.posicion.x - this.vision.posicion.x,
-                ubicacion.posicion.y - this.vision.posicion.y,
-            ),
-            new UbicacionMedida(
-                ubicacion.medida.ancho,
-                ubicacion.medida.alto,
+            new Ubicacion(
+                new UbicacionCoordenada(
+                    ubicacion.posicion.x - this.vision.posicion.x,
+                    ubicacion.posicion.y - this.vision.posicion.y,
+                ),
+                new UbicacionMedida(
+                    ubicacion.medida.ancho,
+                    ubicacion.medida.alto,
+                ),
             )
         )
     }

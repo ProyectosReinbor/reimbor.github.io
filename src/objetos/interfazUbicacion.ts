@@ -1,4 +1,4 @@
-import { Motor } from "../../motor/motor.js"
+import { Motor } from "../motor/motor.js"
 import {
   Ubicacion,
   UbicacionCoordenada,
