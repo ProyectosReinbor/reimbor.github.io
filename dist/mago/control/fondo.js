@@ -1,17 +1,14 @@
-import { Imagen } from "../../componentes/imagen.js";
-import { PosicionInterfaz } from "../../componentes/posicionInterfaz.js";
-import { Transformar } from "../../componentes/transformar.js";
-export class Fondo {
+import { Imagen } from "../../objetos/imagen.js";
+import { UbicacionInterfaz } from "../../objetos/ubicacionInterfaz.js";
+import { UbicacionCoordenada } from "../../objetos/ubicacion/coordenada.js";
+import { UbicacionMedida } from "../../objetos/ubicacion/medida.js";
+export class Fondo extends UbicacionInterfaz {
     constructor(motor) {
-        this.motor = motor;
+        super(new UbicacionCoordenada(0, 50), new UbicacionMedida(50, 50), motor);
         this.imagen = new Imagen(this.motor, "controlFondo");
-        this.posicionInterfaz = new PosicionInterfaz(this.motor, new Transformar(0, 50, 50, 50));
     }
     dibujar() {
-        const pixeles = this.posicionInterfaz.obtenerPixeles();
+        const pixeles = this.obtenerPixeles();
         this.imagen.dibujar(pixeles);
-    }
-    adentro(x, y) {
-        return this.posicionInterfaz.adentro(x, y, 0, 0);
     }
 }

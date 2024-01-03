@@ -1,52 +1,47 @@
-import { Imagen } from "../../componentes/imagen.js"
-import { PosicionInterfaz } from "../../componentes/posicionInterfaz.js"
-import { Transformar } from "../../componentes/transformar.js"
+import { Imagen } from "../../objetos/imagen.js"
+import { UbicacionInterfaz } from "../../objetos/ubicacionInterfaz.js"
+import { Ubicacion } from "../../objetos/ubicacion/ubicacion.js"
 import { NombresImagenes } from "../../motor/imagenes.js"
 import { Motor } from "../../motor/motor.js"
+import { UbicacionCoordenada } from "../../objetos/ubicacion/coordenada.js"
 import { Fondo } from "./fondo.js"
+import { UbicacionMedida } from "../../objetos/ubicacion/medida.js"
 
-export class Flechas {
+export class Flechas extends UbicacionInterfaz {
   motor: Motor
   imagen: Imagen
-  posicionInterfaz: PosicionInterfaz
   fondo: Fondo
   constructor(
     motor: Motor,
     fondo: Fondo,
   ) {
+    super(
+      new UbicacionCoordenada(0, 0),
+      new UbicacionMedida(
+        fondo.medida.ancho / 3,
+        fondo.medida.alto / 3,
+      ),
+      motor,
+    )
     this.motor = motor
     this.fondo = fondo
     this.imagen = new Imagen(
       this.motor,
       NombresImagenes.controlFlechas,
     )
-    this.posicionInterfaz = new PosicionInterfaz(
-      this.motor,
-      new Transformar(
-        0,
-        0,
-        this.fondo.posicionInterfaz.posicion.ancho / 3,
-        this.fondo.posicionInterfaz.posicion.alto / 3
-      ),
-    )
   }
   dibujar() {
-    const pixeles = this.posicionInterfaz.obtenerPixeles()
+    const pixeles = this.obtenerPixeles()
     this.imagen.dibujar(pixeles)
   }
-  touch(
-    x: number,
-    y: number,
-  ) {
-    this.posicionInterfaz.posicion.x = x - (this.posicionInterfaz.posicion.ancho / 2)
-    this.posicionInterfaz.posicion.y = y - (this.posicionInterfaz.posicion.alto / 2)
+  touch(coordenada: UbicacionCoordenada) {
+    this.coordenada.x = coordenada.x - (this.medida.ancho / 2)
+    this.coordenada.y = coordenada.y - (this.medida.alto / 2)
   }
   quieto() {
-    const posicion = this.posicionInterfaz.posicion
-    const fondo = this.fondo.posicionInterfaz.posicion
-    const x = fondo.x + (fondo.ancho / 2)
-    const y = fondo.y + (fondo.alto / 2)
-    posicion.x = x - (posicion.ancho / 2)
-    posicion.y = y - (posicion.alto / 2)
+    const x = this.fondo.coordenada.x + (this.fondo.medida.ancho / 2)
+    const y = this.fondo.coordenada.y + (this.fondo.medida.alto / 2)
+    this.coordenada.x = x - (this.medida.ancho / 2)
+    this.coordenada.y = y - (this.medida.alto / 2)
   }
 }

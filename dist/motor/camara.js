@@ -1,34 +1,36 @@
-import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "../objetos/ubicacion.js";
-import { InterfazUbicacion } from "../objetos/interfazUbicacion.js";
-export class Camara {
-    constructor(motor, vision) {
+import { Ubicacion } from "../objetos/ubicacion/ubicacion.js";
+import { UbicacionInterfaz } from "../objetos/ubicacionInterfaz.js";
+import { UbicacionCoordenada } from "../objetos/ubicacion/coordenada.js";
+import { UbicacionMedida } from "../objetos/ubicacion/medida.js";
+export class Camara extends Ubicacion {
+    constructor(motor, coordenada, medida) {
+        super(coordenada, medida);
         this.motor = motor;
-        this.vision = vision;
     }
     aspecto() {
         const dividorAncho = this.motor.lienzo.ancho / 100;
-        this.vision.medida.ancho = this.motor.lienzo.etiqueta.width / dividorAncho;
-        this.vision.medida.alto = 100;
+        this.medida.ancho = this.motor.lienzo.etiqueta.width / dividorAncho;
+        this.medida.alto = 100;
     }
     visible(ubicacion) {
-        const visionPosicionFinal = this.vision.posicionFinal();
+        const visionPosicionFinal = this.coordenadaFinal();
         const vision = {
             x: {
-                inicial: this.vision.posicion.x - ubicacion.medida.ancho,
+                inicial: this.coordenada.x - ubicacion.medida.ancho,
                 final: visionPosicionFinal.x + ubicacion.medida.ancho,
             },
             y: {
-                inicial: this.vision.posicion.y - ubicacion.medida.alto,
+                inicial: this.coordenada.y - ubicacion.medida.alto,
                 final: visionPosicionFinal.y + ubicacion.medida.alto,
             },
         };
-        const ubicacionPosicionFinal = ubicacion.posicionFinal();
-        return vision.x.inicial <= ubicacion.posicion.x &&
-            vision.y.inicial <= ubicacion.posicion.y &&
+        const ubicacionPosicionFinal = ubicacion.coordenadaFinal();
+        return vision.x.inicial <= ubicacion.coordenada.x &&
+            vision.y.inicial <= ubicacion.coordenada.y &&
             ubicacionPosicionFinal.x <= vision.x.final &&
             ubicacionPosicionFinal.y <= vision.y.final;
     }
     ubicacionLienzo(ubicacion) {
-        return new InterfazUbicacion(this.motor, new Ubicacion(new UbicacionCoordenada(ubicacion.posicion.x - this.vision.posicion.x, ubicacion.posicion.y - this.vision.posicion.y), new UbicacionMedida(ubicacion.medida.ancho, ubicacion.medida.alto)));
+        return new UbicacionInterfaz(new UbicacionCoordenada(ubicacion.coordenada.x - this.coordenada.x, ubicacion.coordenada.y - this.coordenada.y), new UbicacionMedida(ubicacion.medida.ancho, ubicacion.medida.alto), this.motor);
     }
 }

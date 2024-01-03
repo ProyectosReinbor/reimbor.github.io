@@ -3,9 +3,6 @@ import { Estado } from "./estado.js"
 import { Control } from "./control/control.js"
 import { AnimacionesMago } from './animaciones.js'
 import { AtraerCamara } from './atraerCamara.js'
-import { PosicionMundo } from '../objetos/ubicacionMundo.js'
-import { Transformar } from '../objetos/transformar.js'
-import { PosicionInterfaz } from '../objetos/interfazUbicacion.js'
 export class Mago {
   motor: Motor
   estado: Estado

@@ -1,6 +1,4 @@
 import { Animaciones } from "../objetos/animaciones.js"
-import { ElementosImagen } from "../objetos/elementosImagen.js"
-import { Imagen } from "../objetos/imagen.js"
 import { Motor } from "../motor/motor.js"
 import { Estado } from "./estado.js"
 export class AnimacionesMago {
@@ -15,11 +13,8 @@ export class AnimacionesMago {
         this.estado = estado
         this.animaciones = new Animaciones(
             this.motor,
-            new ElementosImagen(
-                this.motor,
-                new Imagen(this.motor, this.estado.animacion.nombre),
-                this.estado.animacion.elementos,
-            ),
+            this.estado.animacion.nombre,
+            this.estado.animacion.elementos,
         )
     }
     dibujar() {

@@ -1,6 +1,9 @@
-import { Transformar } from "../componentes/transformar.js";
-import { PosicionMundo } from "../componentes/posicionMundo.js";
-import { MovimientoMundo } from "../componentes/movimientoMundo.js";
+import { Ubicacion, } from "../objetos/ubicacion/ubicacion.js";
+import { UbicacionMundo } from "../objetos/ubicacionMundo.js";
+import { MovimientoMundo } from "../objetos/movimientoMundo.js";
+import { AnimacionesAnimacion } from "../objetos/animaciones.js";
+import { UbicacionCoordenada } from "../objetos/ubicacion/coordenada.js";
+import { UbicacionMedida } from "../objetos/ubicacion/medida.js";
 const indices = [
     "parado" + "abajo",
     "caminar" + "abajo",
@@ -30,26 +33,27 @@ const indices = [
 export class Estado {
     constructor(motor) {
         this.motor = motor;
-        this.posicionMundo = new PosicionMundo(this.motor, this.obtenerPosicionMundo());
-        this.movimientoMundo = new MovimientoMundo(this.motor, this.posicionMundo, 6);
+        this.asignarUbicacionMundo();
+        this.movimientoMundo = new MovimientoMundo(this.motor, this.ubicacionMundo, 6);
         this.direccion = "abajo";
         this.accion = "parado";
         this.animacion = {
             nombre: "mago",
-            horizontal: 6,
-            vertical: 24,
-            elementos: new Transformar(0, 0, 0, 0),
-            animacion: {
-                indice: -1,
-                elementos: 6,
-            }
+            elementos: new Ubicacion(new UbicacionCoordenada(0, 0), new UbicacionMedida(32, 48)),
+            animacion: new AnimacionesAnimacion(-1, 6),
         };
     }
-    obtenerPosicionMundo() {
-        let json = localStorage.getItem('posicionMundo');
-        if (json == null)
-            return new Transformar(0, 0, 20, 20);
-        return JSON.parse(json);
+    asignarUbicacionMundo() {
+        let json = localStorage.getItem('ubicacionMundo');
+        if (json == null) {
+            this.ubicacionMundo = new UbicacionMundo(this.motor, new UbicacionCoordenada(0, 0), new UbicacionMedida(20, 20));
+        }
+        else {
+            this.ubicacionMundo = JSON.parse(json);
+        }
+    }
+    guardarUbicacionMundo() {
+        localStorage.setItem('ubicacionMundo', JSON.stringify(this.ubicacionMundo));
     }
     animar() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`);

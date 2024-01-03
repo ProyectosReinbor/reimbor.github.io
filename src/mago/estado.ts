@@ -1,10 +1,12 @@
 
 import { Motor } from "../motor/motor.js"
-import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "../objetos/ubicacion.js"
+import { Ubicacion, } from "../objetos/ubicacion/ubicacion.js"
 import { NombresImagenes } from "../motor/imagenes.js"
 import { UbicacionMundo } from "../objetos/ubicacionMundo.js"
 import { MovimientoMundo } from "../objetos/movimientoMundo.js"
 import { AnimacionesAnimacion } from "../objetos/animaciones.js"
+import { UbicacionCoordenada } from "../objetos/ubicacion/coordenada.js"
+import { UbicacionMedida } from "../objetos/ubicacion/medida.js"
 
 export const enum EstadoDirecciones {
     izquierda = 'izquierda',
@@ -60,7 +62,7 @@ type Animacion = {
 
 export class Estado {
     motor: Motor
-    ubicacionMundo: UbicacionMundo
+    ubicacionMundo!: UbicacionMundo
     direccion: EstadoDirecciones
     accion: EstadoAcciones
     animacion: Animacion
@@ -69,10 +71,7 @@ export class Estado {
         motor: Motor,
     ) {
         this.motor = motor
-        this.ubicacionMundo = new UbicacionMundo(
-            this.motor,
-            this.obtenerPosicionMundo(),
-        )
+        this.asignarUbicacionMundo()
         this.movimientoMundo = new MovimientoMundo(
             this.motor,
             this.ubicacionMundo,
@@ -89,14 +88,20 @@ export class Estado {
             animacion: new AnimacionesAnimacion(-1, 6),
         }
     }
-    private obtenerPosicionMundo(): Ubicacion {
-        let json = localStorage.getItem('posicionMundo')
-        if (json == null)
-            return new Ubicacion(
+    asignarUbicacionMundo() {
+        let json = localStorage.getItem('ubicacionMundo')
+        if (json == null) {
+            this.ubicacionMundo = new UbicacionMundo(
+                this.motor,
                 new UbicacionCoordenada(0, 0),
                 new UbicacionMedida(20, 20)
             )
-        return JSON.parse(json)
+        } else {
+            this.ubicacionMundo = JSON.parse(json)
+        }
+    }
+    guardarUbicacionMundo() {
+        localStorage.setItem('ubicacionMundo', JSON.stringify(this.ubicacionMundo))
     }
     animar() {
         let indice = indices.indexOf(`${this.accion}${this.direccion}`)

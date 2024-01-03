@@ -1,4 +1,6 @@
-import { Transformar } from "../../componentes/transformar.js";
+import { Ubicacion } from "../../objetos/ubicacion/ubicacion.js";
+import { UbicacionCoordenada } from "../../objetos/ubicacion/coordenada.js";
+import { UbicacionMedida } from "../../objetos/ubicacion/medida.js";
 export class Direcciones {
     constructor(estado, fondo) {
         this.estado = estado;
@@ -19,20 +21,20 @@ export class Direcciones {
             ["izquierda", "centro", "derecha"],
             ["izquierdaAbajo", "abajo", "derechaAbajo"],
         ];
-        const posicionDefecto = new Transformar(this.fondo.posicionInterfaz.posicion.x, this.fondo.posicionInterfaz.posicion.y, this.fondo.posicionInterfaz.posicion.ancho / 3, this.fondo.posicionInterfaz.posicion.alto / 3);
+        const ubicacionDefecto = new Ubicacion(new UbicacionCoordenada(this.fondo.coordenada.x, this.fondo.coordenada.y), new UbicacionMedida(this.fondo.medida.ancho / 3, this.fondo.medida.alto / 3));
         for (let y = 0; y < nombres.length; y++) {
             for (let x = 0; x < nombres[y].length; x++) {
                 const nombre = nombres[y][x];
                 if (nombreDireccion != nombre)
                     continue;
-                const espacioX = posicionDefecto.ancho * x;
-                const espacioY = posicionDefecto.alto * y;
-                return new Transformar(posicionDefecto.x + espacioX, posicionDefecto.y + espacioY, posicionDefecto.ancho, posicionDefecto.alto);
+                const espacioX = ubicacionDefecto.medida.ancho * x;
+                const espacioY = ubicacionDefecto.medida.alto * y;
+                return new Ubicacion(new UbicacionCoordenada(ubicacionDefecto.coordenada.x + espacioX, ubicacionDefecto.coordenada.y + espacioY), new UbicacionMedida(ubicacionDefecto.medida.ancho, ubicacionDefecto.medida.alto));
             }
         }
     }
-    accion(x, y) {
-        if (this.centro.adentro(x, y, 0, 0)) {
+    accion(ubicacion) {
+        if (this.centro.adentro(ubicacion)) {
             this.estado.accion = "parado";
             this.estado.movimientoMundo.moverX = 0;
             this.estado.movimientoMundo.moverY = 0;
@@ -41,43 +43,43 @@ export class Direcciones {
             this.estado.accion = "caminar";
         }
     }
-    movimiento(x, y) {
-        if (this.izquierdaArriba.adentro(x, y, 0, 0)) {
+    movimiento(ubicacion) {
+        if (this.izquierdaArriba.adentro(ubicacion)) {
             this.estado.direccion = "izquierdaArriba";
             this.estado.movimientoMundo.moverX = -1;
             this.estado.movimientoMundo.moverY = -1;
         }
-        else if (this.arriba.adentro(x, y, 0, 0)) {
+        else if (this.arriba.adentro(ubicacion)) {
             this.estado.direccion = "arriba";
             this.estado.movimientoMundo.moverX = 0;
             this.estado.movimientoMundo.moverY = -1;
         }
-        else if (this.derechaArriba.adentro(x, y, 0, 0)) {
+        else if (this.derechaArriba.adentro(ubicacion)) {
             this.estado.direccion = "derechaArriba";
             this.estado.movimientoMundo.moverX = 1;
             this.estado.movimientoMundo.moverY = -1;
         }
-        else if (this.izquierda.adentro(x, y, 0, 0)) {
+        else if (this.izquierda.adentro(ubicacion)) {
             this.estado.direccion = "izquierda";
             this.estado.movimientoMundo.moverX = -1;
             this.estado.movimientoMundo.moverY = 0;
         }
-        else if (this.derecha.adentro(x, y, 0, 0)) {
+        else if (this.derecha.adentro(ubicacion)) {
             this.estado.direccion = "derecha";
             this.estado.movimientoMundo.moverX = 1;
             this.estado.movimientoMundo.moverY = 0;
         }
-        else if (this.izquierdaAbajo.adentro(x, y, 0, 0)) {
+        else if (this.izquierdaAbajo.adentro(ubicacion)) {
             this.estado.direccion = "izquierdaAbajo";
             this.estado.movimientoMundo.moverX = -1;
             this.estado.movimientoMundo.moverY = 1;
         }
-        else if (this.abajo.adentro(x, y, 0, 0)) {
+        else if (this.abajo.adentro(ubicacion)) {
             this.estado.direccion = "abajo";
             this.estado.movimientoMundo.moverX = 0;
             this.estado.movimientoMundo.moverY = 1;
         }
-        else if (this.derechaAbajo.adentro(x, y, 0, 0)) {
+        else if (this.derechaAbajo.adentro(ubicacion)) {
             this.estado.direccion = "derechaAbajo";
             this.estado.movimientoMundo.moverX = 1;
             this.estado.movimientoMundo.moverY = 1;

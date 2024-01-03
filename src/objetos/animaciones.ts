@@ -1,7 +1,7 @@
 import { NombresImagenes } from '../motor/imagenes.js'
 import { Motor } from '../motor/motor.js'
 import { ElementosImagen } from "./elementosImagen.js"
-import { Ubicacion } from './ubicacion.js'
+import { Ubicacion } from './ubicacion/ubicacion.js'
 
 export class AnimacionesAnimacion {
   indice: number
@@ -15,19 +15,17 @@ export class AnimacionesAnimacion {
   }
 }
 
-export class Animaciones {
-  private motor: Motor
-  private elementosImagen: ElementosImagen
+export class Animaciones extends ElementosImagen {
   private ultimoTiempoElemento: number
   private indiceHorizontal: number
   private tiempoElemento: number
   private animacion: AnimacionesAnimacion
   constructor(
     motor: Motor,
-    elementosImagen: ElementosImagen,
+    nombre: NombresImagenes,
+    elementos: Ubicacion,
   ) {
-    this.motor = motor
-    this.elementosImagen = elementosImagen
+    super(motor, nombre, elementos)
     this.ultimoTiempoElemento = 0
     this.indiceHorizontal = 0
     this.tiempoElemento = 0
@@ -37,7 +35,7 @@ export class Animaciones {
     if (animacion.indice == this.animacion.indice) return
     this.animacion = new AnimacionesAnimacion(animacion.indice, animacion.cantidadElementos)
     this.indiceHorizontal = 0
-    this.elementosImagen.vertical(this.animacion.indice)
+    this.vertical(this.animacion.indice)
     this.tiempoElemento = 1000 / this.animacion.cantidadElementos
   }
   elemento() {
@@ -47,9 +45,6 @@ export class Animaciones {
     this.indiceHorizontal++
     if (this.indiceHorizontal >= this.animacion.cantidadElementos)
       this.indiceHorizontal = 0
-    this.elementosImagen.horizontal(this.indiceHorizontal)
-  }
-  dibujar(pixeles: Ubicacion) {
-    this.elementosImagen.dibujar(pixeles)
+    this.horizontal(this.indiceHorizontal)
   }
 }

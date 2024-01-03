@@ -1,5 +1,5 @@
 import { Motor } from "../motor/motor.js";
-import { UbicacionCoordenada } from "./ubicacion.js";
+import { UbicacionCoordenada } from "./ubicacion/coordenada.js";
 import { UbicacionMundo } from "./ubicacionMundo.js";
 
 export class MovimientoMundo {
@@ -24,6 +24,6 @@ export class MovimientoMundo {
     const velocidadSegundos = this.velocidad * segundos
     const nuevaX = velocidadSegundos * this.moverX
     const nuevaY = velocidadSegundos * this.moverY
-    this.ubicacionMundo.ubicacion.posicion = new UbicacionCoordenada(nuevaX, nuevaY)
+    this.ubicacionMundo.coordenada = new UbicacionCoordenada(nuevaX, nuevaY)
   }
 }

@@ -5,6 +5,6 @@ export class Imagen {
     }
     dibujar(pixeles) {
         this.motor.lienzo.contexto.imageSmoothingEnabled = false;
-        this.motor.lienzo.contexto.drawImage(this.imagen, pixeles.posicion.x, pixeles.posicion.y, pixeles.medida.ancho, pixeles.medida.alto);
+        this.motor.lienzo.contexto.drawImage(this.imagen, pixeles.coordenada.x, pixeles.coordenada.y, pixeles.medida.ancho, pixeles.medida.alto);
     }
 }
