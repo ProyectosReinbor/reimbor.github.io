@@ -1,17 +1,17 @@
-import { Animaciones } from "../objetos/animaciones.js"
+import { ElementosAnimaciones } from "../objetos/elementosAnimaciones/elementosAnimaciones.js"
 import { Motor } from "../motor/motor.js"
 import { Estado } from "./estado.js"
 export class AnimacionesMago {
     motor: Motor
     estado: Estado
-    animaciones: Animaciones
+    elementosAnimaciones: ElementosAnimaciones
     constructor(
         motor: Motor,
         estado: Estado,
     ) {
         this.motor = motor
         this.estado = estado
-        this.animaciones = new Animaciones(
+        this.elementosAnimaciones = new ElementosAnimaciones(
             this.motor,
             this.estado.animacion.nombre,
             this.estado.animacion.elementos,
@@ -20,8 +20,12 @@ export class AnimacionesMago {
     dibujar() {
         const pixeles = this.estado.ubicacionMundo.obtenerPixeles()
         if (pixeles == undefined) return
-        this.animaciones.reproducir(this.estado.animacion.animacion)
-        this.animaciones.elemento()
-        this.animaciones.dibujar(pixeles)
+        this.elementosAnimaciones.animar(this.estado.animacion.animacion)
+        this.elementosAnimaciones.reproducir()
+        this.elementosAnimaciones.elemento()
+        this.elementosAnimaciones.dibujar(pixeles)
+    }
+    actualizar() {
+        this.dibujar()
     }
 }

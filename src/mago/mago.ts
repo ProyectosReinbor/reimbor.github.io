@@ -18,8 +18,7 @@ export class Mago {
   }
   actualizar() {
     this.control.actualizar()
-    this.estado.mover()
-    this.estado.animar()
+    this.estado.actualizar()
     this.animaciones.dibujar()
     this.atraerCamara.actualizar()
   }

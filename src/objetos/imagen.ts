@@ -22,4 +22,7 @@ export class Imagen {
       pixeles.medida.alto,
     )
   }
+  actualizar(pixeles: Ubicacion) {
+    this.dibujar(pixeles)
+  }
 }
