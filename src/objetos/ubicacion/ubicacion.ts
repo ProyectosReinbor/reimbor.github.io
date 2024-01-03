@@ -1,31 +1,6 @@
-export class UbicacionCoordenada {
-  x: number
-  y: number
-  constructor(
-    x: number = 0,
-    y: number = 0,
-  ) {
-    this.x = x
-    this.y = y
-  }
-}
-export class UbicacionMedida {
-  ancho: number
-  alto: number
-  constructor(
-    ancho: number = 0,
-    alto: number = 0,
-  ) {
-    this.ancho = ancho
-    this.alto = alto
-  }
-  mitad(): UbicacionMedida {
-    return new UbicacionMedida(
-      this.ancho / 2,
-      this.alto / 2,
-    )
-  }
-}
+import { UbicacionCoordenada } from "./coordenada.js"
+import { UbicacionMedida } from "./medida.js"
+
 export class Ubicacion {
   posicion: UbicacionCoordenada
   medida: UbicacionMedida

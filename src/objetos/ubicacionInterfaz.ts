@@ -1,11 +1,9 @@
 import { Motor } from "../motor/motor.js"
-import {
-  Ubicacion,
-  UbicacionCoordenada,
-  UbicacionMedida,
-} from "./ubicacion.js"
+import { UbicacionCoordenada } from "./ubicacion/coordenada.js"
+import { UbicacionMedida } from "./ubicacion/medida.js"
+import { Ubicacion } from "./ubicacion/ubicacion.js"
 
-export class InterfazUbicacion {
+export class UbicacionInterfaz {
   motor: Motor
   ubicacion: Ubicacion
   constructor(

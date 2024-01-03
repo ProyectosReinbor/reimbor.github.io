@@ -3,7 +3,7 @@ import { Motor } from '../motor/motor.js'
 import { ElementosImagen } from "./elementosImagen.js"
 import { Ubicacion } from './ubicacion.js'
 
-export class Animacion {
+export class AnimacionesAnimacion {
   indice: number
   cantidadElementos: number
   constructor(
@@ -21,22 +21,21 @@ export class Animaciones {
   private ultimoTiempoElemento: number
   private indiceHorizontal: number
   private tiempoElemento: number
-  private animacion: Animacion
+  private animacion: AnimacionesAnimacion
   constructor(
     motor: Motor,
     elementosImagen: ElementosImagen,
-    nombre: NombresImagenes,
   ) {
     this.motor = motor
     this.elementosImagen = elementosImagen
     this.ultimoTiempoElemento = 0
     this.indiceHorizontal = 0
     this.tiempoElemento = 0
-    this.animacion = new Animacion(-1, 0)
+    this.animacion = new AnimacionesAnimacion(-1, 0)
   }
-  reproducir(animacion: Animacion) {
+  reproducir(animacion: AnimacionesAnimacion) {
     if (animacion.indice == this.animacion.indice) return
-    this.animacion = new Animacion(animacion.indice, animacion.cantidadElementos)
+    this.animacion = new AnimacionesAnimacion(animacion.indice, animacion.cantidadElementos)
     this.indiceHorizontal = 0
     this.elementosImagen.vertical(this.animacion.indice)
     this.tiempoElemento = 1000 / this.animacion.cantidadElementos

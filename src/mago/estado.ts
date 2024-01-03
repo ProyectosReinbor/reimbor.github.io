@@ -1,9 +1,10 @@
 
 import { Motor } from "../motor/motor.js"
-import { Transformar } from "../componentes/transformar.js"
+import { Ubicacion, UbicacionCoordenada, UbicacionMedida } from "../objetos/ubicacion.js"
 import { NombresImagenes } from "../motor/imagenes.js"
-import { PosicionMundo } from "../componentes/posicionMundo.js"
-import { MovimientoMundo } from "../componentes/movimientoMundo.js"
+import { UbicacionMundo } from "../objetos/ubicacionMundo.js"
+import { MovimientoMundo } from "../objetos/movimientoMundo.js"
+import { AnimacionesAnimacion } from "../objetos/animaciones.js"
 
 export const enum EstadoDirecciones {
     izquierda = 'izquierda',
@@ -52,19 +53,14 @@ const indices = [
 
 type Animacion = {
     nombre: NombresImagenes
-    horizontal: number,
-    vertical: number
-    elementos: Transformar
-    animacion: {
-        indice: number
-        elementos: number
-    }
+    elementos: Ubicacion
+    animacion: AnimacionesAnimacion
 }
 
 
 export class Estado {
     motor: Motor
-    posicionMundo: PosicionMundo
+    ubicacionMundo: UbicacionMundo
     direccion: EstadoDirecciones
     accion: EstadoAcciones
     animacion: Animacion
@@ -73,31 +69,33 @@ export class Estado {
         motor: Motor,
     ) {
         this.motor = motor
-        this.posicionMundo = new PosicionMundo(
+        this.ubicacionMundo = new UbicacionMundo(
             this.motor,
             this.obtenerPosicionMundo(),
         )
         this.movimientoMundo = new MovimientoMundo(
             this.motor,
-            this.posicionMundo,
+            this.ubicacionMundo,
             6,
         )
         this.direccion = EstadoDirecciones.abajo
         this.accion = EstadoAcciones.parado
         this.animacion = {
             nombre: NombresImagenes.mago,
-            horizontal: 6,
-            vertical: 24,
-            elementos: new Transformar(0, 0, 0, 0),
-            animacion: {
-                indice: -1,
-                elementos: 6,
-            }
+            elementos: new Ubicacion(
+                new UbicacionCoordenada(0, 0),
+                new UbicacionMedida(32, 48)
+            ),
+            animacion: new AnimacionesAnimacion(-1, 6),
         }
     }
-    private obtenerPosicionMundo(): Transformar {
+    private obtenerPosicionMundo(): Ubicacion {
         let json = localStorage.getItem('posicionMundo')
-        if (json == null) return new Transformar(0, 0, 20, 20)
+        if (json == null)
+            return new Ubicacion(
+                new UbicacionCoordenada(0, 0),
+                new UbicacionMedida(20, 20)
+            )
         return JSON.parse(json)
     }
     animar() {
