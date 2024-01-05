@@ -1,4 +1,4 @@
-export class ElementosAnimacionesAnimacion {
+export default class {
   indice: number
   cantidadElementos: number
   constructor(

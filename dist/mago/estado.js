@@ -1,7 +1,6 @@
 import { Ubicacion, } from "../objetos/ubicacion/ubicacion.js";
 import { UbicacionMundo } from "../objetos/ubicacionMundo.js";
 import { MovimientoMundo } from "../objetos/movimientoMundo.js";
-import { AnimacionesAnimacion } from "../objetos/animaciones.js";
 import { UbicacionCoordenada } from "../objetos/ubicacion/coordenada.js";
 import { UbicacionMedida } from "../objetos/ubicacion/medida.js";
 const indices = [
@@ -63,5 +62,9 @@ export class Estado {
     }
     mover() {
         this.movimientoMundo.mover();
+    }
+    actualizar() {
+        this.mover();
+        this.animar();
     }
 }

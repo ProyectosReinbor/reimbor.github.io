@@ -1,14 +1,14 @@
-import { NombresImagenes } from '../motor/imagenes.js'
-import { Motor } from '../motor/motor.js'
-import { ElementosImagen } from "./elementosImagen.js"
-import { Ubicacion } from './ubicacion/ubicacion.js'
-import { ElementosAnimacionesAnimacion } from './animacion.js'
+import { NombresImagenes } from '../../motor/imagenes.js'
+import { Motor } from '../../motor/motor.js'
+import { ElementosImagen } from "../elementosImagen.js"
+import { Ubicacion } from '../ubicacion/ubicacion.js'
+import Animacion from './animacion.js'
 
-export class ElementosAnimaciones extends ElementosImagen {
+export default class ElementosAnimaciones extends ElementosImagen {
   private ultimoTiempoElemento: number
   private indiceHorizontal: number
   private tiempoElemento: number
-  private animacion: ElementosAnimacionesAnimacion
+  private animacion: Animacion
   constructor(
     motor: Motor,
     nombre: NombresImagenes,
@@ -18,7 +18,7 @@ export class ElementosAnimaciones extends ElementosImagen {
     this.ultimoTiempoElemento = 0
     this.indiceHorizontal = 0
     this.tiempoElemento = 0
-    this.animacion = new ElementosAnimacionesAnimacion(-1, 0)
+    this.animacion = new Animacion(-1, 0)
   }
   reproducir(animacion: ElementosAnimacionesAnimacion) {
     if (animacion.indice == this.animacion.indice) return
