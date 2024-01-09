@@ -1,4 +1,4 @@
-export class UbicacionMedida {
+export default class Medida {
   ancho: number
   alto: number
   constructor(
@@ -8,8 +8,8 @@ export class UbicacionMedida {
     this.ancho = ancho
     this.alto = alto
   }
-  mitad(): UbicacionMedida {
-    return new UbicacionMedida(
+  mitad(): Medida {
+    return new Medida(
       this.ancho / 2,
       this.alto / 2,
     )

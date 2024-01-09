@@ -1,15 +1,15 @@
-import { Ubicacion } from "../objetos/ubicacion/ubicacion.js";
-import { UbicacionInterfaz } from "../objetos/ubicacionInterfaz.js";
-import { Motor } from "../motor/motor.js";
-import { UbicacionCoordenada } from "../objetos/ubicacion/coordenada.js";
-import { UbicacionMedida } from "../objetos/ubicacion/medida.js";
+import Ubicacion from "../objetos/ubicacion/ubicacion.js"
+import Interfaz from "../objetos/ubicacion/interfaz.js"
+import Motor from "../motor/motor.js"
+import Coordenada from "../objetos/ubicacion/coordenada.js"
+import Medida from "../objetos/ubicacion/medida.js"
 
 export class Camara extends Ubicacion {
     motor: Motor
     constructor(
         motor: Motor,
-        coordenada: UbicacionCoordenada,
-        medida: UbicacionMedida,
+        coordenada: Coordenada,
+        medida: Medida,
     ) {
         super(coordenada, medida)
         this.motor = motor
@@ -42,12 +42,12 @@ export class Camara extends Ubicacion {
     ubicacionLienzo(
         ubicacion: Ubicacion
     ) {
-        return new UbicacionInterfaz(
-            new UbicacionCoordenada(
+        return new Interfaz(
+            new Coordenada(
                 ubicacion.coordenada.x - this.coordenada.x,
                 ubicacion.coordenada.y - this.coordenada.y,
             ),
-            new UbicacionMedida(
+            new Medida(
                 ubicacion.medida.ancho,
                 ubicacion.medida.alto,
             ),

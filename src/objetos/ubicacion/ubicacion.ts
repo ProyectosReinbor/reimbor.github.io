@@ -1,21 +1,21 @@
-import { UbicacionCoordenada } from "./coordenada.js"
-import { UbicacionMedida } from "./medida.js"
+import Coordenada from "./coordenada.js"
+import Medida from "./medida.js"
 
-export class Ubicacion {
-  coordenada: UbicacionCoordenada
-  medida: UbicacionMedida
+export default class Ubicacion {
+  coordenada: Coordenada
+  medida: Medida
   constructor(
-    coordenada: UbicacionCoordenada,
-    medida: UbicacionMedida,
+    coordenada: Coordenada,
+    medida: Medida,
   ) {
     this.coordenada = coordenada
     this.medida = medida
   }
-  coordenadaFinal(): UbicacionCoordenada {
-    return {
-      x: this.coordenada.x + this.medida.ancho,
-      y: this.coordenada.y + this.medida.alto,
-    }
+  coordenadaFinal(): Coordenada {
+    return new Coordenada(
+      this.coordenada.x + this.medida.ancho,
+      this.coordenada.y + this.medida.alto,
+    )
   }
   adentro(
     ubicacion: Ubicacion

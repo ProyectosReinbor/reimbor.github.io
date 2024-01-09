@@ -1,14 +1,14 @@
-import { Motor } from "../motor/motor.js"
-import { UbicacionCoordenada } from "./ubicacion/coordenada.js"
-import { UbicacionMedida } from "./ubicacion/medida.js"
-import { Ubicacion, } from "./ubicacion/ubicacion.js"
+import Motor from "../../motor/motor.js"
+import Coordenada from "./coordenada.js"
+import Medida from "./medida.js"
+import Ubicacion from "./ubicacion.js"
 
-export class UbicacionMundo extends Ubicacion {
+export default class Mundo extends Ubicacion {
   motor: Motor
   constructor(
     motor: Motor,
-    posicion: UbicacionCoordenada,
-    medida: UbicacionMedida,
+    posicion: Coordenada,
+    medida: Medida,
   ) {
     super(posicion, medida)
     this.motor = motor

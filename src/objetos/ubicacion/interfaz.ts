@@ -1,13 +1,13 @@
-import { Motor } from "../motor/motor.js"
-import { UbicacionCoordenada } from "./ubicacion/coordenada.js"
-import { UbicacionMedida } from "./ubicacion/medida.js"
-import { Ubicacion } from "./ubicacion/ubicacion.js"
+import Motor from "../../motor/motor.js"
+import Coordenada from "./coordenada.js"
+import Medida from "./medida.js"
+import Ubicacion from "./ubicacion.js"
 
-export class UbicacionInterfaz extends Ubicacion {
+export default class Interfaz extends Ubicacion {
   motor: Motor
   constructor(
-    coordenada: UbicacionCoordenada,
-    medida: UbicacionMedida,
+    coordenada: Coordenada,
+    medida: Medida,
     motor: Motor,
   ) {
     super(coordenada, medida)
@@ -15,11 +15,11 @@ export class UbicacionInterfaz extends Ubicacion {
   }
   obtenerPixeles(): Ubicacion {
     return new Ubicacion(
-      new UbicacionCoordenada(
+      new Coordenada(
         this.motor.lienzo.pixelesAncho(this.coordenada.x),
         this.motor.lienzo.pixelesAlto(this.coordenada.y),
       ),
-      new UbicacionMedida(
+      new Medida(
         this.motor.lienzo.pixelesAncho(this.medida.ancho),
         this.motor.lienzo.pixelesAlto(this.medida.alto),
       ),

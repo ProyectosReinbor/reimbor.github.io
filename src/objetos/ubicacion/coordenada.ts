@@ -1,4 +1,4 @@
-export class UbicacionCoordenada {
+export default class {
   x: number
   y: number
   constructor(

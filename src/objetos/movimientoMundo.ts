@@ -1,16 +1,16 @@
-import { Motor } from "../motor/motor.js";
-import { UbicacionCoordenada } from "./ubicacion/coordenada.js";
-import { UbicacionMundo } from "./ubicacionMundo.js";
+import Motor from "../motor/motor.js";
+import Coordenada from "./ubicacion/coordenada.js";
+import Mundo from "./ubicacion/mundo.js";
 
-export class MovimientoMundo {
+export default class MovimientoMundo {
   motor: Motor
-  ubicacionMundo: UbicacionMundo
+  ubicacionMundo: Mundo
   velocidad: number
   moverX: number
   moverY: number
   constructor(
     motor: Motor,
-    ubicacionMundo: UbicacionMundo,
+    ubicacionMundo: Mundo,
     velocidad: number,
   ) {
     this.motor = motor
@@ -24,6 +24,6 @@ export class MovimientoMundo {
     const velocidadSegundos = this.velocidad * segundos
     const nuevaX = velocidadSegundos * this.moverX
     const nuevaY = velocidadSegundos * this.moverY
-    this.ubicacionMundo.coordenada = new UbicacionCoordenada(nuevaX, nuevaY)
+    this.ubicacionMundo.coordenada = new Coordenada(nuevaX, nuevaY)
   }
 }

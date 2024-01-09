@@ -1,5 +1,5 @@
-import { Motor } from '../motor/motor.js'
-import { Ubicacion } from './ubicacion/ubicacion.js'
+import Motor from '../motor/motor.js'
+import Ubicacion from './ubicacion/ubicacion.js'
 export class Cuadrado {
   private motor: Motor
   private color: string

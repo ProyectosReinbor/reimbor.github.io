@@ -4,8 +4,8 @@ import { Camara } from "./camara.js"
 import { Imagenes } from './imagenes.js'
 import { Objetos } from './objetos.js'
 import { ControlCuadros } from './controlCuadros.js'
-import { UbicacionCoordenada } from '../objetos/ubicacion/coordenada.js'
-import { UbicacionMedida } from '../objetos/ubicacion/medida.js'
+import Coordenada from '../objetos/ubicacion/coordenada.js'
+import Medida from '../objetos/ubicacion/medida.js'
 
 export class Motor {
   imagenes: Imagenes
@@ -19,8 +19,8 @@ export class Motor {
     this.lienzo = new Lienzo(this)
     this.camara = new Camara(
       this,
-      new UbicacionCoordenada(0, 0),
-      new UbicacionMedida(100, 100),
+      new Coordenada(0, 0),
+      new Medida(100, 100),
     )
     this.objetos = new Objetos(this)
     this.pantalla = new Pantalla(this)

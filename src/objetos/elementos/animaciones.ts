@@ -4,7 +4,7 @@ import { ElementosImagen } from "../elementosImagen.js"
 import { Ubicacion } from '../ubicacion/ubicacion.js'
 import Animacion from './animacion.js'
 
-export default class ElementosAnimaciones extends ElementosImagen {
+export default class extends ElementosImagen {
   private ultimoTiempoElemento: number
   private indiceHorizontal: number
   private tiempoElemento: number
@@ -20,9 +20,9 @@ export default class ElementosAnimaciones extends ElementosImagen {
     this.tiempoElemento = 0
     this.animacion = new Animacion(-1, 0)
   }
-  reproducir(animacion: ElementosAnimacionesAnimacion) {
+  reproducir(animacion: Animacion) {
     if (animacion.indice == this.animacion.indice) return
-    this.animacion = new ElementosAnimacionesAnimacion(
+    this.animacion = new Animacion(
       animacion.indice,
       animacion.cantidadElementos
     )
@@ -40,7 +40,7 @@ export default class ElementosAnimaciones extends ElementosImagen {
     this.horizontal(this.indiceHorizontal)
   }
   animar(
-    animacion: ElementosAnimacionesAnimacion,
+    animacion: Animacion,
     pixeles: Ubicacion,
   ) {
     this.reproducir(animacion)
